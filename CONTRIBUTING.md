@@ -26,6 +26,16 @@ Avoid:
 - Large dependencies for optional evaluations.
 - Rules that learn from unreviewed generated text.
 
+## Documentation Contributions
+
+You don't need to write code to contribute. Improvements to reference files, installation guides, and usage examples are welcome.
+
+- Keep language plain and direct — the audience includes non-technical writers.
+- If you update an installation path or command, verify it against the actual file layout.
+- Reference files in `skills/writers-loop/references/` follow a consistent heading structure; match it.
+
+A good documentation PR: improves clarity, removes ambiguity, or adds a missing example. A bad one: adds marketing language, duplicates existing content, or introduces platform-specific assumptions without a corresponding installation path.
+
 ## Review Standard
 
 A change is ready when the skill remains portable, the README matches the installed files, and validation passes without extra setup.

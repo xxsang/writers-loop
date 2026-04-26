@@ -1,9 +1,16 @@
 .DS_Store
 node_modules/
 .claude/
+# User local preference storage — may contain private draft text
 .writers-loop/
+# Generated test output from npm run eval
 .artifacts/
 npm-debug.log*
 .env
 .env.*
 !.env.example
+# Common IDE directories
+.vscode/
+.idea/
+*.swp
+*.swo
