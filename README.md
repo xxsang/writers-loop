@@ -210,12 +210,14 @@ If the agent does not support skills, paste or attach `skills/writers-loop/SKILL
 
 Writer's Loop works without memory. By default, preference learning is session-only.
 
-If users want styles, decisions, or learned preferences to persist across sessions, they can opt into local filesystem storage. The journal tool writes only inside the selected project:
+If users want styles, decisions, or learned preferences to persist across sessions, they can opt into local filesystem storage. The bundled tools write only inside the selected project:
 
 ```text
 .writers-loop/
 |-- journal.jsonl
-`-- prefs.md
+|-- prefs.md
+`-- styles/
+    `-- my-style.md
 ```
 
 Initialize storage:
@@ -236,6 +238,25 @@ Derive reusable preferences:
 npm run journal:derive -- /path/to/project
 ```
 
+Initialize local style-pack storage:
+
+```bash
+npm run style:init -- /path/to/project
+```
+
+Save a reviewed style pack:
+
+```bash
+npm run style:save -- /path/to/project my-style /path/to/reviewed-style-pack.md
+```
+
+List and inspect saved style packs:
+
+```bash
+npm run style:list -- /path/to/project
+npm run style:show -- /path/to/project my-style
+```
+
 Agent prompt for local storage:
 
 ```text
@@ -247,6 +268,7 @@ Privacy rules:
 - Do not create `.writers-loop/` unless the user opts in.
 - Do not commit `.writers-loop/` to public repositories.
 - Prefer redacted summaries over full private passages.
+- Save only reviewed style packs to `.writers-loop/styles/`, not raw source samples.
 - Treat session-only storage as a current-task constraint, not a durable preference.
 
 See `PRIVACY.md` for the full privacy policy.
@@ -270,6 +292,33 @@ Separate style from content facts.
 Do not copy plot, private facts, names, or project-specific claims into reusable style rules.
 Ask before saving anything durable.
 ```
+
+## Using A Learned Style
+
+Use this when a style pack has already been created in the conversation or saved locally in `.writers-loop/styles/`:
+
+```text
+Use $writers-loop with the learned style pack: my-style.
+
+Write:
+Audience:
+Goal:
+Constraints:
+
+Load the style pack first.
+Apply it as a drafting constraint.
+Use only the current task facts.
+Do not copy source passages or source facts from the style pack.
+After drafting, critique content quality and style match separately.
+```
+
+Expected flow:
+
+```text
+load style pack -> frame task -> plan content and style -> draft -> critique content -> review style match -> revise
+```
+
+Style packs are not the same as learned preferences. A style pack describes reusable voice and structure from samples. Preferences are decision-backed rules learned from user accept, reject, adjust, undo, or manual rewrite events.
 
 ## Translation
 
@@ -306,6 +355,7 @@ npm run validate
 npm run scan:secrets
 npm run eval
 npm run eval:ab
+npm run test:real
 ```
 
 No install step is required. The package uses only Node.js built-in modules for validation, secret scanning, evals, and optional preference storage.
@@ -316,6 +366,7 @@ No install step is required. The package uses only Node.js built-in modules for 
 skills/writers-loop/SKILL.md             Core skill instructions
 skills/writers-loop/references/          Progressive-disclosure references
 skills/writers-loop/scripts/journal.mjs  Optional local preference journal
+skills/writers-loop/scripts/style-pack.mjs  Optional local style-pack storage
 docs/writers-loop-complete-guide.md      Long-form user guide
 docs/demo-transcript.md                  Short example of the loop in use
 AGENTS.md                                General agent guidance
@@ -324,7 +375,7 @@ GEMINI.md                                Gemini-specific project context
 PRIVACY.md                               Local data and preference storage policy
 RELEASE.md                               Release checklist
 SECURITY.md                              Security reporting and supported versions
-tools/                                  Maintainer validation and eval scripts
+tools/                                  Maintainer validation, eval, and real usage scripts
 ```
 
 ## Contributing

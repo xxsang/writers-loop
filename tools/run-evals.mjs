@@ -218,6 +218,20 @@ const SCENARIOS = [
     ],
   },
   {
+    id: "style-application",
+    title: "Using Learned Style",
+    criteria: [
+      ["documents using a learned style", /Using A Learned Style/i],
+      ["loads saved style packs", /\.writers-loop\/styles\/|style-pack\.mjs show/i],
+      ["frames style as constraint", /style pack[\s\S]*Frame|style constraint/i],
+      ["plans content and style", /plan content and style|Style application notes/i],
+      ["reviews style match", /Style Match Review|style match/i],
+      ["separates content and style critique", /content quality[\s\S]*style match|Critique[\s\S]*Content quality/i],
+      ["guards source passage copying", /source passages|source facts/i],
+      ["validates scenario", /Use Learned Style/i],
+    ],
+  },
+  {
     id: "translation",
     title: "Translation",
     criteria: [
@@ -485,6 +499,35 @@ const RESPONSE_CRITERIA = {
       { critical: true },
     ],
   ],
+  "style-application": [
+    [
+      "frames task with style pack",
+      /Frame[\s\S]*(Style pack|learned style|style constraint)/i,
+    ],
+    [
+      "loads or asks for style pack",
+      /Load|loaded|style pack first|paste the style pack|\.writers-loop\/styles/i,
+    ],
+    [
+      "plans content and style separately",
+      /Plan[\s\S]*(Content|content structure)[\s\S]*(Style|style application)/i,
+    ],
+    ["drafts with current facts", /Draft[\s\S]*(current-task facts|current facts|project update|update)/i],
+    [
+      "reviews content and style separately",
+      /Critique[\s\S]*Content quality[\s\S]*Style match|Style Match Review/i,
+    ],
+    [
+      "guards source copying",
+      /Do not copy|without copying|source passages|source facts/i,
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+    ["offers targeted changes", /Proposed Changes|targeted/i],
+  ],
   translation: [
     [
       "frames source and target",
@@ -525,6 +568,7 @@ const RESPONSE_THRESHOLDS = {
   "rejected-plan": 5,
   "durable-storage": 5,
   "style-distillation": 6,
+  "style-application": 6,
   translation: 6,
 };
 

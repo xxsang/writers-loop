@@ -4,9 +4,9 @@ Writer's Loop is a local skill repository. It has no hosted service, telemetry, 
 
 ## Sensitive Data
 
-Local journals may contain draft text, business context, private style preferences, or excerpts from user documents. Durable storage is opt-in and should stay inside the user's selected `.writers-loop/` directory.
+Local journals and style packs may contain draft text, business context, private style preferences, stylistic fingerprints, or excerpts from user documents. Durable storage is opt-in and should stay inside the user's selected `.writers-loop/` directory.
 
-Do not commit `.writers-loop/`, `.env`, private drafts, customer material, unpublished manuscripts, or local agent settings. The repository `.gitignore` excludes the expected local storage directories by default.
+Do not commit `.writers-loop/`, `.env`, private drafts, customer material, unpublished manuscripts, raw style samples, or local agent settings. The repository `.gitignore` excludes the expected local storage directories by default.
 
 ## Reporting Issues
 

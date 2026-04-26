@@ -20,6 +20,22 @@ style rule.
 6. Validate the style pack against samples.
 7. Ask whether to use it for the current task, save it, or keep it session-only.
 
+## Style Pack Lifecycle
+
+Use this lifecycle for reusable style work:
+
+```text
+learn style -> review style pack -> apply style -> critique style match -> revise -> save or keep session-only
+```
+
+`Style Pack` and `Learned Preferences` are different artifacts:
+
+- `Style Pack`: reusable voice, rhythm, structure, diction, imagery, register, and formatting guidance derived from samples.
+- `Learned Preferences`: decision-backed writing rules learned from user accept, reject, adjust, undo, or manual rewrite events.
+
+Do not treat a newly generated style pack as a permanent preference. A style
+pack is a drafting constraint until the user reviews it, applies it, or saves it.
+
 Always include an explicit `Style Versus Content` section before the style pack.
 This section must name what will be extracted as style and what will not be
 copied into reusable rules.
@@ -155,6 +171,74 @@ When using a style pack inside the main loop:
 4. Critique for style match and content quality separately.
 5. Treat user acceptance or rejection of style-matching edits as preference evidence.
 
+## Using A Learned Style
+
+Use this path when the user says to write in a saved, learned, or named style:
+
+1. Load the style pack from the conversation or from `.writers-loop/styles/` only when local storage was explicitly enabled.
+2. Summarize the style constraints that will affect the new artifact.
+3. Frame the new writing task with the style pack as a constraint.
+4. Plan for content and style separately.
+5. Draft in the learned style using only current-task facts.
+6. Run a `Style Match Review` that checks voice, rhythm, sentence texture, paragraph shape, diction, imagery, register, and structure.
+7. Revise style mismatches without copying source passages or source facts.
+8. Ask whether any accepted style edits should become decision-backed preferences.
+
+Use this output shape:
+
+```text
+Frame
+- Artifact type:
+- Audience:
+- Goal:
+- Style pack:
+- Constraints:
+
+Plan
+- Content structure:
+- Style application notes:
+
+Draft
+[new text using current-task facts]
+
+Critique
+- Content quality:
+- Style match:
+
+Style Match Review
+- Matches:
+- Misses:
+- Risks:
+
+Proposed Changes
+- [targeted content or style changes]
+```
+
+## Local Style Pack Storage
+
+When the user opts into durable local style storage, use:
+
+```text
+.writers-loop/
+|-- journal.jsonl
+|-- prefs.md
+`-- styles/
+    |-- my-style.md
+    `-- reference-style.md
+```
+
+Use `scripts/style-pack.mjs` from the skill directory:
+
+```bash
+node scripts/style-pack.mjs init /path/to/project
+node scripts/style-pack.mjs save /path/to/project my-style /tmp/reviewed-style-pack.md
+node scripts/style-pack.mjs list /path/to/project
+node scripts/style-pack.mjs show /path/to/project my-style
+```
+
+Only save reviewed style packs, not raw source samples. Do not save another
+person's style durably when permission or intended reuse is unclear.
+
 ## Common Mistakes
 
 - Copying content facts into style rules.
@@ -162,5 +246,7 @@ When using a style pack inside the main loop:
 - Overfitting from one short sample.
 - Treating genre conventions as the user's personal style.
 - Treating another person's style samples as permitted when permission or intended reuse is unclear.
+- Applying a saved style pack without loading or summarizing it first.
+- Revising content while skipping the style-match review.
 - Mixing style preferences across unrelated artifact types.
 - Claiming a permanent preference when the user only asked to match a source once.

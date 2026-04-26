@@ -69,6 +69,11 @@ Choose the entry point from the user's request:
   rules. If the user wants to clone or adapt another person's style, treat it as
   a permitted-reference task; ask a blocking question when permission,
   ownership, or intended reuse is unclear.
+- Using a learned style: read `references/style-distillation.md`, load the
+  requested style pack from the conversation or from `.writers-loop/styles/`
+  only when the user opted into local storage, add it to `Frame` as a style
+  constraint, draft with it, then critique content quality and style match
+  separately. Do not copy source passages or facts from the style pack evidence.
 - Translation: start at `Frame`, then read `references/translation.md`. Preserve
   meaning, source-language writing style, voice, rhythm, imagery, register,
   formatting, terminology, and style constraints before using the
@@ -119,6 +124,7 @@ later-stage sections before their gates have passed:
 - `Decision Log`: accepted, rejected, adjusted, or unresolved changes
 - `Learned Preferences`: only high-confidence reusable rules
 - `Style Pack`: only when learning or distilling style from sources
+- `Style Match Review`: only when applying a learned style
 - `Translation`: only when translating across languages
 
 If the user only wants one stage, provide that stage and state what evidence is
@@ -192,9 +198,11 @@ Read only the reference needed for the current task:
 
 ## Optional Tool
 
-Use the bundled script only when the user opts into durable local preferences:
+Use bundled scripts only when the user opts into durable local preferences or
+durable local style packs:
 
 - `scripts/journal.mjs`: initialize `.writers-loop/`, append decision events, and derive `prefs.md`.
+- `scripts/style-pack.mjs`: initialize `.writers-loop/styles/`, save reviewed style packs, list saved style packs, and show a selected style pack.
 
 ## Common Mistakes
 
@@ -207,6 +215,8 @@ Use the bundled script only when the user opts into durable local preferences:
 - Turning "this time", "for this memo", or session-only storage into a durable
   learned preference
 - Reusing fiction style preferences in coding plans, reports, or docs without evidence
+- Applying a learned style without first loading the actual style pack
+- Judging only content quality when a style-match review is also required
 - Forgetting to ask for explicit accept/reject decisions before claiming preference learning
 - Copying source content facts or passages into a reusable style pack
 - Flattening source-language voice, rhythm, imagery, or register into generic target-language prose

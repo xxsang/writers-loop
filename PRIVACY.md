@@ -13,16 +13,19 @@ When local storage is enabled, Writer's Loop can write these files inside the us
 ```text
 .writers-loop/
 |-- journal.jsonl
-`-- prefs.md
+|-- prefs.md
+`-- styles/
+    `-- my-style.md
 ```
 
 `journal.jsonl` may contain summaries of reviewed writing decisions. `prefs.md` contains derived writing preferences from those reviewed decisions.
+`styles/` may contain reviewed style packs derived from user-provided or permitted reference samples.
 
 ## Sensitive Writing Data
 
 Writing drafts can contain private ideas, business information, unpublished fiction, personal details, or confidential source material. Users should avoid storing full private passages unless they explicitly want those passages saved locally.
 
-For shareable repositories, use redacted summaries and evidence IDs instead of copying source text into `.writers-loop/`.
+For shareable repositories, use redacted summaries and evidence IDs instead of copying source text into `.writers-loop/`. Save reviewed style packs, not raw source samples.
 
 ## What Is Not Collected
 

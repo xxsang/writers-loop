@@ -22,6 +22,7 @@ const requiredFiles = [
   "references/translation.md",
   "references/validation-scenarios.md",
   "scripts/journal.mjs",
+  "scripts/style-pack.mjs",
 ];
 
 const requiredRepoFiles = [
@@ -50,6 +51,7 @@ const requiredRepoFiles = [
   "tools/evals/skill-loaded-responses.json",
   "tools/evals/treatment-responses.codex.json",
   "tools/run-evals.mjs",
+  "tools/run-real-usage-tests.mjs",
   "tools/scan-secrets.mjs",
   "tools/validate-skill.mjs",
 ];
@@ -130,13 +132,17 @@ if (existsSync(skillDir)) {
     if (path.basename(file) === ".DS_Store") {
       failures.push(`Remove macOS metadata file: ${file}`);
     }
+    const allowedSkillScripts = new Set([
+      "scripts/journal.mjs",
+      "scripts/style-pack.mjs",
+    ]);
     if (
       file.startsWith("scripts/") &&
       file.endsWith(".mjs") &&
-      file !== "scripts/journal.mjs"
+      !allowedSkillScripts.has(file)
     ) {
       failures.push(
-        `Only user-facing journal.mjs belongs in the installable skill scripts: ${file}`,
+        `Only user-facing journal.mjs and style-pack.mjs belong in the installable skill scripts: ${file}`,
       );
     }
   }
@@ -236,6 +242,9 @@ if (existsSync(path.join(repoRoot, "README.md"))) {
     "PRIVACY.md",
     "RELEASE.md",
     "docs/demo-transcript.md",
+    "Using A Learned Style",
+    ".writers-loop/styles/",
+    "style:save",
   ]) {
     if (!readme.includes(requiredText)) {
       failures.push(`README.md must mention: ${requiredText}`);
@@ -263,6 +272,17 @@ if (existsSync(path.join(repoRoot, "package.json"))) {
   }
   if (packageJson.dependencies || packageJson.devDependencies) {
     failures.push("Remove package dependencies that are not needed by users.");
+  }
+  for (const scriptName of [
+    "style:init",
+    "style:save",
+    "style:list",
+    "style:show",
+    "test:real",
+  ]) {
+    if (!packageJson.scripts?.[scriptName]) {
+      failures.push(`package.json scripts must include ${scriptName}.`);
+    }
   }
   if (!String(packageJson.homepage ?? "").includes("github.com/xxsang/writers-loop")) {
     failures.push("package.json homepage must point to xxsang/writers-loop.");

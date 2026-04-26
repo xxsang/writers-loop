@@ -12,6 +12,7 @@ What changed in the skill, scripts, manifests, or docs?
 - [ ] Rejected-plan behavior was checked.
 - [ ] No-learning-evidence behavior was checked.
 - [ ] Durable storage remains opt-in if storage behavior changed.
+- [ ] Style-pack storage remains opt-in if style behavior changed.
 
 ## Public Release Hygiene
 

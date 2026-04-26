@@ -14,6 +14,7 @@ Confirm:
 - `npm run scan:secrets` passes.
 - `npm run eval` passes.
 - `npm run eval:ab` passes.
+- `npm run test:real` passes.
 - `git status --short` is clean except for intentionally ignored local files.
 - No `.writers-loop/`, `.env`, `.artifacts/`, or private draft files are tracked.
 - README installation commands match the current repository layout.
@@ -57,7 +58,7 @@ Suggested release notes:
 - Conservative preference learning from explicit user decisions, not raw AI drafts.
 - Optional project-local preference journal stored in .writers-loop/.
 - Style distillation and translation references.
-- Validation, secret scanning, and scenario eval scripts with no package dependencies.
+- Validation, secret scanning, scenario eval, and real usage scripts with no package dependencies.
 ```
 
 ## Post-Release Smoke Check

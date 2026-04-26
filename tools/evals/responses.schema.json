@@ -9,15 +9,41 @@
     "preference-conflict",
     "no-learning-evidence",
     "rejected-plan",
-    "durable-storage"
+    "durable-storage",
+    "style-distillation",
+    "style-application",
+    "translation"
   ],
   "properties": {
-    "coding-plan": { "type": "string" },
-    "executive-report": { "type": "string" },
-    "fiction-chapter": { "type": "string" },
-    "preference-conflict": { "type": "string" },
-    "no-learning-evidence": { "type": "string" },
-    "rejected-plan": { "type": "string" },
-    "durable-storage": { "type": "string" }
+    "coding-plan": {
+      "type": "string"
+    },
+    "executive-report": {
+      "type": "string"
+    },
+    "fiction-chapter": {
+      "type": "string"
+    },
+    "preference-conflict": {
+      "type": "string"
+    },
+    "no-learning-evidence": {
+      "type": "string"
+    },
+    "rejected-plan": {
+      "type": "string"
+    },
+    "durable-storage": {
+      "type": "string"
+    },
+    "style-distillation": {
+      "type": "string"
+    },
+    "style-application": {
+      "type": "string"
+    },
+    "translation": {
+      "type": "string"
+    }
   }
 }

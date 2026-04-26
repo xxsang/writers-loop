@@ -34,5 +34,9 @@
   "translation": {
     "control": "Translate this Chinese fiction passage into natural English:\n\n雨停在五更。城门外的泥地亮得像一张旧铜镜，照着逃难的人慢慢往前挪。老僧挑着半袋米，米袋底下破了一个小口，白粒一路漏在黑泥里。没有人弯腰去捡。远处的鼓声又响了一遍，像有人在天边敲一口空锅。",
     "treatment": "Use the writers-loop skill to translate this Chinese fiction passage into natural English while preserving the original Chinese restrained cinematic style, rhythm, imagery, emotional temperature, and markdown formatting:\n\n雨停在五更。城门外的泥地亮得像一张旧铜镜，照着逃难的人慢慢往前挪。老僧挑着半袋米，米袋底下破了一个小口，白粒一路漏在黑泥里。没有人弯腰去捡。远处的鼓声又响了一遍，像有人在天边敲一口空锅。"
+  },
+  "style-application": {
+    "control": "Write a short project update in the lean-notes style. Do not copy examples from the style guide.",
+    "treatment": "Use the writers-loop skill with my saved style pack `lean-notes` to draft a short project update. Load the style pack first, use only current-task facts, do not copy source passages or source facts from the style pack, and critique content quality and style match separately."
   }
 }

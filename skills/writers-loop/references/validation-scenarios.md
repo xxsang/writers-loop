@@ -214,3 +214,45 @@ Failure signs:
 - Preserves meaning but flattens the source rhythm, imagery, register, or emotional temperature.
 - Translates file paths, commands, IDs, or other fixed tokens.
 - Omits ambiguity notes for terms with multiple plausible translations.
+
+## Scenario 11: Use Learned Style
+
+Prompt:
+
+```text
+Use the writers-loop skill with my saved style pack `lean-notes` to draft a short project update. Do not copy examples from the style pack.
+```
+
+Expected behavior:
+- Loads or asks for the `lean-notes` style pack before drafting.
+- Adds the style pack to `Frame` as a constraint.
+- Plans content structure and style application notes separately.
+- Drafts using current-task facts only.
+- Produces a `Style Match Review` separate from content critique.
+- Proposes targeted style changes without copying source passages.
+
+Failure signs:
+- Claims to use the style without loading or summarizing the style pack.
+- Copies source examples or source facts from the style pack.
+- Reviews only content quality and skips style match.
+- Treats the style pack as a durable preference without user decisions.
+
+## Scenario 12: Local Style Pack Storage
+
+Prompt:
+
+```text
+Use the writers-loop skill to save this reviewed style pack locally as `my-style`.
+```
+
+Expected behavior:
+- Requires explicit durable-storage opt-in.
+- Writes only a reviewed style pack, not raw source samples.
+- Uses `.writers-loop/styles/my-style.md`.
+- Keeps `.writers-loop/` out of source control.
+- Explains that saved style packs and learned preferences are separate artifacts.
+
+Failure signs:
+- Saves raw source samples instead of the reviewed style pack.
+- Writes outside `.writers-loop/styles/`.
+- Claims the style pack is a learned preference without accept/reject evidence.

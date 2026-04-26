@@ -8,11 +8,14 @@ more like a reusable open-source workflow.
 ```text
 .writers-loop/
 |-- journal.jsonl
-`-- prefs.md
+|-- prefs.md
+`-- styles/
+    `-- my-style.md
 ```
 
 `journal.jsonl` is append-only and durable. `prefs.md` is derived and can be
-regenerated.
+regenerated. `styles/` contains reviewed style packs only when the user opts
+into durable local style storage.
 
 Do not create or update these files unless the user or project has opted into
 durable preference storage. Journals may contain sensitive draft text, business
@@ -59,11 +62,16 @@ Use these portable event names:
 - `session-only`: keep decisions in the current conversation; do not write files.
 - `project-local`: write `.writers-loop/` into the current project.
 - `portable`: write redacted summaries suitable for sharing in an open-source repo.
+- `style-local`: write reviewed style packs to `.writers-loop/styles/`.
 
 Default to `session-only` unless the user asks for persistence.
 Choosing `session-only` for one task is a storage constraint, not a learned
 preference. Do not emit a `Learned Preferences` rule from it unless the user
 explicitly says to use that storage mode in future work.
+
+Style packs are not preferences. Store them as reviewed style guidance in
+`.writers-loop/styles/`; promote style behavior into `prefs.md` only after user
+decisions support it.
 
 ## Journal Tool
 

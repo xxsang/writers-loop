@@ -275,6 +275,38 @@ Reply "apply now", "keep session-only", or "save durably".
 Read `skills/writers-loop/references/style-distillation.md` for the full
 style-pack method.
 
+## Using A Learned Style
+
+Use this when the user has a style pack in the conversation or in
+`.writers-loop/styles/`.
+
+Useful prompt:
+
+```text
+Use the writers-loop skill with the learned style pack: my-style.
+
+Write:
+Audience:
+Goal:
+Constraints:
+
+Load the style pack first.
+Apply it as a drafting constraint.
+Use only current-task facts.
+Do not copy source passages or source facts from the style pack.
+After drafting, critique content quality and style match separately.
+```
+
+Expected loop:
+
+```text
+load style pack -> frame task -> plan content and style -> draft -> critique content -> review style match -> revise
+```
+
+Style packs and learned preferences are separate. A style pack is reusable
+voice, rhythm, structure, diction, imagery, register, and formatting guidance.
+Learned preferences are decision-backed rules from user review.
+
 ## Translation
 
 Use translation mode when the user wants writing moved into another language

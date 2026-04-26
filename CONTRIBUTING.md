@@ -8,6 +8,7 @@ Contributions should make Writer's Loop clearer, safer, or more useful without m
 - Test at least one rejected-plan flow.
 - Test at least one no-learning-evidence flow.
 - If storage behavior changed, test `npm run journal:init`, `npm run journal:append`, and `npm run journal:derive` in a temporary directory.
+- If style-pack behavior changed, test `npm run style:init`, `npm run style:save`, `npm run style:list`, and `npm run style:show` in a temporary directory.
 - Confirm no `.writers-loop/`, `.env`, private drafts, or local agent settings are tracked.
 
 ## Good Contributions
