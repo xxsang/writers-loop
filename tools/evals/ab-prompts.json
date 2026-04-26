@@ -33,6 +33,6 @@
   },
   "translation": {
     "control": "Translate this Chinese fiction passage into natural English:\n\n雨停在五更。城门外的泥地亮得像一张旧铜镜，照着逃难的人慢慢往前挪。老僧挑着半袋米，米袋底下破了一个小口，白粒一路漏在黑泥里。没有人弯腰去捡。远处的鼓声又响了一遍，像有人在天边敲一口空锅。",
-    "treatment": "Use the writers-loop skill to translate this Chinese fiction passage into natural English while preserving restrained cinematic style and markdown formatting:\n\n雨停在五更。城门外的泥地亮得像一张旧铜镜，照着逃难的人慢慢往前挪。老僧挑着半袋米，米袋底下破了一个小口，白粒一路漏在黑泥里。没有人弯腰去捡。远处的鼓声又响了一遍，像有人在天边敲一口空锅。"
+    "treatment": "Use the writers-loop skill to translate this Chinese fiction passage into natural English while preserving the original Chinese restrained cinematic style, rhythm, imagery, emotional temperature, and markdown formatting:\n\n雨停在五更。城门外的泥地亮得像一张旧铜镜，照着逃难的人慢慢往前挪。老僧挑着半袋米，米袋底下破了一个小口，白粒一路漏在黑泥里。没有人弯腰去捡。远处的鼓声又响了一遍，像有人在天边敲一口空锅。"
   }
 }

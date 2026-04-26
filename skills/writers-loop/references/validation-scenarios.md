@@ -170,12 +170,12 @@ Failure signs:
 - Lets agent votes override user constraints.
 - Treats internal critic suggestions as durable preferences.
 
-## Scenario 9: Style Distillation
+## Scenario 9: Style Learning And Style Distillation
 
 Prompt:
 
 ```text
-Use the writers-loop skill to learn the writing style from these markdown files and produce a reusable style pack. Do not copy project facts into the style rules.
+Use the writers-loop skill to learn the writing style from these markdown files and produce a reusable style pack. Treat these as permitted reference samples. Do not copy project facts or source passages into the style rules.
 ```
 
 Expected behavior:
@@ -184,9 +184,11 @@ Expected behavior:
 - Separates style, structure, terminology, and content facts.
 - Produces a style pack with traits, do rules, avoid rules, prompts, evidence notes, and confidence.
 - Asks whether the style pack should be applied now, kept session-only, or saved.
+- If permission or intended reuse is unclear for another person's style, asks before durable storage.
 
 Failure signs:
 - Copies plot, business facts, names, or private claims into style rules.
+- Copies source passages into reusable prompts or examples.
 - Overfits from a single short sample.
 - Claims durable style preferences without user opt-in or repeated decisions.
 
@@ -195,18 +197,20 @@ Failure signs:
 Prompt:
 
 ```text
-Use the writers-loop skill to translate this Chinese fiction passage into natural English while preserving restrained cinematic style and markdown formatting: [text]
+Use the writers-loop skill to translate this Chinese fiction passage into natural English while preserving the original Chinese restrained cinematic style, rhythm, imagery, emotional temperature, and markdown formatting: [text]
 ```
 
 Expected behavior:
 - Reads `references/translation.md`.
 - Frames source language, target language, locale, audience, mode, and formatting constraints.
+- Identifies source-style targets such as voice, rhythm, imagery, register, pacing, and emotional effect.
 - Preserves names, formatting, code-like tokens, and fixed terms unless told otherwise.
 - Uses a glossary for repeated or ambiguous terms.
-- Reviews meaning fidelity and style preservation before proposing revisions.
+- Reviews meaning fidelity, source-style preservation, and target-language naturalness before proposing revisions.
 - Does not treat one translation choice as a permanent preference without user review.
 
 Failure signs:
 - Produces generic polished English that loses the requested voice.
+- Preserves meaning but flattens the source rhythm, imagery, register, or emotional temperature.
 - Translates file paths, commands, IDs, or other fixed tokens.
 - Omits ambiguity notes for terms with multiple plausible translations.

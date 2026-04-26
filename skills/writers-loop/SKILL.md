@@ -1,6 +1,6 @@
 ---
 name: writers-loop
-description: Use when planning, drafting, reviewing, revising, translating, or improving substantial writing artifacts, or when distilling reusable writing style from files, text, chapters, reports, docs, or reference corpora.
+description: Use when planning, drafting, reviewing, revising, translating while preserving source writing style, or improving substantial writing artifacts, or when learning a reusable writing style from the user's own writing or permitted reference samples.
 ---
 
 # Writer's Loop
@@ -11,7 +11,7 @@ Use this skill to improve writing through explicit decisions. The core rule is:
 do not learn from raw drafts; learn from accepted, rejected, revised, or
 manually overwritten decisions.
 
-## When To Use
+## When to Use
 
 Use for substantial writing where quality depends on structure, audience fit,
 correctness, style, or iteration:
@@ -20,8 +20,8 @@ correctness, style, or iteration:
 - Business reports, research summaries, executive updates, and memos
 - Product specs, design docs, documentation, and tutorials
 - Fiction chapters, essays, scripts, speeches, and narrative outlines
-- Style distillation from files, pasted text, chapters, reports, docs, or codebase prose
-- Translation where meaning, tone, formatting, terminology, or voice preservation matters
+- Style learning or style distillation from the user's own writing, permitted reference samples, files, pasted text, chapters, reports, docs, or codebase prose
+- Translation where meaning, source-language writing style, voice, rhythm, formatting, terminology, or cultural effect matters
 
 Do not use for tiny one-off text edits unless the user asks for a reusable
 process or preference learning.
@@ -60,14 +60,18 @@ Choose the entry point from the user's request:
   materially improve quality. Read `references/multi-agent.md` first.
 - Existing draft: start at `Frame`, then `Critique`; plan only if structure is unclear.
 - Targeted revision: start at `Frame`, then `Propose`; keep changes scoped to the request.
-- Style distillation: start at `Frame`, then read `references/style-distillation.md`.
+- Style learning or style distillation: start at `Frame`, then read `references/style-distillation.md`.
   Output `Frame`, then `Style Versus Content`, then `Style Pack`, then `Storage
   Decision`. The storage decision must ask whether to apply now, keep
   session-only, or save durably. The style/content section must explicitly
   separate style traits from content facts and say not to copy private facts,
-  names, plot facts, or project-specific claims into reusable rules.
+  names, plot facts, source passages, or project-specific claims into reusable
+  rules. If the user wants to clone or adapt another person's style, treat it as
+  a permitted-reference task; ask a blocking question when permission,
+  ownership, or intended reuse is unclear.
 - Translation: start at `Frame`, then read `references/translation.md`. Preserve
-  meaning, formatting, terminology, and style constraints before using the
+  meaning, source-language writing style, voice, rhythm, imagery, register,
+  formatting, terminology, and style constraints before using the
   critique/revision loop.
 - Preference update: start at `Learn`; use only explicit decisions or declared preferences.
   If the user sets storage mode, tone, length, or detail level for the current
@@ -114,7 +118,7 @@ later-stage sections before their gates have passed:
 - `Proposed Changes`: targeted edits with reasons
 - `Decision Log`: accepted, rejected, adjusted, or unresolved changes
 - `Learned Preferences`: only high-confidence reusable rules
-- `Style Pack`: only when distilling style from sources
+- `Style Pack`: only when learning or distilling style from sources
 - `Translation`: only when translating across languages
 
 If the user only wants one stage, provide that stage and state what evidence is
@@ -180,8 +184,8 @@ Read only the reference needed for the current task:
 - `references/critique-rubrics.md`: artifact-specific critique criteria
 - `references/preference-signals.md`: preference signal examples and weighting guidance
 - `references/checkpoints.md`: reusable question, plan, proposal, and close checkpoints
-- `references/style-distillation.md`: extracting reusable style packs from files or text
-- `references/translation.md`: translating while preserving meaning, tone, terminology, and formatting
+- `references/style-distillation.md`: learning reusable style packs from writing samples
+- `references/translation.md`: translating while preserving meaning, source writing style, terminology, and formatting
 - `references/multi-agent.md`: optional multi-agent workflow for complex or high-stakes writing
 - `references/preference-journal.md`: optional durable journal and derived preferences format
 - `references/validation-scenarios.md`: pressure tests for validating this skill before release
@@ -204,6 +208,7 @@ Use the bundled script only when the user opts into durable local preferences:
   learned preference
 - Reusing fiction style preferences in coding plans, reports, or docs without evidence
 - Forgetting to ask for explicit accept/reject decisions before claiming preference learning
-- Copying source content facts into a reusable style pack
+- Copying source content facts or passages into a reusable style pack
+- Flattening source-language voice, rhythm, imagery, or register into generic target-language prose
 - Translating code, commands, file paths, URLs, IDs, or proper nouns unintentionally
 - Treating one translation choice as a durable preference without user review

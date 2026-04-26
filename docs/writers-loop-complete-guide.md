@@ -3,9 +3,9 @@
 This is the long-form documentation for `writers-loop`. For a shorter
 user-facing guide, start with the root `README.md`.
 
-This folder contains reusable writing skills. The main skill is
-`writers-loop`, a general method for planning, drafting, critiquing,
-revising, and learning writing preferences from explicit user decisions.
+This repository contains the `writers-loop` skill, a general method for
+planning, drafting, critiquing, revising, and learning writing preferences from
+explicit user decisions.
 
 Use this guide when you want a complete, methodical loop instead of a one-shot
 draft. It applies to coding plans, reports, proposals, documentation, product
@@ -127,7 +127,7 @@ type, audience, preservation goals, and what must not be copied into reusable
 rules.
 
 For translation, ask for source language, target language and locale, translation
-mode, audience, glossary, style constraints, and formatting constraints.
+mode, audience, glossary, source-style targets, and formatting constraints.
 
 Useful prompt:
 
@@ -278,7 +278,9 @@ style-pack method.
 ## Translation
 
 Use translation mode when the user wants writing moved into another language
-while preserving meaning, tone, style, terminology, formatting, or voice.
+while preserving meaning and the original language's writing style: voice,
+rhythm, imagery, register, pacing, emotional effect, terminology, formatting, or
+voice.
 
 Useful prompt:
 
@@ -293,9 +295,10 @@ Preserve:
 Glossary:
 Style constraints:
 
+Preserve the original writing style, voice, rhythm, imagery, register, and emotional effect in the target language.
 Preserve markdown formatting, names, commands, file paths, code, URLs, and IDs
 unless I explicitly say otherwise.
-After translating, review fidelity, style, terminology, and formatting.
+After translating, review fidelity, source-style preservation, terminology, and formatting.
 ```
 
 Supported modes:

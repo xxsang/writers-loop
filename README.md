@@ -1,8 +1,8 @@
 # Writer's Loop
 
-Writer's Loop is a portable AI-agent skill for substantial writing work. It helps an agent frame the task, ask only blocking questions, plan before drafting, critique the result, propose targeted revisions, and learn reusable preferences only from explicit user decisions.
+Writer's Loop is a portable set of AI-agent writing skills, not a single prompt. It gives agents a reusable writing process for planning, drafting, critique, revision, style learning, translation, and optional project-local preference learning.
 
-Use it for coding plans, reports, proposals, product specs, documentation, essays, speeches, fiction, style distillation, and translation.
+Use it when writing needs structure, taste, memory, or review instead of a one-shot draft. It works for coding plans, reports, proposals, product specs, documentation, essays, speeches, fiction, style learning, style distillation, and translation.
 
 The core loop:
 
@@ -16,45 +16,73 @@ The core rule:
 Learn from user decisions, not from raw AI drafts.
 ```
 
-## Distribution
+## What It Includes
 
-Writer's Loop is released as a **GitHub-only** open-source skill repository at:
+- A disciplined writing loop for framing, planning, drafting, critique, revision, and evaluation.
+- Artifact-specific guidance for technical plans, reports, proposals, docs, specs, essays, speeches, and fiction.
+- Style learning that builds a reusable style profile from your own writing, or from permitted reference samples, so future drafts can write in that style without copying source facts or passages.
+- Translation guidance that preserves meaning and the original language's writing style, including voice, rhythm, imagery, register, terminology, formatting, code, paths, URLs, and names.
+- Conservative preference learning from approved plans, rejected edits, manual rewrites, and explicit standing preferences.
+- Optional local storage in `.writers-loop/` for users who want durable project-local preference memory.
+- Installation guidance for Claude Code, OpenAI Codex, ChatGPT-style hosted agents, Cursor, Gemini CLI, GitHub Copilot CLI, OpenCode, and generic local-skill agents.
 
-```text
-https://github.com/xxsang/writers-loop
-```
+## Why Use It
 
-The `package.json` is intentionally marked `private: true`; it is for local validation scripts, not npm publication.
+Most writing prompts collapse planning, drafting, editing, and preference learning into one pass. Writer's Loop keeps those stages separate so the agent can:
 
-Before the GitHub repository is public, install commands that reference
-`https://github.com/xxsang/writers-loop` are expected to fail. Use the local
-working tree path until the repository is pushed.
-
-## Codex Plugin Shape
-
-This repository is itself the plugin root. The Codex manifest lives at:
-
-```text
-.codex-plugin/plugin.json
-```
-
-The manifest points Codex at:
-
-```text
-skills: ./skills/
-```
-
-Do not create a duplicate `plugins/writers-loop` tree for this repo. That layout is useful for marketplace catalog repositories; this project is a single plugin repository.
-
-## Why This Name
-
-The previous working name was replaced with **Writer's Loop** because it is shorter, clearer, and describes the method directly. The skill is not just critique. It is a loop for writing, review, revision, and local preference reuse.
+- Understand the artifact, audience, goal, and constraints before writing.
+- Ask only questions that would materially change the plan.
+- Wait for plan approval when quality or preference learning matters.
+- Critique the draft before rewriting it.
+- Propose targeted changes instead of silently rewriting everything.
+- Clone or adapt your own writing style, or a permitted reference writer's style, from samples for future drafts while keeping private facts, names, and source passages out of reusable rules.
+- Translate across languages while carrying the source language's writing style into the target language instead of flattening it into generic polished prose.
+- Avoid pretending that generated text reveals user preferences.
+- Reuse reviewed preferences across sessions only when the user explicitly opts in.
+- Store private style notes locally when durable storage is used, instead of adding a hosted memory service.
 
 ## Writing Pleasure Disclaimer
 
 Using an LLM for writing may reduce the pleasure of writing. It can compress the uncertainty, wandering, discovery, and ownership that make writing satisfying. Use Writer's Loop as a scaffold, sparring partner, editor, or translator. Do not let it replace the parts of writing you value doing yourself.
 
+## Distribution
+
+Writer's Loop is a **GitHub-only** open-source skill repository:
+
+```text
+https://github.com/xxsang/writers-loop
+```
+
+The `package.json` is marked `private: true` because the package is not intended for npm publication. The Node scripts are local validation and optional journal tools; users do not need package dependencies to use the skill.
+
+The installable skill lives at:
+
+```text
+skills/writers-loop/
+```
+
+The Codex plugin manifest lives at:
+
+```text
+.codex-plugin/plugin.json
+```
+
+Do not create a duplicate `plugins/writers-loop` tree for this repository. This repo is already the plugin root.
+
 ## Quick Start
+
+Minimum prompt:
+
+```text
+Use $writers-loop for this:
+[describe the writing task]
+
+Audience: [who will read it]
+Goal: [what it should achieve]
+
+Ask only if blocked. Otherwise make a short plan, draft, and brief critique.
+Do not save preferences unless I ask.
+```
 
 Ask your agent:
 
@@ -76,20 +104,20 @@ Then create a plan and wait for my approval before drafting.
 After drafting, critique it, propose targeted changes, and ask me to accept, reject, or adjust each change before learning preferences.
 ```
 
-For a compact pass:
+For a faster pass:
 
 ```text
 Use a compact $writers-loop loop.
 Frame the goal, state assumptions, draft, critique briefly, propose the top three changes, ask me to accept, reject, or adjust them, then revise.
 ```
 
+See `docs/demo-transcript.md` for a short example and `docs/writers-loop-complete-guide.md` for the full method.
+
 ## Installation
 
-This repository follows the broad agent-coverage pattern used by [Superpowers](https://github.com/obra/superpowers): use a marketplace command where your agent supports repository extensions, or copy the skill folder manually where marketplace distribution has not been configured yet.
+Writer's Loop follows the broad agent-coverage pattern used by [Superpowers](https://github.com/obra/superpowers): use a native plugin or extension command when your agent supports one, otherwise install by copying `skills/writers-loop` into the agent's local skills directory or by loading `SKILL.md` as context.
 
 ### Claude Code
-
-Writer's Loop is not yet published to the Claude plugin marketplace. Use manual local install for now:
 
 ```bash
 git clone https://github.com/xxsang/writers-loop.git
@@ -105,13 +133,13 @@ Use $writers-loop to help me write this document.
 
 ### OpenAI Codex CLI
 
-If Writer's Loop appears in your Codex plugin search, install it from the plugin UI:
+If your Codex build supports plugin installation, use the plugin UI:
 
 ```text
 /plugins
 ```
 
-Until it is listed, use manual local install:
+Manual install:
 
 ```bash
 git clone https://github.com/xxsang/writers-loop.git
@@ -121,17 +149,22 @@ cp -R writers-loop/skills/writers-loop ~/.codex/skills/
 
 ### OpenAI Codex App
 
-Use the app's plugin flow once the repository is listed. For local development, clone the repo and copy `skills/writers-loop` into your Codex skills directory, then refresh skill discovery.
+Use the app's plugin flow when repository-based plugin installation is available. For local use, clone this repo, copy `skills/writers-loop` into `~/.codex/skills/`, and refresh skill discovery.
+
+### ChatGPT and Other Hosted Agents
+
+Hosted agents generally cannot install local skill folders. Attach or paste `skills/writers-loop/SKILL.md` into the conversation or project instructions, then add only the reference files needed for the task.
 
 ### Cursor
 
-If Cursor plugin marketplace support is available for this repository, install from agent chat:
+If your Cursor setup supports repository plugins, install from agent chat or the plugin UI. Otherwise, keep this repo open and point Cursor to:
 
 ```text
-/add-plugin writers-loop
+AGENTS.md
+skills/writers-loop/SKILL.md
 ```
 
-Until it is listed, keep this repo open and refer Cursor to `AGENTS.md` and `skills/writers-loop/SKILL.md`, or copy `skills/writers-loop` into your configured local skills directory.
+You can also copy `skills/writers-loop` into your configured local skills directory.
 
 ### Gemini CLI
 
@@ -147,9 +180,11 @@ To update later:
 gemini extensions update writers-loop
 ```
 
+If your Gemini CLI version does not support repository extensions, load `GEMINI.md` and `skills/writers-loop/SKILL.md` as project context.
+
 ### GitHub Copilot CLI
 
-A Copilot plugin marketplace is not configured for this repo yet. For now, clone the repo and point Copilot-enabled workflows at `AGENTS.md`, or copy `skills/writers-loop` into your local skills directory if your setup supports local skills.
+Copilot does not use this repository's skill format directly. Clone the repo and point Copilot-enabled workflows at `AGENTS.md`, or copy `skills/writers-loop` into any local skill directory supported by your setup.
 
 ### OpenCode
 
@@ -159,7 +194,7 @@ Tell OpenCode:
 Fetch and follow instructions from https://raw.githubusercontent.com/xxsang/writers-loop/refs/heads/main/.opencode/INSTALL.md
 ```
 
-### Generic Manual Install
+### Other Agents
 
 For any agent with local skill-folder support:
 
@@ -169,13 +204,13 @@ mkdir -p ~/.local/share/agent-skills
 cp -R writers-loop/skills/writers-loop ~/.local/share/agent-skills/
 ```
 
-If the agent does not support skills, paste the contents of `skills/writers-loop/SKILL.md` into the agent context and load only the referenced files needed for the task.
+If the agent does not support skills, paste or attach `skills/writers-loop/SKILL.md` and load only the referenced files needed for the task.
 
 ## Local Preference Storage
 
 Writer's Loop works without memory. By default, preference learning is session-only.
 
-If users want styles, decisions, or learned preferences to persist across sessions, they can opt into local filesystem storage. The journal tool writes only inside the target project:
+If users want styles, decisions, or learned preferences to persist across sessions, they can opt into local filesystem storage. The journal tool writes only inside the selected project:
 
 ```text
 .writers-loop/
@@ -216,9 +251,9 @@ Privacy rules:
 
 See `PRIVACY.md` for the full privacy policy.
 
-## Style Distillation
+## Style Learning And Style Distillation
 
-Use this when you want a reusable style pack from files, chapters, reports, documentation, or pasted text:
+Use this when you want the agent to learn your writing style, or a permitted reference writer's style, from files, chapters, reports, documentation, or pasted text:
 
 ```text
 Use $writers-loop to distill a writing style from these sources.
@@ -238,7 +273,7 @@ Ask before saving anything durable.
 
 ## Translation
 
-Use this when translation quality depends on meaning, tone, terminology, formatting, or voice preservation:
+Use this when translation quality depends on meaning, the original language's writing style, tone, terminology, formatting, or voice preservation:
 
 ```text
 Use $writers-loop to translate this text.
@@ -251,8 +286,9 @@ Preserve:
 Glossary:
 Style constraints:
 
+Preserve the original writing style, voice, rhythm, imagery, register, and emotional effect in the target language.
 Preserve markdown formatting, names, commands, file paths, code, URLs, and IDs unless I explicitly say otherwise.
-After translating, review fidelity, style, terminology, and formatting.
+After translating, review fidelity, source-style preservation, terminology, and formatting.
 ```
 
 ## Validation
@@ -272,31 +308,32 @@ npm run eval
 npm run eval:ab
 ```
 
-No install step is required. The package uses only Node.js built-in modules for validation, secret scanning, evals, and preference storage.
+No install step is required. The package uses only Node.js built-in modules for validation, secret scanning, evals, and optional preference storage.
 
 ## Repository Layout
 
 ```text
 skills/writers-loop/SKILL.md             Core skill instructions
 skills/writers-loop/references/          Progressive-disclosure references
-skills/writers-loop/scripts/journal.mjs  Optional user-facing local preference journal
-tools/validate-skill.mjs                 Maintainer release-readiness checks
-tools/scan-secrets.mjs                   Maintainer secret scanner
-tools/run-evals.mjs                      Maintainer scenario coverage and A/B response checks
-tools/evals/                             Maintainer eval prompts and saved response fixtures
+skills/writers-loop/scripts/journal.mjs  Optional local preference journal
 docs/writers-loop-complete-guide.md      Long-form user guide
 docs/demo-transcript.md                  Short example of the loop in use
+AGENTS.md                                General agent guidance
+CLAUDE.md                                Claude-specific project context
+GEMINI.md                                Gemini-specific project context
 PRIVACY.md                               Local data and preference storage policy
 RELEASE.md                               Release checklist
+SECURITY.md                              Security reporting and supported versions
+tools/                                  Maintainer validation and eval scripts
 ```
-
-## Contact
-
-Maintainer: Shen Ren <xxsang@gmail.com>
 
 ## Contributing
 
 See `CONTRIBUTING.md`. Keep the skill portable, concise, and useful across agents.
+
+## Maintainer
+
+Shen Ren <xxsang@gmail.com>
 
 ## License
 

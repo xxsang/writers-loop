@@ -4,7 +4,7 @@ What problem does this solve?
 
 ## Changes
 
-What changed in the skill, scripts, or docs?
+What changed in the skill, scripts, manifests, or docs?
 
 ## Evaluation
 
@@ -15,6 +15,7 @@ What changed in the skill, scripts, or docs?
 
 ## Public Release Hygiene
 
-- [ ] No private project names, secrets, or local paths were added.
+- [ ] No private project names, secrets, local paths, or draft content were added.
 - [ ] No unnecessary dependencies were added.
-- [ ] README and manifests still match the skill name and folder.
+- [ ] README installation instructions still match the repository layout.
+- [ ] Plugin manifests still match the skill name and folder.

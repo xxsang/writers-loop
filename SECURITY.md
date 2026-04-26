@@ -1,15 +1,17 @@
 # Security Policy
 
-Writer's Loop stores durable preferences only when a user explicitly opts in.
+Writer's Loop is a local skill repository. It has no hosted service, telemetry, analytics, background process, or third-party API integration.
 
 ## Sensitive Data
 
-Local journals may contain draft text, business context, private style preferences, or excerpts from user documents. Do not commit `.writers-loop/` directories. The repository `.gitignore` excludes them by default.
+Local journals may contain draft text, business context, private style preferences, or excerpts from user documents. Durable storage is opt-in and should stay inside the user's selected `.writers-loop/` directory.
+
+Do not commit `.writers-loop/`, `.env`, private drafts, customer material, unpublished manuscripts, or local agent settings. The repository `.gitignore` excludes the expected local storage directories by default.
 
 ## Reporting Issues
 
-Open a private security advisory or contact Shen Ren at xxsang@gmail.com before disclosing issues that could expose local preference files or user writing data.
+If you find an issue that could expose local preference files, user writing data, private drafts, or unpublished source material, contact Shen Ren at xxsang@gmail.com before public disclosure.
 
-## Supported Version
+## Supported Versions
 
-Until the first public release, only the main branch is supported.
+Until versioned releases are established, security fixes target the `main` branch and the latest published GitHub release.

@@ -8,7 +8,7 @@ This short transcript shows the intended Writer's Loop behavior.
 Use $writers-loop to draft a launch email for a small developer tool.
 Audience: existing beta users.
 Goal: announce public availability and ask them to try the new release.
-Tone: direct, warm, not hypey.
+Tone: direct, warm, not overpromotional.
 Must include: thanks for beta feedback, link placeholder, short call to action.
 Must avoid: exaggerated claims.
 ```
@@ -20,7 +20,7 @@ Frame
 - Artifact type: launch email
 - Audience: existing beta users
 - Goal: announce public availability and invite users to try the release
-- Constraints: direct, warm, not hypey; include thanks, link placeholder, and a short call to action
+- Constraints: direct, warm, not overpromotional; include thanks, link placeholder, and a short call to action
 
 Question Gate
 No blocking questions. I will assume the product name can remain a placeholder.

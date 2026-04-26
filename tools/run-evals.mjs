@@ -237,7 +237,7 @@ const SCENARIOS = [
       ["uses glossary", /Glossary[\s\S]*Source term[\s\S]*Translation/i],
       [
         "reviews fidelity and style",
-        /meaning fidelity[\s\S]*tone preservation[\s\S]*voice preservation/i,
+        /meaning fidelity[\s\S]*source style preservation[\s\S]*tone preservation[\s\S]*voice preservation/i,
       ],
       [
         "connects to style distillation",
@@ -505,7 +505,7 @@ const RESPONSE_CRITERIA = {
     ["reviews fidelity", /Fidelity|meaning fidelity|omissions|additions/i],
     [
       "reviews style",
-      /Style|tone preservation|voice preservation|naturalness/i,
+      /Source style|source-style|tone preservation|voice preservation|naturalness/i,
     ],
     ["proposes revision path", /Proposed Changes|revise|targeted/i],
     [

@@ -1,10 +1,12 @@
 # Privacy Policy
 
-Writer's Loop is a local skill repository. It does not include hosted services, telemetry, analytics, network calls, or third-party API integrations.
+Writer's Loop is a local skill repository. It does not include hosted services, telemetry, analytics, background network calls, or third-party API integrations.
 
-## What It Stores
+## Default Behavior
 
 By default, Writer's Loop stores nothing durable. Preference learning is session-only unless the user explicitly opts into local filesystem storage.
+
+## Optional Local Storage
 
 When local storage is enabled, Writer's Loop can write these files inside the user's selected project:
 
@@ -24,11 +26,11 @@ For shareable repositories, use redacted summaries and evidence IDs instead of c
 
 ## What Is Not Collected
 
-Writer's Loop does not collect, transmit, sell, or share user data. It has no background service and no external network dependency.
+Writer's Loop does not collect, transmit, sell, or share user data. It has no hosted component and no external network dependency.
 
 ## User Control
 
-Users can disable durable preference storage by staying in session-only mode. Users can delete `.writers-loop/` at any time to remove locally stored journals and derived preferences.
+Users can stay in session-only mode, opt into project-local storage, or delete `.writers-loop/` at any time to remove locally stored journals and derived preferences.
 
 ## Contact
 

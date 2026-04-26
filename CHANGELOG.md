@@ -12,8 +12,8 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 - Core `SKILL.md` with plan → draft → critique → revise loop
 - Preference learning from explicit user decisions (opt-in durable storage via `journal.mjs`)
-- Style distillation workflow to extract reusable style rules from existing writing
-- Translation guidance for cross-language writing work
+- Style learning workflow to adapt the user's own style or permitted reference styles without copying source facts or passages
+- Translation guidance for cross-language writing work that preserves source-language voice, rhythm, imagery, register, and emotional effect
 - Multi-agent extension reference for parallelising critique and revision
 - Installation support for Claude Code, OpenAI Codex, Cursor, Gemini CLI, GitHub Copilot CLI, and OpenCode
 - Plugin manifests for Codex, Claude, and Cursor platforms
@@ -22,3 +22,5 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - CI via GitHub Actions (`validate.yml`) running on every PR and push to main
 - Reference files covering artifact types, critique rubrics, checkpoints, preference signals, and validation scenarios
 - Long-form user guide (`docs/writers-loop-complete-guide.md`)
+- Release-ready public README, privacy policy, security policy, and contribution guidance
+- Agent context files for Claude and Gemini (`CLAUDE.md`, `GEMINI.md`)

@@ -1,16 +1,18 @@
-# Style Distillation
+# Style Learning And Style Distillation
 
 Use this reference when the user asks to learn writing style from files,
 chapters, pasted text, reports, docs, or codebase text.
 
 ## Goal
 
-Create reusable style guidance without copying private content, plot facts,
-names, business facts, or domain-specific claims into a style rule.
+Create reusable style guidance that lets future drafts write in the user's own
+style or a permitted reference style without copying private content, source
+passages, plot facts, names, business facts, or domain-specific claims into a
+style rule.
 
 ## Flow
 
-1. Identify source type, target artifact type, audience, and intended reuse.
+1. Identify source type, target artifact type, audience, permission or ownership, and intended reuse.
 2. Select representative samples instead of reading every token when the corpus is large.
 3. Separate style from content facts.
 4. Extract observable traits.
@@ -29,6 +31,9 @@ now, keep it session-only, or save it durably.
 ## Source Handling
 
 Use selected files, pasted text, chapters, reports, docs, or codebase prose.
+If the user wants to clone or adapt another person's style, confirm the samples
+are permitted for the requested use or keep the style pack session-only and
+avoid durable storage until permission is clear.
 
 When the source is a codebase, search for writing-heavy files first:
 
@@ -76,6 +81,7 @@ private facts
 customer names
 confidential claims
 domain truths
+source passages
 temporary project constraints
 one-off factual wording
 ```
@@ -87,12 +93,13 @@ Frame
 - Source type:
 - Target artifact type:
 - Audience:
+- Permission or ownership:
 - Intended reuse:
 - Constraints:
 
 Style Versus Content
 - Extract as style: [voice, rhythm, structure, terminology pattern, formatting pattern]
-- Do not copy as reusable rules: [plot facts, private facts, names, project-specific claims]
+- Do not copy as reusable rules: [plot facts, private facts, names, source passages, project-specific claims]
 
 Style Pack
 Name:
@@ -151,7 +158,9 @@ When using a style pack inside the main loop:
 ## Common Mistakes
 
 - Copying content facts into style rules.
+- Copying source passages into reusable prompts or examples.
 - Overfitting from one short sample.
 - Treating genre conventions as the user's personal style.
+- Treating another person's style samples as permitted when permission or intended reuse is unclear.
 - Mixing style preferences across unrelated artifact types.
 - Claiming a permanent preference when the user only asked to match a source once.

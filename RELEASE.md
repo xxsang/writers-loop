@@ -1,6 +1,6 @@
 # Release Checklist
 
-Use this checklist before publishing Writer's Loop.
+Use this checklist before publishing a Writer's Loop release.
 
 ## Preflight
 
@@ -14,15 +14,20 @@ Confirm:
 - `npm run scan:secrets` passes.
 - `npm run eval` passes.
 - `npm run eval:ab` passes.
-- `git status --short` is clean.
-- No `.writers-loop/`, `.env`, or `.artifacts/` files are tracked.
+- `git status --short` is clean except for intentionally ignored local files.
+- No `.writers-loop/`, `.env`, `.artifacts/`, or private draft files are tracked.
+- README installation commands match the current repository layout.
+- `package.json` remains `private: true` because distribution is GitHub-only.
 
-## First GitHub Publish
+## Repository Visibility
 
-```bash
-git remote add origin https://github.com/xxsang/writers-loop.git
-git push -u origin main
+Before a public release, confirm the GitHub repository is public and points to:
+
+```text
+https://github.com/xxsang/writers-loop
 ```
+
+If the repository is still private, installation commands using the GitHub URL will work only for users with access.
 
 ## Tag Release
 
@@ -43,6 +48,16 @@ Suggested summary:
 
 ```text
 Initial public release of Writer's Loop, a portable AI-agent writing skill for planning, critique, revision, translation, style distillation, and optional local preference learning.
+```
+
+Suggested release notes:
+
+```text
+- Portable skill instructions for Claude Code, OpenAI Codex, ChatGPT-style hosted agents, Cursor, Gemini CLI, GitHub Copilot CLI, OpenCode, and generic local-skill agents.
+- Conservative preference learning from explicit user decisions, not raw AI drafts.
+- Optional project-local preference journal stored in .writers-loop/.
+- Style distillation and translation references.
+- Validation, secret scanning, and scenario eval scripts with no package dependencies.
 ```
 
 ## Post-Release Smoke Check
