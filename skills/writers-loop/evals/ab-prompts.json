@@ -1,0 +1,38 @@
+{
+  "coding-plan": {
+    "control": "Write an implementation plan for adding OAuth login to an existing app. Keep it practical.",
+    "treatment": "Use the writers-loop skill to write an implementation plan for adding OAuth login to an existing app. Keep it practical."
+  },
+  "executive-report": {
+    "control": "Turn these notes into a report for leadership: revenue is down 8%, churn is up in SMB, enterprise expansion is stable, support tickets mention onboarding confusion.",
+    "treatment": "Use the writers-loop skill to turn these notes into a report for leadership: revenue is down 8%, churn is up in SMB, enterprise expansion is stable, support tickets mention onboarding confusion."
+  },
+  "fiction-chapter": {
+    "control": "Revise this chapter opening for a quieter, more tense style: [draft]",
+    "treatment": "Use the writers-loop skill to revise this chapter opening for a quieter, more tense style: [draft]"
+  },
+  "preference-conflict": {
+    "control": "Last time I wanted concise reports. This time I need a detailed research memo with all caveats.",
+    "treatment": "Last time I wanted concise reports. This time I need a detailed research memo with all caveats. Use the writers-loop skill."
+  },
+  "no-learning-evidence": {
+    "control": "Draft a product launch email. No need to ask questions.",
+    "treatment": "Draft a product launch email with the writers-loop skill. No need to ask questions."
+  },
+  "rejected-plan": {
+    "control": "Plan a migration report. After the first plan, I will reject the structure and ask for a risk-first version.",
+    "treatment": "Use the writers-loop skill to plan a migration report. After the first plan, I will reject the structure and ask for a risk-first version."
+  },
+  "durable-storage": {
+    "control": "Use a writing improvement loop. Keep preference learning session-only; do not create project files.",
+    "treatment": "Use the writers-loop skill. Keep preference learning session-only; do not create project files."
+  },
+  "style-distillation": {
+    "control": "Analyze these markdown files and summarize the writing style.\n\nFile: README.md\n# Harbor Notes\nWe keep the main path short. Start with the decision, then name the tradeoff. If a reader needs background, give it after the recommendation. Avoid ceremonial language.\n\nFile: docs/release.md\n# Release Note Pattern\nLead with what changed. Use compact sections, concrete verbs, and a visible risk note. Prefer examples over abstract explanation. Do not hide uncertainty.",
+    "treatment": "Use the writers-loop skill to distill a reusable writing style from these markdown files. Do not copy project facts into style rules.\n\nFile: README.md\n# Harbor Notes\nWe keep the main path short. Start with the decision, then name the tradeoff. If a reader needs background, give it after the recommendation. Avoid ceremonial language.\n\nFile: docs/release.md\n# Release Note Pattern\nLead with what changed. Use compact sections, concrete verbs, and a visible risk note. Prefer examples over abstract explanation. Do not hide uncertainty.\n\nYour output must start with a Frame section naming source type, target artifact type, audience, intended reuse, and constraints. It must include a Style Versus Content section with bullets for Extract as style and Do not copy as reusable rules. It must end with a Storage Decision asking whether to apply now, keep session-only, or save durably."
+  },
+  "translation": {
+    "control": "Translate this Chinese fiction passage into natural English:\n\n雨停在五更。城门外的泥地亮得像一张旧铜镜，照着逃难的人慢慢往前挪。老僧挑着半袋米，米袋底下破了一个小口，白粒一路漏在黑泥里。没有人弯腰去捡。远处的鼓声又响了一遍，像有人在天边敲一口空锅。",
+    "treatment": "Use the writers-loop skill to translate this Chinese fiction passage into natural English while preserving restrained cinematic style and markdown formatting:\n\n雨停在五更。城门外的泥地亮得像一张旧铜镜，照着逃难的人慢慢往前挪。老僧挑着半袋米，米袋底下破了一个小口，白粒一路漏在黑泥里。没有人弯腰去捡。远处的鼓声又响了一遍，像有人在天边敲一口空锅。"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "coding-plan",
+    "executive-report",
+    "fiction-chapter",
+    "preference-conflict",
+    "no-learning-evidence",
+    "rejected-plan",
+    "durable-storage"
+  ],
+  "properties": {
+    "coding-plan": { "type": "string" },
+    "executive-report": { "type": "string" },
+    "fiction-chapter": { "type": "string" },
+    "preference-conflict": { "type": "string" },
+    "no-learning-evidence": { "type": "string" },
+    "rejected-plan": { "type": "string" },
+    "durable-storage": { "type": "string" }
+  }
+}

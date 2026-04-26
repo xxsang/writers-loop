@@ -1,0 +1,38 @@
+{
+  "name": "writers-loop",
+  "version": "0.1.0",
+  "description": "A portable writing workflow for planning, critique, revision, style distillation, translation, and local preference learning.",
+  "author": {
+    "name": "Shen Ren"
+  },
+  "homepage": "https://github.com/ShenRen/writers-loop",
+  "repository": "https://github.com/ShenRen/writers-loop",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "skills",
+    "planning",
+    "critique",
+    "revision",
+    "style",
+    "translation",
+    "preference-learning"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Writer's Loop",
+    "shortDescription": "Plan, draft, critique, revise, translate, distill style, and learn preferences locally",
+    "longDescription": "Writer's Loop guides substantial writing through framing, plan checkpoints, drafts, critique, targeted edits, and optional local preference learning.",
+    "developerName": "Shen Ren",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "defaultPrompt": [
+      "Use $writers-loop to help me write this document.",
+      "Use $writers-loop to critique and revise this draft.",
+      "Use $writers-loop to distill a reusable style pack from these files.",
+      "Use $writers-loop to translate this text while preserving voice."
+    ],
+    "brandColor": "#256D5A",
+    "screenshots": []
+  }
+}

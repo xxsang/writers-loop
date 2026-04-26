@@ -1,0 +1,23 @@
+{
+  "name": "writers-loop",
+  "displayName": "Writer's Loop",
+  "description": "A portable writing workflow for planning, critique, revision, style distillation, translation, and local preference learning.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Shen Ren"
+  },
+  "homepage": "https://github.com/ShenRen/writers-loop",
+  "repository": "https://github.com/ShenRen/writers-loop",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "writing",
+    "planning",
+    "critique",
+    "revision",
+    "style",
+    "translation",
+    "preference-learning"
+  ],
+  "skills": "./skills/"
+}

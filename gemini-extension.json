@@ -1,0 +1,6 @@
+{
+  "name": "writers-loop",
+  "description": "A portable writing workflow for planning, critique, revision, style distillation, translation, and local preference learning.",
+  "version": "0.1.0",
+  "contextFileName": "GEMINI.md"
+}

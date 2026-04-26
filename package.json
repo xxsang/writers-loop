@@ -1,0 +1,31 @@
+{
+  "name": "writers-loop",
+  "version": "0.1.0",
+  "description": "A portable writing skill for planning, drafting, critique, revision, translation, style distillation, and local preference learning.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Shen Ren",
+  "homepage": "https://github.com/ShenRen/writers-loop",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShenRen/writers-loop.git"
+  },
+  "keywords": [
+    "ai-skills",
+    "writing",
+    "critique",
+    "revision",
+    "style-distillation",
+    "translation",
+    "preference-learning"
+  ],
+  "scripts": {
+    "validate": "node skills/writers-loop/scripts/validate-skill.mjs skills/writers-loop",
+    "eval": "node skills/writers-loop/scripts/run-evals.mjs",
+    "eval:ab": "node skills/writers-loop/scripts/run-evals.mjs --ab-control skills/writers-loop/evals/control-responses.codex.json --ab-treatment skills/writers-loop/evals/treatment-responses.codex.json",
+    "journal:init": "node skills/writers-loop/scripts/journal.mjs init",
+    "journal:append": "node skills/writers-loop/scripts/journal.mjs append",
+    "journal:derive": "node skills/writers-loop/scripts/journal.mjs derive",
+    "test": "npm run validate && npm run eval && npm run eval:ab"
+  }
+}
