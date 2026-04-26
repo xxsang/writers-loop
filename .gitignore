@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+.claude/
 .writers-loop/
 .artifacts/
 npm-debug.log*

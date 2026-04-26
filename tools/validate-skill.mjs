@@ -342,7 +342,7 @@ if (existsSync(path.join(repoRoot, ".codex-plugin/plugin.json"))) {
 
 if (existsSync(path.join(repoRoot, ".gitignore"))) {
   const gitignore = readRepo(".gitignore");
-  for (const entry of [".env", ".env.*", "!.env.example"]) {
+  for (const entry of [".claude/", ".env", ".env.*", "!.env.example"]) {
     if (!gitignore.split("\n").includes(entry)) {
       failures.push(`.gitignore must include ${entry}.`);
     }
