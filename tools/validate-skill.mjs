@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
-const defaultSkillDir = path.resolve(scriptDir, "..");
+const defaultSkillDir = path.resolve(scriptDir, "..", "skills", "writers-loop");
 const skillDir = path.resolve(process.argv[2] ?? defaultSkillDir);
 const repoRoot = path.resolve(skillDir, "../..");
 const expectedSkillName = "writers-loop";
@@ -21,14 +21,7 @@ const requiredFiles = [
   "references/style-distillation.md",
   "references/translation.md",
   "references/validation-scenarios.md",
-  "evals/ab-prompts.json",
-  "evals/control-responses.codex.json",
-  "evals/responses.schema.json",
-  "evals/skill-loaded-responses.json",
-  "evals/treatment-responses.codex.json",
   "scripts/journal.mjs",
-  "scripts/run-evals.mjs",
-  "scripts/validate-skill.mjs",
 ];
 
 const requiredRepoFiles = [
@@ -47,6 +40,15 @@ const requiredRepoFiles = [
   "gemini-extension.json",
   ".github/PULL_REQUEST_TEMPLATE.md",
   ".github/workflows/validate.yml",
+  ".opencode/INSTALL.md",
+  "tools/evals/ab-prompts.json",
+  "tools/evals/control-responses.codex.json",
+  "tools/evals/responses.schema.json",
+  "tools/evals/skill-loaded-responses.json",
+  "tools/evals/treatment-responses.codex.json",
+  "tools/run-evals.mjs",
+  "tools/scan-secrets.mjs",
+  "tools/validate-skill.mjs",
 ];
 
 const requiredLoopTerms = [
@@ -121,7 +123,20 @@ if (existsSync(skillDir)) {
     if (path.basename(file) === ".DS_Store") {
       failures.push(`Remove macOS metadata file: ${file}`);
     }
+    if (
+      file.startsWith("scripts/") &&
+      file.endsWith(".mjs") &&
+      file !== "scripts/journal.mjs"
+    ) {
+      failures.push(
+        `Only user-facing journal.mjs belongs in the installable skill scripts: ${file}`,
+      );
+    }
   }
+}
+
+if (existsSync(path.join(repoRoot, ".artifacts"))) {
+  failures.push("Remove generated .artifacts before release.");
 }
 
 const skillMarkdown = existsSync(path.join(skillDir, "SKILL.md"))
@@ -174,7 +189,10 @@ if (existsSync(repoRoot)) {
       return statSync(absolute).isFile();
     })
     .filter((file) => !file.startsWith(".git/"))
-    .filter((file) => file !== "skills/writers-loop/scripts/validate-skill.mjs")
+    .filter((file) => !file.startsWith(".artifacts/"))
+    .filter((file) => !file.startsWith(".writers-loop/"))
+    .filter((file) => file !== "tools/validate-skill.mjs")
+    .filter((file) => file !== "tools/scan-secrets.mjs")
     .map((file) => `${file}\n${readFileSync(path.join(repoRoot, file), "utf8")}`)
     .join("\n\n");
 
@@ -206,6 +224,8 @@ if (existsSync(path.join(repoRoot, "README.md"))) {
     "GitHub Copilot CLI",
     "OpenCode",
     ".writers-loop/",
+    "https://github.com/xxsang/writers-loop",
+    "GitHub-only",
   ]) {
     if (!readme.includes(requiredText)) {
       failures.push(`README.md must mention: ${requiredText}`);
@@ -228,11 +248,21 @@ if (existsSync(path.join(repoRoot, "package.json"))) {
   if (packageJson.name !== expectedSkillName) {
     failures.push(`package.json name must be ${expectedSkillName}.`);
   }
-  if (packageJson.private === true) {
-    failures.push("package.json should not be marked private for public release.");
+  if (packageJson.private !== true) {
+    failures.push("package.json should be private because distribution is GitHub-only.");
   }
   if (packageJson.dependencies || packageJson.devDependencies) {
     failures.push("Remove package dependencies that are not needed by users.");
+  }
+  if (!String(packageJson.homepage ?? "").includes("github.com/xxsang/writers-loop")) {
+    failures.push("package.json homepage must point to xxsang/writers-loop.");
+  }
+  if (
+    !String(packageJson.repository?.url ?? "").includes(
+      "github.com/xxsang/writers-loop",
+    )
+  ) {
+    failures.push("package.json repository must point to xxsang/writers-loop.");
   }
 }
 

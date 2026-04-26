@@ -16,6 +16,16 @@ The core rule:
 Learn from user decisions, not from raw AI drafts.
 ```
 
+## Distribution
+
+Writer's Loop is released as a **GitHub-only** open-source skill repository at:
+
+```text
+https://github.com/xxsang/writers-loop
+```
+
+The `package.json` is intentionally marked `private: true`; it is for local validation scripts, not npm publication.
+
 ## Why This Name
 
 The previous working name was replaced with **Writer's Loop** because it is shorter, clearer, and describes the method directly. The skill is not just critique. It is a loop for writing, review, revision, and local preference reuse.
@@ -55,17 +65,16 @@ Frame the goal, state assumptions, draft, critique briefly, propose the top thre
 
 ## Installation
 
-This repository follows the same broad agent-coverage pattern used by [Superpowers](https://github.com/obra/superpowers): install the repo as a plugin where your agent supports plugins, or copy the skill folder into the agent's local skill directory.
-
-Replace `ShenRen/writers-loop` with your fork if you publish under another GitHub owner.
+This repository follows the broad agent-coverage pattern used by [Superpowers](https://github.com/obra/superpowers): use a marketplace command where your agent supports repository extensions, or copy the skill folder manually where marketplace distribution has not been configured yet.
 
 ### Claude Code
 
-If your Claude Code build supports plugin installation from GitHub, install this repository as a plugin. If not, use the manual skill install:
+Writer's Loop is not yet published to the Claude plugin marketplace. Use manual local install for now:
 
 ```bash
+git clone https://github.com/xxsang/writers-loop.git
 mkdir -p ~/.claude/skills
-cp -R skills/writers-loop ~/.claude/skills/
+cp -R writers-loop/skills/writers-loop ~/.claude/skills/
 ```
 
 Then ask:
@@ -76,46 +85,68 @@ Use $writers-loop to help me write this document.
 
 ### OpenAI Codex CLI
 
-For Codex CLI installations that support plugins, install the GitHub repository when it is published. For local skill install:
-
-```bash
-mkdir -p ~/.codex/skills
-cp -R skills/writers-loop ~/.codex/skills/
-```
-
-Then ask:
+If Writer's Loop appears in your Codex plugin search, install it from the plugin UI:
 
 ```text
-Use $writers-loop to critique and revise this draft.
+/plugins
+```
+
+Until it is listed, use manual local install:
+
+```bash
+git clone https://github.com/xxsang/writers-loop.git
+mkdir -p ~/.codex/skills
+cp -R writers-loop/skills/writers-loop ~/.codex/skills/
 ```
 
 ### OpenAI Codex App
 
-Use the app's plugin or skill installation flow and point it at this repository after publishing. For local development, copy `skills/writers-loop` into your Codex skills directory, then restart or refresh skill discovery.
+Use the app's plugin flow once the repository is listed. For local development, clone the repo and copy `skills/writers-loop` into your Codex skills directory, then refresh skill discovery.
 
 ### Cursor
 
-If your Cursor build supports plugin repositories, install this repository after publishing. For local use, copy the skill folder into the Cursor-supported skills location for your setup, or keep this repo open and refer to `AGENTS.md` plus `skills/writers-loop/SKILL.md`.
+If Cursor plugin marketplace support is available for this repository, install from agent chat:
+
+```text
+/add-plugin writers-loop
+```
+
+Until it is listed, keep this repo open and refer Cursor to `AGENTS.md` and `skills/writers-loop/SKILL.md`, or copy `skills/writers-loop` into your configured local skills directory.
 
 ### Gemini CLI
 
-Gemini-compatible extension metadata is included in `gemini-extension.json`. Install this repository as an extension when your Gemini CLI setup supports extension repositories. For manual use, keep `GEMINI.md` in the repo root and point Gemini at this workspace.
+Gemini-compatible extension metadata is included in `gemini-extension.json`.
+
+```bash
+gemini extensions install https://github.com/xxsang/writers-loop
+```
+
+To update later:
+
+```bash
+gemini extensions update writers-loop
+```
 
 ### GitHub Copilot CLI
 
-If your Copilot CLI setup supports agent instructions, keep this repo open and use `AGENTS.md` as the project instruction file. If your environment supports local skills, copy `skills/writers-loop` into that local skill directory.
+A Copilot plugin marketplace is not configured for this repo yet. For now, clone the repo and point Copilot-enabled workflows at `AGENTS.md`, or copy `skills/writers-loop` into your local skills directory if your setup supports local skills.
 
 ### OpenCode
 
-OpenCode-style agents can use the root `AGENTS.md` and the skill body at `skills/writers-loop/SKILL.md`. Keep this repository available locally, or copy `skills/writers-loop` into your agent's configured skills directory.
+Tell OpenCode:
+
+```text
+Fetch and follow instructions from https://raw.githubusercontent.com/xxsang/writers-loop/refs/heads/main/.opencode/INSTALL.md
+```
 
 ### Generic Manual Install
 
 For any agent with local skill-folder support:
 
 ```bash
+git clone https://github.com/xxsang/writers-loop.git
 mkdir -p ~/.local/share/agent-skills
-cp -R skills/writers-loop ~/.local/share/agent-skills/
+cp -R writers-loop/skills/writers-loop ~/.local/share/agent-skills/
 ```
 
 If the agent does not support skills, paste the contents of `skills/writers-loop/SKILL.md` into the agent context and load only the referenced files needed for the task.
@@ -214,22 +245,29 @@ Run checks separately:
 
 ```bash
 npm run validate
+npm run scan:secrets
 npm run eval
 npm run eval:ab
 ```
 
-No install step is required. The package uses only Node.js built-in modules for normal validation and preference storage.
+No install step is required. The package uses only Node.js built-in modules for validation, secret scanning, evals, and preference storage.
 
 ## Repository Layout
 
 ```text
-skills/writers-loop/SKILL.md                  Core skill instructions
-skills/writers-loop/references/               Progressive-disclosure references
-skills/writers-loop/scripts/validate-skill.mjs Release-readiness checks
-skills/writers-loop/scripts/run-evals.mjs      Scenario coverage and A/B response checks
-skills/writers-loop/scripts/journal.mjs        Optional local preference journal
-docs/writers-loop-complete-guide.md            Long-form user guide
+skills/writers-loop/SKILL.md             Core skill instructions
+skills/writers-loop/references/          Progressive-disclosure references
+skills/writers-loop/scripts/journal.mjs  Optional user-facing local preference journal
+tools/validate-skill.mjs                 Maintainer release-readiness checks
+tools/scan-secrets.mjs                   Maintainer secret scanner
+tools/run-evals.mjs                      Maintainer scenario coverage and A/B response checks
+tools/evals/                             Maintainer eval prompts and saved response fixtures
+docs/writers-loop-complete-guide.md      Long-form user guide
 ```
+
+## Contact
+
+Maintainer: Shen Ren <xxsang@gmail.com>
 
 ## Contributing
 

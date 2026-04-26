@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "A portable writing workflow for planning, critique, revision, style distillation, translation, and local preference learning.",
   "author": {
-    "name": "Shen Ren"
+    "name": "Shen Ren", "email": "xxsang@gmail.com"
   },
-  "homepage": "https://github.com/ShenRen/writers-loop",
-  "repository": "https://github.com/ShenRen/writers-loop",
+  "homepage": "https://github.com/xxsang/writers-loop",
+  "repository": "https://github.com/xxsang/writers-loop",
   "license": "MIT",
   "keywords": [
     "writing",

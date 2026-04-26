@@ -8,7 +8,7 @@ Local journals may contain draft text, business context, private style preferenc
 
 ## Reporting Issues
 
-Open a private security advisory or contact Shen Ren before disclosing issues that could expose local preference files or user writing data.
+Open a private security advisory or contact Shen Ren at xxsang@gmail.com before disclosing issues that could expose local preference files or user writing data.
 
 ## Supported Version
 

@@ -8,6 +8,7 @@ For package checks, also run:
 
 ```bash
 npm run validate
+npm run scan:secrets
 npm run eval
 npm run eval:ab
 ```

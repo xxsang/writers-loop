@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
-const skillDir = path.resolve(scriptDir, "..");
+const repoRoot = path.resolve(scriptDir, "..");
+const skillDir = path.join(repoRoot, "skills", "writers-loop");
 
 const SCENARIOS = [
   {
@@ -528,7 +530,7 @@ const RESPONSE_THRESHOLDS = {
 
 function parseArgs(argv) {
   const args = {
-    output: path.resolve(process.cwd(), ".artifacts/skill-evals"),
+    output: path.join(os.tmpdir(), "writers-loop-skill-evals"),
     responses: null,
     abControl: null,
     abTreatment: null,
@@ -556,8 +558,8 @@ function parseArgs(argv) {
       index += 1;
     } else if (value === "--help") {
       console.log(`Usage:
-  node scripts/run-evals.mjs [--output DIR] [--responses responses.json] [--scenario id[,id]]
-  node scripts/run-evals.mjs --ab-control control.json --ab-treatment treatment.json [--output DIR] [--scenario id[,id]]
+  node tools/run-evals.mjs [--output DIR] [--responses responses.json] [--scenario id[,id]]
+  node tools/run-evals.mjs --ab-control control.json --ab-treatment treatment.json [--output DIR] [--scenario id[,id]]
 
 Without --responses, scores the skill package documentation for coverage.
 With --responses, scores response text by scenario id.

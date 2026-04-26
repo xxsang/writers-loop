@@ -1,3 +1,7 @@
 # OpenCode
 
-Use the generic manual install instructions in the root README. Keep `AGENTS.md` in the repository root so OpenCode-style agents can load the project guidance.
+Tell OpenCode:
+
+```text
+Fetch and follow instructions from https://raw.githubusercontent.com/xxsang/writers-loop/refs/heads/main/.opencode/INSTALL.md
+```

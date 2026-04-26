@@ -186,13 +186,10 @@ Read only the reference needed for the current task:
 - `references/preference-journal.md`: optional durable journal and derived preferences format
 - `references/validation-scenarios.md`: pressure tests for validating this skill before release
 
-## Optional Tools
+## Optional Tool
 
-Use bundled scripts only when the user asks for durable preferences, package
-validation, or release preparation:
+Use the bundled script only when the user opts into durable local preferences:
 
-- `scripts/validate-skill.mjs`: validate required files, metadata, references, and scenarios.
-- `scripts/run-evals.mjs`: score built-in validation scenarios against the skill docs or response transcripts.
 - `scripts/journal.mjs`: initialize `.writers-loop/`, append decision events, and derive `prefs.md`.
 
 ## Common Mistakes

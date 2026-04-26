@@ -7,8 +7,8 @@ more like a reusable open-source workflow.
 
 ```text
 .writers-loop/
-├── journal.jsonl
-└── prefs.md
+|-- journal.jsonl
+`-- prefs.md
 ```
 
 `journal.jsonl` is append-only and durable. `prefs.md` is derived and can be
