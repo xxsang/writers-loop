@@ -75,6 +75,10 @@ function readRepo(relativePath) {
   return readFileSync(path.join(repoRoot, relativePath), "utf8");
 }
 
+function readRepoJson(relativePath) {
+  return JSON.parse(readRepo(relativePath));
+}
+
 function walkFiles(root, base = root) {
   const entries = readdirSync(root);
   return entries.flatMap((entry) => {
@@ -263,6 +267,63 @@ if (existsSync(path.join(repoRoot, "package.json"))) {
     )
   ) {
     failures.push("package.json repository must point to xxsang/writers-loop.");
+  }
+}
+
+if (existsSync(path.join(repoRoot, ".codex-plugin/plugin.json"))) {
+  const pluginJson = readRepoJson(".codex-plugin/plugin.json");
+  if (pluginJson.name !== expectedSkillName) {
+    failures.push(`.codex-plugin/plugin.json name must be ${expectedSkillName}.`);
+  }
+  if (pluginJson.skills !== "./skills/") {
+    failures.push('.codex-plugin/plugin.json skills must be "./skills/".');
+  }
+  if (pluginJson.author?.name !== "Shen Ren") {
+    failures.push(".codex-plugin/plugin.json author.name must be Shen Ren.");
+  }
+  if (pluginJson.author?.email !== "xxsang@gmail.com") {
+    failures.push(".codex-plugin/plugin.json author.email must be xxsang@gmail.com.");
+  }
+  if (pluginJson.author?.url !== "https://github.com/xxsang") {
+    failures.push(".codex-plugin/plugin.json author.url must point to xxsang.");
+  }
+  if (
+    !String(pluginJson.homepage ?? "").includes("github.com/xxsang/writers-loop")
+  ) {
+    failures.push(".codex-plugin/plugin.json homepage must point to xxsang/writers-loop.");
+  }
+  if (
+    !String(pluginJson.repository ?? "").includes("github.com/xxsang/writers-loop")
+  ) {
+    failures.push(".codex-plugin/plugin.json repository must point to xxsang/writers-loop.");
+  }
+  const defaultPrompt = pluginJson.interface?.defaultPrompt;
+  if (!Array.isArray(defaultPrompt) || defaultPrompt.length === 0) {
+    failures.push(".codex-plugin/plugin.json interface.defaultPrompt is required.");
+  } else if (defaultPrompt.length > 3) {
+    failures.push(".codex-plugin/plugin.json interface.defaultPrompt must have at most 3 entries.");
+  } else {
+    for (const prompt of defaultPrompt) {
+      if (prompt.length > 128) {
+        failures.push(
+          ".codex-plugin/plugin.json interface.defaultPrompt entries must be 128 characters or fewer.",
+        );
+      }
+    }
+  }
+  for (const field of [
+    "displayName",
+    "shortDescription",
+    "longDescription",
+    "developerName",
+    "category",
+    "capabilities",
+    "websiteURL",
+    "brandColor",
+  ]) {
+    if (pluginJson.interface?.[field] === undefined) {
+      failures.push(`.codex-plugin/plugin.json interface.${field} is required.`);
+    }
   }
 }
 

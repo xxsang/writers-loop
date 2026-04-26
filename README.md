@@ -26,6 +26,22 @@ https://github.com/xxsang/writers-loop
 
 The `package.json` is intentionally marked `private: true`; it is for local validation scripts, not npm publication.
 
+## Codex Plugin Shape
+
+This repository is itself the plugin root. The Codex manifest lives at:
+
+```text
+.codex-plugin/plugin.json
+```
+
+The manifest points Codex at:
+
+```text
+skills: ./skills/
+```
+
+Do not create a duplicate `plugins/writers-loop` tree for this repo. That layout is useful for marketplace catalog repositories; this project is a single plugin repository.
+
 ## Why This Name
 
 The previous working name was replaced with **Writer's Loop** because it is shorter, clearer, and describes the method directly. The skill is not just critique. It is a loop for writing, review, revision, and local preference reuse.
