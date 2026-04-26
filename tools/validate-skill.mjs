@@ -33,6 +33,8 @@ const requiredRepoFiles = [
   "CLAUDE.md",
   "GEMINI.md",
   "CONTRIBUTING.md",
+  "PRIVACY.md",
+  "RELEASE.md",
   "SECURITY.md",
   ".codex-plugin/plugin.json",
   ".claude-plugin/plugin.json",
@@ -41,6 +43,7 @@ const requiredRepoFiles = [
   ".github/PULL_REQUEST_TEMPLATE.md",
   ".github/workflows/validate.yml",
   ".opencode/INSTALL.md",
+  "docs/demo-transcript.md",
   "tools/evals/ab-prompts.json",
   "tools/evals/control-responses.codex.json",
   "tools/evals/responses.schema.json",
@@ -230,6 +233,9 @@ if (existsSync(path.join(repoRoot, "README.md"))) {
     ".writers-loop/",
     "https://github.com/xxsang/writers-loop",
     "GitHub-only",
+    "PRIVACY.md",
+    "RELEASE.md",
+    "docs/demo-transcript.md",
   ]) {
     if (!readme.includes(requiredText)) {
       failures.push(`README.md must mention: ${requiredText}`);
@@ -319,10 +325,26 @@ if (existsSync(path.join(repoRoot, ".codex-plugin/plugin.json"))) {
     "category",
     "capabilities",
     "websiteURL",
+    "privacyPolicyURL",
     "brandColor",
   ]) {
     if (pluginJson.interface?.[field] === undefined) {
       failures.push(`.codex-plugin/plugin.json interface.${field} is required.`);
+    }
+  }
+  if (
+    pluginJson.interface?.privacyPolicyURL !==
+    "https://github.com/xxsang/writers-loop/blob/main/PRIVACY.md"
+  ) {
+    failures.push(".codex-plugin/plugin.json privacyPolicyURL must point to PRIVACY.md.");
+  }
+}
+
+if (existsSync(path.join(repoRoot, ".gitignore"))) {
+  const gitignore = readRepo(".gitignore");
+  for (const entry of [".env", ".env.*", "!.env.example"]) {
+    if (!gitignore.split("\n").includes(entry)) {
+      failures.push(`.gitignore must include ${entry}.`);
     }
   }
 }

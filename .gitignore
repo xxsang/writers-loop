@@ -3,3 +3,6 @@ node_modules/
 .writers-loop/
 .artifacts/
 npm-debug.log*
+.env
+.env.*
+!.env.example

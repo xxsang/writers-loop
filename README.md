@@ -26,6 +26,10 @@ https://github.com/xxsang/writers-loop
 
 The `package.json` is intentionally marked `private: true`; it is for local validation scripts, not npm publication.
 
+Before the GitHub repository is public, install commands that reference
+`https://github.com/xxsang/writers-loop` are expected to fail. Use the local
+working tree path until the repository is pushed.
+
 ## Codex Plugin Shape
 
 This repository is itself the plugin root. The Codex manifest lives at:
@@ -210,6 +214,8 @@ Privacy rules:
 - Prefer redacted summaries over full private passages.
 - Treat session-only storage as a current-task constraint, not a durable preference.
 
+See `PRIVACY.md` for the full privacy policy.
+
 ## Style Distillation
 
 Use this when you want a reusable style pack from files, chapters, reports, documentation, or pasted text:
@@ -279,6 +285,9 @@ tools/scan-secrets.mjs                   Maintainer secret scanner
 tools/run-evals.mjs                      Maintainer scenario coverage and A/B response checks
 tools/evals/                             Maintainer eval prompts and saved response fixtures
 docs/writers-loop-complete-guide.md      Long-form user guide
+docs/demo-transcript.md                  Short example of the loop in use
+PRIVACY.md                               Local data and preference storage policy
+RELEASE.md                               Release checklist
 ```
 
 ## Contact
