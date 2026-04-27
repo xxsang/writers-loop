@@ -219,6 +219,32 @@ Proposed Changes
 - [targeted content or style changes]
 ```
 
+If the requested style pack is missing, do not draft. Use:
+
+```text
+Frame
+- Artifact type:
+- Audience:
+- Goal:
+- Style pack: [name] (not loaded)
+- Constraints:
+
+Style Pack Status
+- Requested pack:
+- Lookup result:
+- Needed next: paste the style pack or provide the project directory containing `.writers-loop/styles/[name].md`
+
+Content Plan
+- [structure for the requested artifact, using only current-task facts]
+
+Style Application Plan
+- Waiting for style rules before drafting
+- Will review content quality and style match separately after the pack is loaded
+
+Next Action
+- Paste the style pack or confirm the local path to load it from.
+```
+
 ## Local Style Pack Storage
 
 When the user opts into durable local style storage, use:

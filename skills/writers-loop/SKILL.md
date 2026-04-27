@@ -63,10 +63,10 @@ has passed:
 - **New artifact**: start at `Frame`, then `Question Gate`, then `Plan`.
 - **Fast draft** (questions waived): Frame → state Assumptions → compact inline Plan → Draft → Learning Status. Proceed without stopping at a plan checkpoint. Skipped questions are weak signals and will not become preferences.
 - **Multi-agent**: default to single-agent. Use multi-agent only for high-stakes, long, ambiguous, or multi-audience artifacts where independent planning or critique would materially improve quality. Read `references/multi-agent.md` first.
-- **Existing draft**: start at `Frame`, then `Critique`; plan only if structure is unclear.
+- **Existing draft**: start at `Frame`, then `Critique`; plan only if structure is unclear. If source text is missing or placeholder-only, ask for it and use this wording: "preserve user intent, voice, plot facts, and continuity."
 - **Targeted revision**: start at `Frame`, then `Propose`; keep changes at sentence or paragraph level unless the user explicitly asked for section-scale changes.
 - **Style learning**: start at `Frame`, then read `references/style-distillation.md`. Output `Frame`, `Style Versus Content`, `Style Pack`, and `Storage Decision`. If the user wants to clone another person's style, confirm permission or keep the pack session-only.
-- **Using a learned style**: load the style pack from the conversation or from `.writers-loop/styles/` only when the user opted into local storage. State which pack is loaded. Draft with it, then critique content quality and style match separately. Do not copy source passages or facts from the style pack evidence.
+- **Using a learned style**: load the style pack from the conversation or from `.writers-loop/styles/` only when the user opted into local storage. State which pack is loaded. Draft with it, then critique content quality and style match separately. Do not copy source passages or facts from the style pack evidence. If the style pack is missing, use the missing-style-pack template in `references/style-distillation.md` and do not draft.
 - **Translation**: start at `Frame`, then read `references/translation.md`. Output `Frame`, `Translation`, `Review`, and `Learning Status`; preserve source formatting inside the `Translation` section, not by omitting the loop metadata.
 - **Preference update**: start at `Learn`. For storage-mode requests, confirm whether `.writers-loop/`, `journal.jsonl`, `prefs.md`, or style packs will be created before asking artifact questions. Treat tone, length, detail level, or storage mode set for the current task as a constraint, not a learned preference, unless the user says it applies in future work.
 
@@ -92,9 +92,10 @@ A preference applies to future artifacts ("I always prefer short sentences in me
 Do not convert a constraint into a learned preference unless the user explicitly
 says it applies in future work. When unsure, ask.
 
-If the current request conflicts with an older preference, say that the current
-explicit instruction wins for this task, keep the older preference scoped, and
-do not archive it without repeated contradictory evidence.
+If the current request conflicts with an older preference, output `Preference
+Handling`: say that the current explicit instruction wins for this task, keep
+the older preference scoped, and do not archive it without repeated
+contradictory evidence.
 
 ## Signal Rules
 

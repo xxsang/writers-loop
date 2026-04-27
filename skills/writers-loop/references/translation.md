@@ -74,6 +74,10 @@ Review
 - Source style:
 - Fixed tokens / terminology:
 
+Revision Path
+- Proposed changes: [targeted options or "none until user review"]
+- Decision needed: apply | reject | adjust
+
 Learning Status
 No reusable preference learned; no reviewed decisions were collected.
 ```

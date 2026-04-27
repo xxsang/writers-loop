@@ -42,6 +42,7 @@ Plan shape:
 - Executive summary
 - Context
 - Findings
+- Evidence gaps
 - Recommendation
 - Risks
 - Next steps
@@ -49,6 +50,7 @@ Plan shape:
 Critique focus:
 - Clear conclusion
 - Evidence quality
+- Evidence gaps, limits, and caveats
 - Logical flow
 - Tradeoff visibility
 - Actionability
@@ -153,6 +155,8 @@ Critique focus:
 - Pacing
 - Voice
 - Continuity
+- Continuity check for unchanged facts, timeline, POV, and setting
+- Use the phrase "preserve user intent"; preserve plot facts, voice, continuity, and declared constraints before improving style
 - Scene specificity
 - Emotional payoff
 

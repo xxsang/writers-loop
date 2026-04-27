@@ -17,6 +17,17 @@ still apply.
 
 Ask questions only when the answer changes the plan.
 
+If a current request conflicts with an older preference, output this before
+questions:
+
+```text
+Preference Handling
+- Current instruction: [what controls this task]
+- Prior preference: [older rule, kept scoped to artifact/stage]
+- Decision: current explicit instruction wins for this task.
+- Storage: no durable preference change; do not archive the older preference without repeated contradictory evidence.
+```
+
 ```text
 QUESTION GATE
 I need these answers before planning:

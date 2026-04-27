@@ -74,6 +74,19 @@ Style packs are not preferences. Store them as reviewed style guidance in
 `.writers-loop/styles/`; promote style behavior into `prefs.md` only after user
 decisions support it.
 
+For any storage-mode request, output:
+
+```text
+Storage Decision
+- Mode: session-only | project-local | portable | style-local
+- Durable files: none | .writers-loop/journal.jsonl | .writers-loop/prefs.md | .writers-loop/styles/[name].md
+- File action: I will not create or update `.writers-loop/`, `journal.jsonl`, `prefs.md`, or style packs unless durable storage is explicitly approved
+- Project-local storage: yes/no
+- Portable/redacted storage: yes/no; redact private passages before sharing
+- Privacy note: journals and style packs may reveal sensitive draft text, business context, or private preferences
+- Learning status: no reusable preference learned unless reviewed decisions were collected
+```
+
 ## Journal Tool
 
 Use `scripts/journal.mjs` from the skill directory:
