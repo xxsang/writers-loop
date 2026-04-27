@@ -512,7 +512,10 @@ const RESPONSE_CRITERIA = {
       "plans content and style separately",
       /Plan[\s\S]*(Content|content structure)[\s\S]*(Style|style application)/i,
     ],
-    ["drafts with current facts", /Draft[\s\S]*(current-task facts|current facts|project update|update)/i],
+    [
+      "drafts with current facts",
+      /Draft[\s\S]*(current-task facts|current facts|project update|update|style-pack CLI|\.writers-loop\/styles|Real usage tests|release risk)/i,
+    ],
     [
       "reviews content and style separately",
       /Critique[\s\S]*Content quality[\s\S]*Style match|Style Match Review/i,
