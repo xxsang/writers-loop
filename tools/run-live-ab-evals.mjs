@@ -144,7 +144,10 @@ function treatmentPrompt(rawPrompt, useLocalSkillPrefix) {
   const relativeSkillPath = path.relative(repoRoot, skillPath);
   return [
     `Use the local Writer's Loop skill at ${relativeSkillPath}.`,
-    "Read SKILL.md and any relevant references before answering when the task calls for the skill.",
+    "Read SKILL.md and any relevant references before answering.",
+    "This is a live treatment eval: visibly follow the skill's required output shape.",
+    "Do not answer as a bare direct completion when the skill requires Frame, Review, Storage Decision, Learning Status, or checkpoints.",
+    "If preserving source formatting, preserve it inside the skill's content section rather than omitting skill metadata.",
     "",
     "User request:",
     rawPrompt,

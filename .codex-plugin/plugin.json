@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "description": "A portable writing workflow for planning, critique, revision, style distillation, translation, and local preference learning.",
   "author": {
-    "name": "Shen Ren",
-    "email": "xxsang@gmail.com",
-    "url": "https://github.com/xxsang"
+    "name": "Writer's Loop contributors",
+    "url": "https://github.com/xxsang/writers-loop"
   },
   "homepage": "https://github.com/xxsang/writers-loop",
   "repository": "https://github.com/xxsang/writers-loop",
@@ -25,7 +24,7 @@
     "displayName": "Writer's Loop",
     "shortDescription": "Plan, critique, revise, and learn writing preferences locally",
     "longDescription": "Writer's Loop guides substantial writing through framing, plan checkpoints, drafts, critique, targeted edits, style distillation, translation, and optional local preference learning.",
-    "developerName": "Shen Ren",
+    "developerName": "Writer's Loop contributors",
     "category": "Productivity",
     "capabilities": [
       "Interactive",

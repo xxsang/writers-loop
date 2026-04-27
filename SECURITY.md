@@ -10,7 +10,10 @@ Do not commit `.writers-loop/`, `.env`, private drafts, customer material, unpub
 
 ## Reporting Issues
 
-If you find an issue that could expose local preference files, user writing data, private drafts, or unpublished source material, contact Shen Ren at xxsang@gmail.com before public disclosure.
+If you find an issue that could expose local preference files, user writing data, private drafts, or unpublished source material, open a GitHub private security advisory if available:
+`https://github.com/xxsang/writers-loop/security/advisories/new`
+
+If private advisories are unavailable, open a GitHub issue with no sensitive details and request a private contact path.
 
 ## Supported Versions
 

@@ -37,4 +37,5 @@ Users can stay in session-only mode, opt into project-local storage, or delete `
 
 ## Contact
 
-Maintainer: Shen Ren <xxsang@gmail.com>
+Use GitHub issues for public project questions:
+`https://github.com/xxsang/writers-loop/issues`

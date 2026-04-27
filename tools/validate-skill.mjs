@@ -257,8 +257,8 @@ if (existsSync(path.join(repoRoot, "LICENSE"))) {
   if (!license.includes("MIT License")) {
     failures.push("LICENSE must use MIT License text.");
   }
-  if (!license.includes("Copyright (c) 2026 Shen Ren")) {
-    failures.push("LICENSE must credit Shen Ren.");
+  if (!license.includes("Copyright (c) 2026 Writer's Loop contributors")) {
+    failures.push("LICENSE must credit Writer's Loop contributors.");
   }
 }
 
@@ -304,14 +304,14 @@ if (existsSync(path.join(repoRoot, ".codex-plugin/plugin.json"))) {
   if (pluginJson.skills !== "./skills/") {
     failures.push('.codex-plugin/plugin.json skills must be "./skills/".');
   }
-  if (pluginJson.author?.name !== "Shen Ren") {
-    failures.push(".codex-plugin/plugin.json author.name must be Shen Ren.");
+  if (pluginJson.author?.name !== "Writer's Loop contributors") {
+    failures.push(".codex-plugin/plugin.json author.name must be Writer's Loop contributors.");
   }
-  if (pluginJson.author?.email !== "xxsang@gmail.com") {
-    failures.push(".codex-plugin/plugin.json author.email must be xxsang@gmail.com.");
+  if (pluginJson.author?.email !== undefined) {
+    failures.push(".codex-plugin/plugin.json author.email must not expose a personal email.");
   }
-  if (pluginJson.author?.url !== "https://github.com/xxsang") {
-    failures.push(".codex-plugin/plugin.json author.url must point to xxsang.");
+  if (pluginJson.author?.url !== "https://github.com/xxsang/writers-loop") {
+    failures.push(".codex-plugin/plugin.json author.url must point to the repository.");
   }
   if (
     !String(pluginJson.homepage ?? "").includes("github.com/xxsang/writers-loop")

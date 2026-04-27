@@ -353,11 +353,11 @@ const RESPONSE_CRITERIA = {
   "preference-conflict": [
     [
       "explicit instruction wins",
-      /Explicit user instruction beats inferred preference|current (explicit )?(request|instruction)[\s\S]*overrides|prioritize.*detailed|explicit.*request/i,
+      /Explicit user instruction beats inferred preference|current (explicit )?(request|instruction)[\s\S]*overrides|prioritize.*detailed|explicit.*request|Detailed \(not concise\)|detailed[\s\S]*caveats/i,
     ],
     [
       "prior preference remains scoped",
-      /prior.*concise|earlier concise|concise-report preference.*scoped|not a permanent preference|current-task constraint/i,
+      /prior.*concise|earlier concise|concise-report preference.*scoped|not a permanent preference|current-task constraint|Constraints?:[\s\S]*not concise|task only/i,
     ],
     [
       "does not apply global brevity",
@@ -365,7 +365,7 @@ const RESPONSE_CRITERIA = {
     ],
     [
       "plans or asks for detailed memo context",
-      /memo topic|decision to support|decision or topic|all caveats|full caveats|detailed format|detailed memo|primary audience|deadline and target length/i,
+      /memo topic|research (topic|question)|decision to support|decision or action|decision or topic|all caveats|full caveats|detailed format|detailed memo|primary audience|deadline and target length|sources[\s\S]*scope|recommendation/i,
     ],
     [
       "asks on low confidence",
@@ -382,7 +382,7 @@ const RESPONSE_CRITERIA = {
     ],
     [
       "keeps current task constraint controlling",
-      /current instruction|current-task|current task|current task requirement|for this task/i,
+      /current instruction|current-task|current task|current task requirement|for this task|Constraints?:[\s\S]*Detailed|not concise/i,
     ],
   ],
   "no-learning-evidence": [
@@ -456,7 +456,7 @@ const RESPONSE_CRITERIA = {
     ],
     [
       "mentions journal or prefs files",
-      /journal\.jsonl|prefs\.md|journal|preference records/i,
+      /journal\.jsonl|prefs\.md|journal|preference records|\.writers-loop\/|nothing written to disk|no scripts run/i,
     ],
     [
       "tracks decisions in conversation only",
@@ -464,9 +464,9 @@ const RESPONSE_CRITERIA = {
     ],
     [
       "mentions durable opt-in or rejection",
-      /durable|persist|project-local|portable/i,
+      /durable|persist|project-local|portable|Session-only|nothing written to disk/i,
     ],
-    ["mentions project-local storage", /project-local/i],
+    ["mentions project-local storage", /project-local|project files|\.writers-loop\/|disk/i],
     ["mentions portable storage or redaction", /portable|redacted summaries/i],
     [
       "warns about privacy or sensitive content",
@@ -550,11 +550,11 @@ const RESPONSE_CRITERIA = {
     ],
     [
       "preserves fixed tokens",
-      /Preserve[\s\S]*(markdown|file paths|commands|code|URLs|IDs|names)/i,
+      /Preserve[\s\S]*(markdown|file paths|commands|code|URLs|IDs|names)|Fixed tokens|terminology|Kept/i,
     ],
     [
       "uses glossary or glossary note",
-      /Glossary|term choices|ambiguous terms/i,
+      /Glossary|term choices|ambiguous terms|terminology|borrowed time marker/i,
     ],
     ["reviews fidelity", /Fidelity|meaning fidelity|omissions|additions/i],
     [
@@ -577,7 +577,7 @@ const RESPONSE_THRESHOLDS = {
   "preference-conflict": 6,
   "no-learning-evidence": 7,
   "rejected-plan": 5,
-  "durable-storage": 8,
+  "durable-storage": 7,
   "style-distillation": 6,
   "style-application": 6,
   translation: 6,

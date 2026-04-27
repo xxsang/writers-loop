@@ -67,8 +67,8 @@ has passed:
 - **Targeted revision**: start at `Frame`, then `Propose`; keep changes at sentence or paragraph level unless the user explicitly asked for section-scale changes.
 - **Style learning**: start at `Frame`, then read `references/style-distillation.md`. Output `Frame`, `Style Versus Content`, `Style Pack`, and `Storage Decision`. If the user wants to clone another person's style, confirm permission or keep the pack session-only.
 - **Using a learned style**: load the style pack from the conversation or from `.writers-loop/styles/` only when the user opted into local storage. State which pack is loaded. Draft with it, then critique content quality and style match separately. Do not copy source passages or facts from the style pack evidence.
-- **Translation**: start at `Frame`, then read `references/translation.md`.
-- **Preference update**: start at `Learn`. Treat tone, length, or detail level set for the current task as a constraint, not a learned preference, unless the user says it applies in future work.
+- **Translation**: start at `Frame`, then read `references/translation.md`. Output `Frame`, `Translation`, `Review`, and `Learning Status`; preserve source formatting inside the `Translation` section, not by omitting the loop metadata.
+- **Preference update**: start at `Learn`. For storage-mode requests, confirm whether `.writers-loop/`, `journal.jsonl`, `prefs.md`, or style packs will be created before asking artifact questions. Treat tone, length, detail level, or storage mode set for the current task as a constraint, not a learned preference, unless the user says it applies in future work.
 
 ## Planning Gates
 
@@ -91,6 +91,10 @@ A constraint applies to one artifact ("for this memo, use short sentences").
 A preference applies to future artifacts ("I always prefer short sentences in memos").
 Do not convert a constraint into a learned preference unless the user explicitly
 says it applies in future work. When unsure, ask.
+
+If the current request conflicts with an older preference, say that the current
+explicit instruction wins for this task, keep the older preference scoped, and
+do not archive it without repeated contradictory evidence.
 
 ## Signal Rules
 

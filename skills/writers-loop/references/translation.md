@@ -55,6 +55,32 @@ Who is the target reader?
 
 If the user already provided enough context, state assumptions and translate.
 
+## Output Shape
+
+Use this shape even for short translations:
+
+```text
+Frame
+- Source language:
+- Target language and locale:
+- Mode:
+- Style targets:
+
+Translation
+[translated artifact, preserving source markdown formatting here]
+
+Review
+- Fidelity:
+- Source style:
+- Fixed tokens / terminology:
+
+Learning Status
+No reusable preference learned; no reviewed decisions were collected.
+```
+
+Preserve the source artifact's markdown inside `Translation`. Do not drop
+`Frame` or `Review` merely because the source was plain text.
+
 ## Preserve Source Writing Style
 
 Before translating, identify the source's style targets:

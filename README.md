@@ -544,8 +544,8 @@ See `CONTRIBUTING.md`. Keep the skill portable, concise, and useful across agent
 
 ## Maintainer
 
-Shen Ren <xxsang@gmail.com>
+Writer's Loop contributors. Use GitHub issues for public project questions.
 
 ## License
 
-MIT. Copyright (c) 2026 Shen Ren.
+MIT. Copyright (c) 2026 Writer's Loop contributors.
