@@ -388,7 +388,7 @@ const RESPONSE_CRITERIA = {
   "no-learning-evidence": [
     [
       "honors no-questions instruction",
-      /No questions|skip questions|asked to skip questions|proceed without questions|No need/i,
+      /No questions|No blocking questions|skip questions|asked to skip questions|proceed without questions|No need/i,
     ],
     ["states assumptions", /Assumptions:|ASSUMPTIONS/i],
     [
@@ -406,7 +406,7 @@ const RESPONSE_CRITERIA = {
     ],
     [
       "does not learn from unreviewed draft",
-      /no learned preferences|no reusable preference was learned|no .*preferences can be promoted|unreviewed/i,
+      /no learned preferences|no reusable preference (?:was )?learned|no .*preferences can be promoted|unreviewed/i,
       { critical: true },
     ],
     [

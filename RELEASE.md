@@ -14,6 +14,7 @@ Confirm:
 - `npm run scan:secrets` passes.
 - `npm run eval` passes.
 - `npm run eval:ab` passes.
+- `npm run eval:ab:live:dry` passes.
 - `npm run test:real` passes.
 - `git status --short` is clean except for intentionally ignored local files.
 - No `.writers-loop/`, `.env`, `.artifacts/`, or private draft files are tracked.
@@ -21,6 +22,17 @@ Confirm:
 - `package.json` remains `private: true` because distribution is GitHub-only.
 
 ## Manual Forward-Test
+
+For a repeatable live A/B forward-test, run:
+
+```bash
+npm run eval:ab:live -- --model gpt-5.2
+```
+
+Expected: generates control and treatment responses for every scenario in
+`tools/evals/ab-prompts.json`, then reports a positive treatment delta through
+`tools/run-evals.mjs`. Use `--scenario <id>` for a targeted smoke run and
+`--resume --output <existing-run-dir>` to continue an interrupted run.
 
 Before tagging a public release, run these prompts in a fresh agent thread with
 the installed skill. Save only notes, not private draft content.

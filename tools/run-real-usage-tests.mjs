@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const styleTool = path.join(repoRoot, "skills", "writers-loop", "scripts", "style-pack.mjs");
 const journalTool = path.join(repoRoot, "skills", "writers-loop", "scripts", "journal.mjs");
+const liveEvalTool = path.join(repoRoot, "tools", "run-live-ab-evals.mjs");
 const projectDir = mkdtempSync(path.join(os.tmpdir(), "writers-loop-real-"));
 
 function run(args, options = {}) {
@@ -179,5 +180,28 @@ assert(skillText.includes("Style Pack"), "SKILL.md does not mention style packs"
 const readme = readFileSync(path.join(repoRoot, "README.md"), "utf8");
 assert(readme.includes("Using A Learned Style"), "README does not document using a learned style");
 assert(readme.includes(".writers-loop/styles/"), "README does not document style storage path");
+
+const liveEvalDir = path.join(projectDir, "live-ab-dry-run");
+run([
+  liveEvalTool,
+  "--dry-run",
+  "--scenario",
+  "coding-plan,translation",
+  "--output",
+  liveEvalDir,
+]);
+const liveManifestPath = path.join(liveEvalDir, "manifest.json");
+assert(existsSync(liveManifestPath), "live A/B dry run did not write manifest");
+const liveManifest = JSON.parse(readFileSync(liveManifestPath, "utf8"));
+assert(liveManifest.totalRuns === 4, "live A/B dry run did not plan control and treatment for each scenario");
+assert(
+  liveManifest.scenarioIds.includes("coding-plan") &&
+    liveManifest.scenarioIds.includes("translation"),
+  "live A/B dry run did not include selected scenarios",
+);
+assert(
+  existsSync(path.join(liveEvalDir, "prompts", "treatment", "coding-plan.txt")),
+  "live A/B dry run did not write treatment prompt file",
+);
 
 console.log(`Real usage tests passed: ${projectDir}`);

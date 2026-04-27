@@ -501,10 +501,24 @@ npm run validate
 npm run scan:secrets
 npm run eval
 npm run eval:ab
+npm run eval:ab:live:dry
 npm run test:real
 ```
 
 No install step is required. The package uses only Node.js built-in modules for validation, secret scanning, evals, and optional preference storage.
+
+Optional live A/B check:
+
+```bash
+npm run eval:ab:live -- --model gpt-5.2
+```
+
+This runs every scenario in `tools/evals/ab-prompts.json` through fresh Codex
+generations for both control and treatment prompts, writes outputs under
+`.artifacts/live-ab/`, then scores them with `tools/run-evals.mjs`. It is not
+part of `npm test` because it requires live model access and can take time.
+Use `--scenario coding-plan,translation` for a smaller smoke run, or
+`--resume --output <existing-run-dir>` to score a partially completed run.
 
 ## Repository Layout
 
