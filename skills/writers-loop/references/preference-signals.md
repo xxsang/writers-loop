@@ -2,38 +2,52 @@
 
 Use this reference when deciding what can be learned from a writing loop.
 
-## Signal Strength
+## What to Extract From
 
-Strong signals:
+Extract preferences only from these sources:
+
+**Strong (promote after two or more):**
 - User approves a plan after review
 - User rejects a plan with a concrete reason
 - User accepts a proposed edit
 - User rejects a proposed edit
 - User undoes an accepted edit
-- User manually rewrites generated output
+- User manually rewrites generated output to change style, voice, or structure
 - User explicitly declares a standing preference
 - User repeats the same correction across tasks
 
-Medium signals:
+Manual rewrites are strong signals only when the rewrite changes how something
+sounds or is structured — not when it corrects a fact, date, citation, name, or
+domain error. When the reason is ambiguous, ask: "Did you rewrite to change the
+style, or to fix something that was wrong?"
+
+**Medium (record; do not promote alone):**
 - User asks for a narrower or broader scope
 - User changes tone, length, or structure after seeing a draft
 - User asks to preserve or remove a section
 - User selects one version from two or more candidates
 - User adjusts a proposal without accepting or rejecting it outright
 
-Weak signals:
+## What to Discard
+
+Discard these for preference learning:
+- Unreviewed model-generated text
 - User says "good" or "bad" without a reason
 - User edits for a one-off constraint
-- User changes a fact rather than a style or process preference
+- User changes a fact, date, citation, or domain error
 - User accepts a draft without reviewing alternatives
-
-Non-signals:
-- Model-generated text that was never reviewed
 - Constraints copied from the prompt
-- Domain requirements that should not become personal preferences
-- Current-task constraints such as "this time", "for this memo", storage mode,
-  tone, length, or detail level, unless the user explicitly declares a standing
+- Domain requirements that must not become personal preferences
+- Current-task constraints ("this time", "for this memo", storage mode, tone,
+  length, or detail level) unless the user explicitly declares a standing
   preference for future work
+
+## Constraint vs. Preference
+
+A constraint applies to one artifact ("for this memo, use short sentences").
+A preference applies to future artifacts ("I always prefer short sentences in memos").
+Do not convert a constraint into a preference unless the user explicitly says it
+applies in future work. When unsure, ask.
 
 ## Promotion Guidance
 
@@ -72,21 +86,21 @@ Examples:
 
 ```text
 Rule: Lead with the recommendation before background.
-Scope: report/planning
+Applies to: report/planning
 Evidence: Two accepted report revisions moved conclusions earlier.
 Confidence: high
 ```
 
 ```text
 Rule: Use concrete file paths and commands in implementation plans.
-Scope: coding-plan/planning
+Applies to: coding-plan/planning
 Evidence: User rejected vague tasks and accepted a plan with exact files and tests.
 Confidence: high
 ```
 
 ```text
 Rule: Preserve restrained tone during emotional scenes.
-Scope: fiction/revision
+Applies to: fiction/revision
 Evidence: User accepted two edits reducing melodramatic phrasing.
 Confidence: medium
 ```
@@ -108,8 +122,8 @@ Decision Log
 - Accepted: [change] because [reason]
 - Rejected: [change] because [reason]
 - Adjusted: [change] to [new direction]
-- Manual rewrite observed: [summary]
+- Manual rewrite observed: [summary — was this a style change or a fact correction?]
 
 Candidate Preferences
-- [rule], scope [scope], confidence [low|medium|high], evidence [summary]
+- [rule], applies-to [artifact-type/stage], confidence [low|medium|high], evidence [summary]
 ```

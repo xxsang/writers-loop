@@ -153,6 +153,42 @@ Proposed Changes
 - [targeted changes if revision is needed]
 ```
 
+## Untranslatable Concepts
+
+Some source elements have no direct equivalent in the target language. When you
+encounter one, do not silently flatten it. Choose one strategy and note it:
+
+```text
+Strategy options:
+- Borrow: keep the source word, italicised, with a brief gloss on first use
+- Approximate: find the closest target-language expression and note the loss
+- Expand: add a short phrase that carries the cultural weight
+- Flag: mark as [untranslatable — awaiting user decision]
+```
+
+Common categories:
+- Cultural time markers (e.g. a Chinese watch-name for a time of night)
+- Untranslatable emotional states (e.g. Portuguese *saudade*, Japanese *mono no aware*)
+- Idioms that are opaque in the target language (e.g. "beat a dead horse")
+- Concepts of face, honour, or social hierarchy that carry different weight across cultures
+- Genre-specific registers that have no equivalent (e.g. classical literary Chinese in modern English)
+
+For idioms: translate the meaning, not the image, unless the user asks to keep
+the source idiom for a specific effect. Note the choice.
+
+## Style Preservation Example
+
+Source (Chinese, literary): short sentences, restrained emotion, image-first, no stated feeling.
+
+Flattened target (avoid): "The rain stopped before dawn. She felt relieved."
+— states the feeling directly, loses the source restraint.
+
+Preserved target: "The rain stopped before dawn. She did not move."
+— preserves the restraint by showing action, not naming emotion.
+
+When choosing between fluency and source style, prefer source style and note
+the tension. The user can always choose to smooth it.
+
 ## Review Rubric
 
 Check:

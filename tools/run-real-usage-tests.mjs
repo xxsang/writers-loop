@@ -21,6 +21,21 @@ function run(args, options = {}) {
   return result.stdout.trim();
 }
 
+function runFailure(args, expectedMessage, options = {}) {
+  const result = spawnSync(process.execPath, args, {
+    cwd: options.cwd ?? repoRoot,
+    encoding: "utf8",
+  });
+  if (result.status === 0) {
+    throw new Error(`Command should have failed: node ${args.join(" ")}`);
+  }
+  const output = `${result.stderr}${result.stdout}`;
+  if (!expectedMessage.test(output)) {
+    throw new Error(`Failure did not match ${expectedMessage}: ${output}`);
+  }
+  return output.trim();
+}
+
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
@@ -49,6 +64,18 @@ writeFileSync(
   "utf8",
 );
 
+const rawSource = path.join(projectDir, "raw-source.md");
+writeFileSync(
+  rawSource,
+  [
+    "# Raw Draft",
+    "",
+    "We keep the main path short. Start with the decision, then name the tradeoff.",
+    "If a reader needs background, give it after the recommendation.",
+  ].join("\n"),
+  "utf8",
+);
+
 run([styleTool, "init", projectDir]);
 assert(existsSync(path.join(projectDir, ".writers-loop", "styles")), "styles directory was not created");
 
@@ -58,6 +85,16 @@ assert(existsSync(savedStyle), "style pack was not saved");
 const savedText = readFileSync(savedStyle, "utf8");
 assert(savedText.includes("# Style Pack: Lean Notes"), "saved style pack is missing title");
 assert(savedText.includes("Do not copy source facts or passages"), "saved style pack is missing source-copying guardrail");
+
+run([styleTool, "save", projectDir, "Relative Source", "reviewed-style-pack.md"]);
+const relativeStyle = path.join(projectDir, ".writers-loop", "styles", "relative-source.md");
+assert(existsSync(relativeStyle), "style:save did not resolve relative source paths from project dir");
+
+runFailure([styleTool, "save", projectDir, "Raw Source", rawSource], /does not look reviewed/);
+const rawStyle = path.join(projectDir, ".writers-loop", "styles", "raw-source.md");
+assert(!existsSync(rawStyle), "style:save saved raw source without --force");
+run([styleTool, "save", "--force", projectDir, "Raw Source", rawSource]);
+assert(existsSync(rawStyle), "style:save --force did not save explicitly reviewed source");
 
 const listOutput = run([styleTool, "list", projectDir]);
 assert(listOutput.includes("lean-notes"), "style:list did not include saved style pack");
@@ -86,14 +123,53 @@ run([
     signal: "positive",
     artifact: "documentation",
     stage: "drafting",
-    scope: "documentation/drafting",
+    appliesTo: "documentation/drafting",
     summary: "User declared a standing preference for direct openings.",
     payload: { preference: "Lead with the main point before background" },
+  }),
+]);
+run([
+  journalTool,
+  "append",
+  projectDir,
+  JSON.stringify({
+    type: "question_skipped",
+    signal: "neutral",
+    artifact: "email",
+    stage: "planning",
+    scope: "email/planning",
+    summary: "User skipped questions",
+  }),
+]);
+run([
+  journalTool,
+  "append",
+  projectDir,
+  JSON.stringify({
+    type: "question_skipped",
+    signal: "neutral",
+    artifact: "email",
+    stage: "planning",
+    scope: "email/planning",
+    summary: "User skipped questions",
   }),
 ]);
 run([journalTool, "derive", projectDir]);
 assert(existsSync(path.join(projectDir, ".writers-loop", "journal.jsonl")), "journal was not created");
 assert(existsSync(path.join(projectDir, ".writers-loop", "prefs.md")), "derived prefs were not created");
+const prefsText = readFileSync(path.join(projectDir, ".writers-loop", "prefs.md"), "utf8");
+assert(
+  prefsText.includes("Lead with the main point before background"),
+  "journal did not derive explicit standing preference",
+);
+assert(
+  prefsText.includes("## documentation/drafting"),
+  "journal did not derive preferences under appliesTo scope",
+);
+assert(
+  !prefsText.includes("User skipped questions"),
+  "journal promoted skipped questions into derived preferences",
+);
 assert(existsSync(savedStyle), "journal operations removed saved style pack");
 
 const skillText = readFileSync(path.join(repoRoot, "skills", "writers-loop", "SKILL.md"), "utf8");

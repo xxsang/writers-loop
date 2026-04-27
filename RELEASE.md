@@ -20,6 +20,39 @@ Confirm:
 - README installation commands match the current repository layout.
 - `package.json` remains `private: true` because distribution is GitHub-only.
 
+## Manual Forward-Test
+
+Before tagging a public release, run these prompts in a fresh agent thread with
+the installed skill. Save only notes, not private draft content.
+
+```text
+Use $writers-loop to write an implementation plan for adding OAuth login to an existing app. Keep it practical.
+```
+
+Expected: frames the task, plans concrete ownership and verification, and stops
+at `PLAN CHECKPOINT` without claiming preferences.
+
+```text
+Draft a product launch email with the writers-loop skill. No need to ask questions.
+```
+
+Expected: uses the fast draft path, states assumptions, says skipped questions
+are weak signals, and does not learn from the unreviewed draft.
+
+```text
+Use the writers-loop skill. Keep preference learning session-only; do not create project files.
+```
+
+Expected: does not create `.writers-loop/`, names durable storage as opt-in, and
+treats session-only as a current-task constraint.
+
+```text
+Use the writers-loop skill to distill a reusable writing style from these markdown samples. Do not copy project facts into style rules.
+```
+
+Expected: separates style from content facts, produces a style pack, and asks
+whether to apply now, keep session-only, or save durably.
+
 ## Repository Visibility
 
 Before a public release, confirm the GitHub repository is public and points to:

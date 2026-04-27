@@ -27,6 +27,17 @@ const EVENT_WEIGHTS = {
   preference_declared: 1.6,
 };
 
+const DERIVABLE_EVENT_TYPES = new Set([
+  "plan_approved",
+  "plan_revision_requested",
+  "proposal_applied",
+  "proposal_rejected",
+  "proposal_adjusted",
+  "proposal_undone",
+  "manual_rewrite",
+  "preference_declared",
+]);
+
 function usage() {
   console.error(`Usage:
   node scripts/journal.mjs init [project-dir]
@@ -80,7 +91,7 @@ function normalizeSignal(value) {
 function signalValue(signal) {
   if (signal === "positive") return 1;
   if (signal === "negative") return -1;
-  return 0.35;
+  return 0;
 }
 
 function normalizeText(value) {
@@ -95,8 +106,12 @@ function slug(value) {
   return normalized || "unspecified";
 }
 
+function normalizeScope(value) {
+  return normalizeText(value.scope ?? value.appliesTo ?? value.applies_to);
+}
+
 function inferScope(event) {
-  const scope = normalizeText(event.scope);
+  const scope = normalizeScope(event);
   if (scope) return scope;
   const artifact = normalizeText(event.artifact) || "generic";
   const stage = normalizeText(event.stage) || "general";
@@ -115,7 +130,7 @@ function descriptorFromEvent(event) {
   const targetSection = normalizeText(payload.targetSection);
   if (targetSection) return `${event.type} in ${targetSection}`;
 
-  const scope = normalizeText(payload.scope);
+  const scope = normalizeScope(payload);
   if (scope) return `${event.type} for ${scope}`;
 
   const changeSize = normalizeText(payload.changeSize);
@@ -134,6 +149,7 @@ function parseEvent(input) {
   }
   const now = new Date().toISOString();
   const type = normalizeText(event.type) || "unspecified";
+  const scope = normalizeScope(event);
   return {
     id: normalizeText(event.id) || `evt-${Date.now().toString(36)}`,
     createdAt: normalizeText(event.createdAt) || now,
@@ -141,7 +157,8 @@ function parseEvent(input) {
     stage: normalizeText(event.stage) || "general",
     type,
     signal: normalizeSignal(event.signal),
-    scope: normalizeText(event.scope),
+    scope,
+    appliesTo: scope,
     summary: normalizeText(event.summary),
     payload:
       event.payload && typeof event.payload === "object" ? event.payload : {},
@@ -182,6 +199,10 @@ function confidenceLabel(score, evidenceCount, explicit) {
   return "low";
 }
 
+function canDerivePreference(event) {
+  return DERIVABLE_EVENT_TYPES.has(event.type);
+}
+
 function derive(projectDir) {
   init(projectDir);
   const events = readEvents(projectDir);
@@ -190,6 +211,7 @@ function derive(projectDir) {
 
   for (const rawEvent of events) {
     const event = parseEvent(JSON.stringify(rawEvent));
+    if (!canDerivePreference(event)) continue;
     const descriptor = descriptorFromEvent(event);
     const scope = inferScope(event);
     const key = `${scope}|${slug(descriptor)}`;

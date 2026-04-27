@@ -155,9 +155,13 @@ Reply "apply now", "keep session-only", or "save durably".
 
 ## Confidence
 
-Use `high` only when traits repeat across multiple samples.
-Use `medium` when there is enough evidence but limited variety.
-Use `low` when the corpus is small, inconsistent, or heavily edited by unknown authors.
+Use `high` only when a trait appears in at least 3 instances across 2 or more
+documents. "Appears" means the same pattern, not the same wording — paraphrase
+and structural repetition count.
+Use `medium` when a trait appears in at least 2 instances but from a single
+document, or when 3+ instances exist but variety is limited.
+Use `low` when the corpus is small (fewer than 2 clear instances), inconsistent,
+or heavily edited by unknown authors.
 
 Ask before applying low-confidence style rules.
 
@@ -182,6 +186,7 @@ Use this path when the user says to write in a saved, learned, or named style:
 5. Draft in the learned style using only current-task facts.
 6. Run a `Style Match Review` that checks voice, rhythm, sentence texture, paragraph shape, diction, imagery, register, and structure.
 7. Revise style mismatches without copying source passages or source facts.
+   Before finalizing, run the `Source-Passage Check` (see section below).
 8. Ask whether any accepted style edits should become decision-backed preferences.
 
 Use this output shape:
@@ -236,8 +241,26 @@ node scripts/style-pack.mjs list /path/to/project
 node scripts/style-pack.mjs show /path/to/project my-style
 ```
 
+Relative style-pack file paths are resolved from `/path/to/project` first, then
+from the current working directory. `save` rejects files that look like raw
+source samples; use `--force` only after explicit review and approval.
+
 Only save reviewed style packs, not raw source samples. Do not save another
 person's style durably when permission or intended reuse is unclear.
+
+## Source-Passage Check
+
+Before finalizing any style-informed revision, confirm:
+
+```text
+SOURCE-PASSAGE CHECK
+The following changes use only current-task facts and original drafting.
+No source passages, private names, or content facts from the style pack evidence
+have been copied into this revision.
+```
+
+If a proposed change contains quoted or closely paraphrased material from the
+style pack's evidence notes, rewrite it using only current-task content.
 
 ## Common Mistakes
 

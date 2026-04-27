@@ -8,12 +8,13 @@ const STYLES_DIR = "styles";
 function usage() {
   console.error(`Usage:
   node scripts/style-pack.mjs init [project-dir]
-  node scripts/style-pack.mjs save [project-dir] <style-name> <style-pack-file>
+  node scripts/style-pack.mjs save [--force] [project-dir] <style-name> <style-pack-file>
   node scripts/style-pack.mjs list [project-dir]
   node scripts/style-pack.mjs show [project-dir] <style-name>
 
 Default project-dir is the current working directory.
-Save expects a reviewed style pack file, not raw source samples.`);
+Save expects a reviewed style pack file, not raw source samples.
+Use --force only when the input was reviewed and intentionally approved.`);
 }
 
 function resolveProjectDir(arg) {
@@ -42,6 +43,13 @@ function styleFile(projectDir, styleName) {
   return path.join(stylePaths(projectDir).styles, `${slug(styleName)}.md`);
 }
 
+function resolveSourcePath(projectDir, sourcePath) {
+  if (path.isAbsolute(sourcePath)) return sourcePath;
+  const projectRelative = path.resolve(projectDir, sourcePath);
+  if (existsSync(projectRelative)) return projectRelative;
+  return path.resolve(sourcePath);
+}
+
 function init(projectDir) {
   const paths = stylePaths(projectDir);
   mkdirSync(paths.styles, { recursive: true });
@@ -64,16 +72,39 @@ function wrapStylePack(styleName, sourcePath, content) {
   return lines.join("\n");
 }
 
-function save(projectDir, styleName, sourcePath) {
+function looksLikeReviewedStylePack(content) {
+  const markers = [
+    /^Style Pack\b/im,
+    /^Summary:/im,
+    /^Observable Traits:/im,
+    /^Do:/im,
+    /^Avoid:/im,
+    /^Structure Rules:/im,
+    /^Language Rules:/im,
+    /^Reusable Prompts:/im,
+    /^Evidence Notes:/im,
+    /^Style Versus Content\b/im,
+  ];
+  const markerCount = markers.filter((pattern) => pattern.test(content)).length;
+  const hasSourceGuard = /source (facts|passages)|private facts|project-specific claims|do not copy/i.test(content);
+  return markerCount >= 3 && hasSourceGuard;
+}
+
+function save(projectDir, styleName, sourcePath, options = {}) {
   const name = normalizeText(styleName);
   if (!name) throw new Error("Missing style name.");
   if (!sourcePath) throw new Error("Missing style pack file.");
-  const absoluteSource = path.resolve(sourcePath);
+  const absoluteSource = resolveSourcePath(projectDir, sourcePath);
   if (!existsSync(absoluteSource)) {
     throw new Error(`Style pack file does not exist: ${absoluteSource}`);
   }
-  init(projectDir);
   const content = readFileSync(absoluteSource, "utf8");
+  if (!options.force && !looksLikeReviewedStylePack(content)) {
+    throw new Error(
+      "Style pack file does not look reviewed. Save expects a reviewed style pack, not raw source samples. Re-run with --force only after explicit review.",
+    );
+  }
+  init(projectDir);
   const destination = styleFile(projectDir, name);
   writeFileSync(destination, wrapStylePack(name, absoluteSource, content), "utf8");
   console.log(`Saved style pack: ${destination}`);
@@ -125,17 +156,21 @@ function parseShow(args) {
 }
 
 function parseSave(args) {
-  if (args.length === 2) {
+  const force = args.includes("--force");
+  const positional = args.filter((arg) => arg !== "--force");
+  if (positional.length === 2) {
     return {
       projectDir: resolveProjectDir(),
-      styleName: args[0],
-      sourcePath: args[1],
+      styleName: positional[0],
+      sourcePath: positional[1],
+      force,
     };
   }
   return {
-    projectDir: resolveProjectDir(args[0]),
-    styleName: args[1],
-    sourcePath: args[2],
+    projectDir: resolveProjectDir(positional[0]),
+    styleName: positional[1],
+    sourcePath: positional[2],
+    force,
   };
 }
 
@@ -147,7 +182,7 @@ try {
     init(parsed.projectDir);
   } else if (command === "save") {
     const parsed = parseSave(args);
-    save(parsed.projectDir, parsed.styleName, parsed.sourcePath);
+    save(parsed.projectDir, parsed.styleName, parsed.sourcePath, { force: parsed.force });
   } else if (command === "list") {
     const parsed = parseInitOrList(args);
     list(parsed.projectDir);

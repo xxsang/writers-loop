@@ -284,7 +284,7 @@ const RESPONSE_CRITERIA = {
       "covers rollout or migration risk",
       /rollout|migration|feature flag|rollback|risk/i,
     ],
-    ["stops at plan checkpoint", /PLAN CHECKPOINT/i],
+    ["stops at plan checkpoint", /PLAN CHECKPOINT/i, { critical: true }],
     [
       "names concrete ownership areas",
       /File Map|routes\/auth|services\/oauth|db\/migrations|affected files|file paths/i,
@@ -317,7 +317,7 @@ const RESPONSE_CRITERIA = {
       "includes concrete next steps",
       /Next Steps[\s\S]*(owners|metrics|weekly|30-day|sprint)/i,
     ],
-    ["stops at plan checkpoint", /PLAN CHECKPOINT/i],
+    ["stops at plan checkpoint", /PLAN CHECKPOINT/i, { critical: true }],
     [
       "does not claim learned preferences without decisions",
       (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
@@ -395,7 +395,11 @@ const RESPONSE_CRITERIA = {
       "produces plan and draft or direct draft",
       /Plan[\s\S]*Draft|Draft[\s\S]*Subject:/i,
     ],
-    ["or stops at plan checkpoint before drafting", /PLAN CHECKPOINT/i],
+    [
+      "uses fast draft path without plan checkpoint",
+      (text) => /Draft/i.test(text) && !/PLAN CHECKPOINT/i.test(text),
+      { critical: true },
+    ],
     [
       "names missing product detail",
       /placeholder|product facts|assumptions|review decisions|\[Feature|\[primary outcome/i,
@@ -403,10 +407,12 @@ const RESPONSE_CRITERIA = {
     [
       "does not learn from unreviewed draft",
       /no learned preferences|no reusable preference was learned|no .*preferences can be promoted|unreviewed/i,
+      { critical: true },
     ],
     [
       "treats skipped questions as weak",
       /skipped questions.*weak|preference-learning.*weak/i,
+      { critical: true },
     ],
     [
       "does not claim learned preferences without decisions",
@@ -420,10 +426,11 @@ const RESPONSE_CRITERIA = {
       "presents first plan",
       /Plan[\s\S]*(Executive Summary|Migration Context|Risks|Dependencies)/i,
     ],
-    ["stops at plan checkpoint", /PLAN CHECKPOINT/i],
+    ["stops at plan checkpoint", /PLAN CHECKPOINT/i, { critical: true }],
     [
       "blocks drafting before approval",
       (text) => !/Draft:|Here is the report|Migration Report\n/i.test(text),
+      { critical: true },
     ],
     [
       "includes risk-aware structure",
@@ -445,6 +452,7 @@ const RESPONSE_CRITERIA = {
     [
       "explicitly avoids file creation",
       /will not create|will not.*update|do not create .*\.writers-loop/i,
+      { critical: true },
     ],
     [
       "mentions journal or prefs files",
@@ -563,13 +571,13 @@ const RESPONSE_CRITERIA = {
 };
 
 const RESPONSE_THRESHOLDS = {
-  "coding-plan": 6,
-  "executive-report": 6,
+  "coding-plan": 7,
+  "executive-report": 7,
   "fiction-chapter": 5,
   "preference-conflict": 6,
-  "no-learning-evidence": 5,
+  "no-learning-evidence": 7,
   "rejected-plan": 5,
-  "durable-storage": 5,
+  "durable-storage": 8,
   "style-distillation": 6,
   "style-application": 6,
   translation: 6,

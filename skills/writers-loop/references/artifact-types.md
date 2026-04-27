@@ -2,6 +2,10 @@
 
 Use this reference to adapt the core loop to the artifact being written.
 
+Plan shapes below are ordered. Produce sections in the listed sequence unless
+the user specifies otherwise. If the artifact type is not listed here, use the
+universal rubric in `references/critique-rubrics.md` and ask if it is sufficient.
+
 ## Coding Plan
 
 Frame:
@@ -182,3 +186,93 @@ Reusable preferences:
 - Personal voice
 - Formality
 - Evidence style
+
+## Poetry
+
+Limited support — the universal rubric does not fully apply. Use a custom rubric.
+
+Frame:
+- Form (free verse, fixed form, prose poem), line-break intent, sound targets,
+  emotional target, occasion
+
+Plan shape:
+- Central image or tension
+- Line-break and stanza logic
+- Sound pattern (rhyme, near-rhyme, repetition, silence)
+- Ending approach
+
+Critique focus (replace universal rubric for poetry):
+- Does each line earn its break?
+- Does sound reinforce meaning, or work against it?
+- Is compression serving the poem, or losing necessary weight?
+- Is the central image or tension sustained without over-explanation?
+- Does the ending close, open, or resist — and does that match intent?
+
+Note: "Specificity" and "clarity" from the universal rubric may conflict with
+compression or ambiguity that is intentional. Flag candidates for discussion
+rather than required fixes.
+
+Reusable preferences:
+- Tolerance for ambiguity
+- Preference for image density or plainness
+- Line-length tendencies
+
+## Academic Or Whitepaper
+
+Limited support — peer review and citation conventions are domain-specific.
+Adapt the plan shape and rubric to the target venue's requirements.
+
+Frame:
+- Venue or journal, audience expertise level, contribution claim, citation style
+
+Plan shape:
+- Abstract
+- Introduction and contribution claim
+- Related work
+- Method or argument
+- Results or evidence
+- Discussion and limitations
+- Conclusion
+- References
+
+Critique focus:
+- Is the contribution claim specific and falsifiable?
+- Does the evidence support the claim at the stated confidence level?
+- Are limitations named honestly?
+- Is related work fairly characterised?
+- Does the terminology stay consistent throughout?
+- Are citations correctly scoped (not overclaiming what sources say)?
+
+Reusable preferences:
+- Passive vs. active voice preference
+- Tolerance for hedging language
+- Preferred level of formality in discussion
+
+## Constrained Or Brand-Governed Writing
+
+Use when external style constraints apply that the writer cannot override:
+legal filings, clinical notes, regulatory copy, brand guidelines, corporate
+communication standards.
+
+Frame:
+- External constraint source (brand guide, legal template, regulatory standard),
+  non-negotiable rules, permitted variation, audience, purpose
+
+Plan shape:
+- Required sections or headings (from constraint source)
+- Permitted creative range within each section
+- Terms or phrases that must or must not appear
+
+Critique focus:
+- Does the draft comply with all non-negotiable constraints?
+- Are permitted variations used well within the allowed range?
+- Are required terms present and correctly used?
+- Are prohibited terms absent?
+
+Note: Do not treat constraint compliance as a reusable personal preference.
+Brand rules, legal templates, and regulatory requirements are external
+guardrails, not the user's writing choices.
+
+Reusable preferences:
+- Preferred tone within the permitted range
+- Preferred structure when the constraint leaves room

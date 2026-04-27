@@ -1,7 +1,17 @@
 # Checkpoints
 
-Use these checkpoint formats when the user wants a disciplined loop or when
-preference learning matters.
+Use these formats when the user wants a disciplined loop or when preference
+learning matters.
+
+## Gate Rule
+
+Every checkpoint is a mandatory pause. Do not proceed until the user replies
+explicitly. If the response is ambiguous (e.g., "looks good"), ask: "Does that
+mean approve, or would you like changes?"
+
+**Fast draft exception**: when the user asked for a draft and waived questions,
+skip the Plan Checkpoint and proceed directly to Draft. All other checkpoints
+still apply.
 
 ## Question Gate
 
@@ -26,8 +36,8 @@ ASSUMPTIONS
 Skipped questions are weak signals; they will not become strong preferences.
 ```
 
-If the user asks for a draft and waives questions, use this fast path instead
-of stopping at the plan checkpoint:
+If the user asked for a draft and waived questions, use this fast path. Output
+all sections and draft without pausing:
 
 ```text
 Frame
@@ -36,8 +46,7 @@ Frame
 - Goal: [goal]
 - Constraints: [constraints]
 
-ASSUMPTIONS
-- [assumption]
+Assumptions
 - [assumption]
 
 Skipped questions are weak signals; they will not become strong preferences.
@@ -55,27 +64,30 @@ No reusable preference learned; no reviewed decisions were collected.
 
 ## Plan Checkpoint
 
+Output this block and wait. Do not draft until the user replies.
+
 ```text
 PLAN CHECKPOINT
 [plan]
 
-Reply "approve" to draft from this plan, or describe what to change.
+Reply "approve" to draft, or describe what to change.
 ```
 
 Plan decisions:
 
 - `approve`: record `plan_approved`, then draft.
-- `change/reject/revise`: record `plan_revision_requested`, revise the plan, reissue checkpoint.
+- `change/reject/revise`: record `plan_revision_requested`, revise only the criticized elements, reissue the full plan and checkpoint.
 - `skip approval`: draft, but mark plan-learning confidence as low.
 
 ## Revision Proposal
 
-Offer one targeted proposal at a time when precision matters.
+Output one proposal at a time when precision matters. Wait for the user's
+decision before moving to the next proposal.
 
 ```text
-REVISION PROPOSAL [1/3]: [short title]
-Scope: [sentence | paragraph | section | scene | whole artifact]
-Original: [target text or location]
+REVISION PROPOSAL [1/N]: [short title]
+Change size: [sentence | paragraph | section | scene | whole artifact]
+Location: [target text or location]
 Revision: [replacement or instruction]
 Reason: [why this improves the artifact]
 Risk: [what might be lost]
@@ -92,6 +104,9 @@ Decision meanings:
 
 ## Session Close
 
+Output after all proposals are resolved. Do not list learned preferences if
+there were no review decisions — state what evidence is still missing instead.
+
 ```text
 SESSION COMPLETE
 Applied: [N]
@@ -100,8 +115,5 @@ Adjusted: [N]
 Unresolved: [N]
 
 Learned Preferences:
-- [rule, scope, evidence, confidence]
+- [rule, applies-to artifact-type/stage, evidence, confidence]
 ```
-
-Do not list learned preferences if there were no review decisions. Say what
-evidence is still missing instead.

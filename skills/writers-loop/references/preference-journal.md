@@ -32,11 +32,12 @@ evidence IDs instead of full private passages when possible.
   "stage": "planning",
   "type": "plan_approved",
   "signal": "positive",
-  "scope": "coding-plan/planning",
+  "appliesTo": "coding-plan/planning",
   "summary": "User approved plan with explicit test gates.",
   "payload": {
-    "targetSection": "testStrategy",
-    "changeSize": "small"
+    "location": "testStrategy section",
+    "changeSize": "sentence | paragraph | section | scene | whole artifact",
+    "preference": "short summary of the learned rule, if any"
   }
 }
 ```
@@ -79,13 +80,17 @@ Use `scripts/journal.mjs` from the skill directory:
 
 ```bash
 node scripts/journal.mjs init /path/to/project
-node scripts/journal.mjs append /path/to/project '{"type":"plan_approved","signal":"positive","artifact":"coding-plan","stage":"planning","scope":"coding-plan/planning","summary":"User approved exact test gates.","payload":{"preference":"Use exact verification commands in implementation plans"}}'
+node scripts/journal.mjs append /path/to/project '{"type":"plan_approved","signal":"positive","artifact":"coding-plan","stage":"planning","appliesTo":"coding-plan/planning","summary":"User approved exact test gates.","payload":{"preference":"Use exact verification commands in implementation plans"}}'
 node scripts/journal.mjs derive /path/to/project
 ```
 
 The derived `prefs.md` includes only medium and high confidence preferences.
 Single events stay in the journal unless they are explicit `preference_declared`
 events.
+`question_answered`, `question_skipped`, and `draft_accepted` events are retained
+as session evidence but are not promoted by the derivation tool.
+Use `appliesTo` for the artifact/stage scope. `journal.mjs` also accepts legacy
+`scope` fields when reading older journals.
 
 ## Derived Preferences
 
