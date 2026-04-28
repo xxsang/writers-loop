@@ -154,6 +154,7 @@ translator. Keep the parts of writing you value doing yourself.
 | Quick example | [docs/demo-transcript.md](docs/demo-transcript.md) |
 | Full method | [docs/writers-loop-complete-guide.md](docs/writers-loop-complete-guide.md) |
 | Copyable prompts | [docs/prompt-templates.md](docs/prompt-templates.md) |
+| Writing tool integrations | [docs/writing-tools.md](docs/writing-tools.md) |
 | Using A Learned Style | [docs/prompt-templates.md#using-a-learned-style](docs/prompt-templates.md#using-a-learned-style) |
 | Installation | [docs/installation.md](docs/installation.md) |
 | Local preference storage | [docs/local-preference-storage.md](docs/local-preference-storage.md) |
