@@ -1,6 +1,7 @@
 # Writer's Loop
 
 **AI writing that learns from your style, approvals, and edits.**
+**让 AI 写作根据你的风格、认可与修改持续改进。**
 
 [![Validate](https://github.com/xxsang/writers-loop/actions/workflows/validate.yml/badge.svg)](https://github.com/xxsang/writers-loop/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
