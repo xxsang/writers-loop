@@ -1,0 +1,144 @@
+<svg width="1536" height="920" viewBox="0 0 1536 920" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Writer's Loop evidence pipeline</title>
+  <desc id="desc">Reviewed inputs become reviewed signals, reusable preferences, and guided future drafts. Raw AI drafts are separated below as an excluded source that is not learned from.</desc>
+  <defs>
+    <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#0F172A" flood-opacity="0.10"/>
+    </filter>
+    <filter id="chip-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+    <radialGradient id="cyan-badge" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ECFEFF"/>
+      <stop offset="100%" stop-color="#0891B2"/>
+    </radialGradient>
+    <radialGradient id="green-badge" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#DCFCE7"/>
+      <stop offset="100%" stop-color="#16A34A"/>
+    </radialGradient>
+    <radialGradient id="blue-badge" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#DBEAFE"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </radialGradient>
+    <radialGradient id="red-badge" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FEE2E2"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </radialGradient>
+    <marker id="arrow-main" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M2 2L12 7L2 12" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2 2L10 6L2 10" fill="none" stroke="#DC2626" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <rect width="1536" height="920" fill="#F8FAFC"/>
+  <rect x="1" y="1" width="1534" height="918" stroke="#E2E8F0" stroke-width="2"/>
+
+  <text x="768" y="86" fill="#0F172A" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="54" font-weight="800" text-anchor="middle">Learn only from reviewed decisions</text>
+  <text x="768" y="150" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="30" font-weight="500" text-anchor="middle">Session-only by default. Local memory is opt-in.</text>
+
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <rect x="88" y="224" width="388" height="438" rx="24" fill="#FFFFFF" stroke="#60A5FA" stroke-width="2" filter="url(#soft-shadow)"/>
+    <circle cx="138" cy="282" r="30" fill="url(#cyan-badge)"/>
+    <path d="M138 263L156 271V286C156 299 148 308 138 313C128 308 120 299 120 286V271L138 263Z" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M129 286L136 293L149 278" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="190" y="292" fill="#0F172A" font-size="30" font-weight="800">1. Reviewed inputs</text>
+
+    <rect x="112" y="338" width="340" height="94" rx="16" fill="#FFFFFF" stroke="#E2E8F0" filter="url(#chip-shadow)"/>
+    <circle cx="164" cy="385" r="34" fill="#DBEAFE"/>
+    <circle cx="164" cy="385" r="14" stroke="#0E7490" stroke-width="4"/>
+    <circle cx="150" cy="381" r="5" fill="#0E7490"/>
+    <circle cx="174" cy="377" r="5" fill="#0E7490"/>
+    <circle cx="176" cy="397" r="5" fill="#0E7490"/>
+    <text x="220" y="382" fill="#0F172A" font-size="24" font-weight="800">Style samples</text>
+    <text x="220" y="412" fill="#334155" font-size="19">provided or approved</text>
+
+    <rect x="112" y="450" width="340" height="94" rx="16" fill="#FFFFFF" stroke="#E2E8F0" filter="url(#chip-shadow)"/>
+    <circle cx="164" cy="497" r="34" fill="#DBEAFE"/>
+    <path d="M151 474H174L184 484V520H151V474Z" stroke="#0E7490" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M174 474V486H184" stroke="#0E7490" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M158 499H176M158 510H176" stroke="#0E7490" stroke-width="4" stroke-linecap="round"/>
+    <text x="220" y="494" fill="#0F172A" font-size="24" font-weight="800">Approved plans</text>
+    <text x="220" y="524" fill="#334155" font-size="19">accepted decisions</text>
+
+    <rect x="112" y="562" width="340" height="94" rx="16" fill="#FFFFFF" stroke="#E2E8F0" filter="url(#chip-shadow)"/>
+    <circle cx="164" cy="609" r="34" fill="#DBEAFE"/>
+    <path d="M150 623L158 598L181 575L190 584L167 607L150 623Z" stroke="#0E7490" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M174 582L183 591" stroke="#0E7490" stroke-width="4" stroke-linecap="round"/>
+    <text x="220" y="606" fill="#0F172A" font-size="24" font-weight="800">Accepted edits</text>
+    <text x="220" y="636" fill="#334155" font-size="19">reviewed changes</text>
+
+    <rect x="548" y="224" width="250" height="438" rx="24" fill="#F8FEFF" stroke="#0891B2" stroke-width="2" filter="url(#soft-shadow)"/>
+    <circle cx="673" cy="322" r="48" fill="#CFFAFE"/>
+    <circle cx="662" cy="313" r="24" stroke="#155E75" stroke-width="6"/>
+    <path d="M680 331L704 355" stroke="#155E75" stroke-width="6" stroke-linecap="round"/>
+    <text x="673" y="425" fill="#0F172A" font-size="28" font-weight="800" text-anchor="middle">2. Reviewed</text>
+    <text x="673" y="461" fill="#0F172A" font-size="28" font-weight="800" text-anchor="middle">signals</text>
+    <path d="M583 502H763" stroke="#0891B2" stroke-width="2"/>
+    <text x="673" y="552" fill="#0891B2" font-size="24" font-weight="750" text-anchor="middle">explicit</text>
+    <text x="673" y="590" fill="#0891B2" font-size="24" font-weight="750" text-anchor="middle">inspectable</text>
+    <text x="673" y="628" fill="#0891B2" font-size="24" font-weight="750" text-anchor="middle">scoped</text>
+
+    <rect x="866" y="224" width="250" height="438" rx="24" fill="#FAFFFA" stroke="#16A34A" stroke-width="2" filter="url(#soft-shadow)"/>
+    <circle cx="991" cy="322" r="48" fill="#DCFCE7"/>
+    <path d="M991 279L1030 293V323C1030 351 1014 370 991 382C968 370 952 351 952 323V293L991 279Z" fill="#16A34A" opacity="0.95"/>
+    <path d="M972 327L986 341L1012 313" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="991" y="425" fill="#0F172A" font-size="28" font-weight="800" text-anchor="middle">3. Reusable</text>
+    <text x="991" y="461" fill="#0F172A" font-size="28" font-weight="800" text-anchor="middle">preferences</text>
+    <path d="M901 502H1081" stroke="#16A34A" stroke-width="2"/>
+    <text x="991" y="558" fill="#15803D" font-size="24" font-weight="750" text-anchor="middle">only after</text>
+    <text x="991" y="596" fill="#15803D" font-size="24" font-weight="750" text-anchor="middle">evidence</text>
+
+    <rect x="1184" y="224" width="262" height="438" rx="24" fill="#F8FBFF" stroke="#2563EB" stroke-width="2" filter="url(#soft-shadow)"/>
+    <circle cx="1315" cy="322" r="48" fill="#DBEAFE"/>
+    <circle cx="1315" cy="322" r="33" stroke="#2563EB" stroke-width="8"/>
+    <circle cx="1315" cy="322" r="18" stroke="#2563EB" stroke-width="7"/>
+    <path d="M1315 322L1344 293" stroke="#2563EB" stroke-width="7" stroke-linecap="round"/>
+    <path d="M1344 293L1352 274L1360 288L1376 292L1358 302" stroke="#2563EB" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1315" y="425" fill="#0F172A" font-size="28" font-weight="800" text-anchor="middle">4. Guided</text>
+    <text x="1315" y="461" fill="#0F172A" font-size="28" font-weight="800" text-anchor="middle">future drafts</text>
+    <path d="M1220 502H1410" stroke="#2563EB" stroke-width="2"/>
+    <text x="1315" y="556" fill="#2563EB" font-size="24" font-weight="750" text-anchor="middle">better directed,</text>
+    <text x="1315" y="594" fill="#2563EB" font-size="24" font-weight="750" text-anchor="middle">not guessed</text>
+  </g>
+
+  <g>
+    <circle cx="512" cy="443" r="30" fill="#0891B2"/>
+    <path d="M498 443H526M514 429L528 443L514 457" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="832" cy="443" r="30" fill="#0891B2"/>
+    <path d="M818 443H846M834 429L848 443L834 457" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1150" cy="443" r="30" fill="#0891B2"/>
+    <path d="M1136 443H1164M1152 429L1166 443L1152 457" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <path d="M88 704H1446" stroke="#CBD5E1" stroke-width="3" stroke-dasharray="12 12"/>
+
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <rect x="248" y="738" width="382" height="88" rx="20" fill="#FFF7ED" stroke="#EF4444" stroke-width="1.8" filter="url(#soft-shadow)"/>
+    <circle cx="305" cy="782" r="34" fill="url(#red-badge)"/>
+    <rect x="290" y="768" width="30" height="27" rx="7" stroke="#FFFFFF" stroke-width="5"/>
+    <path d="M305 756V768M294 782H294.5M316 782H316.5M285 779H290M320 779H325" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+    <text x="360" y="777" fill="#991B1B" font-size="27" font-weight="800">Raw AI drafts</text>
+    <text x="360" y="811" fill="#B91C1C" font-size="22">unreviewed outputs</text>
+
+    <circle cx="768" cy="782" r="36" fill="#FFFFFF" stroke="#DC2626" stroke-width="6"/>
+    <path d="M753 767L783 797M783 767L753 797" stroke="#DC2626" stroke-width="8" stroke-linecap="round"/>
+
+    <rect x="968" y="738" width="374" height="88" rx="20" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.8" filter="url(#soft-shadow)"/>
+    <text x="1155" y="777" fill="#991B1B" font-size="27" font-weight="800" text-anchor="middle">Not learned from</text>
+    <text x="1155" y="811" fill="#B91C1C" font-size="21" text-anchor="middle">discarded as memory</text>
+  </g>
+
+  <g stroke="#DC2626" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="12 14" marker-end="url(#arrow-red)">
+    <path d="M650 782H728"/>
+    <path d="M808 782H946"/>
+  </g>
+
+  <g font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif">
+    <rect x="300" y="850" width="936" height="52" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <circle cx="342" cy="876" r="15" fill="none" stroke="#64748B" stroke-width="3"/>
+    <text x="342" y="883" fill="#64748B" font-size="20" font-weight="800" text-anchor="middle">i</text>
+    <text x="386" y="884" fill="#475569" font-size="22">Only reviewed, accepted, and inspectable signals shape future behavior.</text>
+  </g>
+</svg>

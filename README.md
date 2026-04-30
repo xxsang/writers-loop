@@ -1,5 +1,7 @@
 # Writer's Loop
 
+English | [简体中文](README_zh.md) | [日本語](README_ja.md) | [Español](README_es.md)
+
 **AI writing that learns from your style, approvals, and edits.**
 **让 AI 写作根据你的风格、认可与修改持续改进。**
 
@@ -7,6 +9,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![No npm install](https://img.shields.io/badge/npm%20install-not%20required-brightgreen)](package.json)
 [![Memory](https://img.shields.io/badge/memory-local%20opt--in-blue)](PRIVACY.md)
+
+<p align="center">
+  <img src="assets/writers-loop-overview.svg" alt="Writer's Loop overview" width="720">
+</p>
 
 Writer's Loop is a portable writing skill for AI agents. It turns writing into
 a reviewable loop — frame, plan, draft, critique, revise — and learns only from
@@ -18,11 +24,31 @@ translation.
 
 ---
 
+## One-Line Agent Setup
+
+If you use Claude Code, Codex, Cursor, Gemini CLI, OpenCode, or another local
+agent, give it this setup prompt:
+
+```text
+Help me install Writer's Loop from https://github.com/xxsang/writers-loop, then use $writers-loop for my writing task without saving preferences unless I explicitly opt in.
+```
+
+For manual installation, see [docs/installation.md](docs/installation.md).
+
+---
+
 ## The Problem With One-Shot AI Writing
 
 Most writing prompts collapse planning, drafting, editing, and preference
 learning into one pass. The agent guesses what you want, rewrites without
 asking, and forgets your decisions the moment the conversation ends.
+
+| Problem | Writer's Loop response |
+| --- | --- |
+| One-shot drafts guess too much | Frame the task and plan before drafting |
+| Rewrites can erase intent | Propose changes before revising |
+| AI memory can become unreliable | Learn only from reviewed decisions |
+| Style copying can leak private facts | Separate style traits from source content |
 
 Writer's Loop keeps the stages separate:
 

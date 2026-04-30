@@ -27,6 +27,9 @@ const requiredFiles = [
 
 const requiredRepoFiles = [
   "README.md",
+  "README_zh.md",
+  "README_ja.md",
+  "README_es.md",
   "LICENSE",
   "package.json",
   ".gitignore",
@@ -44,6 +47,7 @@ const requiredRepoFiles = [
   ".github/PULL_REQUEST_TEMPLATE.md",
   ".github/workflows/validate.yml",
   ".opencode/INSTALL.md",
+  "assets/writers-loop-overview.svg",
   "docs/demo-transcript.md",
   "tools/evals/ab-prompts.json",
   "tools/evals/control-responses.codex.json",
@@ -245,9 +249,66 @@ if (existsSync(path.join(repoRoot, "README.md"))) {
     "Using A Learned Style",
     ".writers-loop/styles/",
     "style:save",
+    "README_zh.md",
+    "README_ja.md",
+    "README_es.md",
+    "assets/writers-loop-overview.svg",
   ]) {
     if (!readme.includes(requiredText)) {
       failures.push(`README.md must mention: ${requiredText}`);
+    }
+  }
+}
+
+for (const [localizedReadme, requiredTexts] of [
+  [
+    "README_zh.md",
+    [
+      "Writer's Loop",
+      "只从用户决策中学习",
+      "README.md",
+      "docs/installation.md",
+      "docs/prompt-templates.md",
+      "docs/writing-tools.md",
+      ".writers-loop/",
+      "PRIVACY.md",
+    ],
+  ],
+  [
+    "README_ja.md",
+    [
+      "Writer's Loop",
+      "ユーザーの意思決定から学習",
+      "README.md",
+      "docs/installation.md",
+      "docs/prompt-templates.md",
+      "docs/writing-tools.md",
+      ".writers-loop/",
+      "PRIVACY.md",
+    ],
+  ],
+  [
+    "README_es.md",
+    [
+      "Writer's Loop",
+      "decisiones del usuario",
+      "README.md",
+      "docs/installation.md",
+      "docs/prompt-templates.md",
+      "docs/writing-tools.md",
+      ".writers-loop/",
+      "PRIVACY.md",
+    ],
+  ],
+]) {
+  if (!existsSync(path.join(repoRoot, localizedReadme))) continue;
+  const localized = readRepo(localizedReadme);
+  for (const requiredText of [
+    ...requiredTexts,
+    "assets/writers-loop-overview.svg",
+  ]) {
+    if (!localized.includes(requiredText)) {
+      failures.push(`${localizedReadme} must mention: ${requiredText}`);
     }
   }
 }
