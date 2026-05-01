@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const styleTool = path.join(repoRoot, "skills", "writers-loop", "scripts", "style-pack.mjs");
 const journalTool = path.join(repoRoot, "skills", "writers-loop", "scripts", "journal.mjs");
+const evalTool = path.join(repoRoot, "tools", "run-evals.mjs");
 const liveEvalTool = path.join(repoRoot, "tools", "run-live-ab-evals.mjs");
 const projectDir = mkdtempSync(path.join(os.tmpdir(), "writers-loop-real-"));
 
@@ -180,6 +181,15 @@ assert(skillText.includes("Style Pack"), "SKILL.md does not mention style packs"
 const readme = readFileSync(path.join(repoRoot, "README.md"), "utf8");
 assert(readme.includes("Using A Learned Style"), "README does not document using a learned style");
 assert(readme.includes(".writers-loop/styles/"), "README does not document style storage path");
+
+const evalCoverageDir = path.join(projectDir, "missing-scenario-coverage");
+run([
+  evalTool,
+  "--scenario",
+  "optional-multi-agent,local-style-pack-storage",
+  "--output",
+  evalCoverageDir,
+]);
 
 const liveEvalDir = path.join(projectDir, "live-ab-dry-run");
 run([

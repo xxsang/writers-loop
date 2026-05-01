@@ -173,6 +173,12 @@ if (!frontmatter) {
   if ((frontmatter.description ?? "").length > 500) {
     failures.push("Description should stay under 500 characters.");
   }
+  if (!/substantial writing/i.test(frontmatter.description ?? "")) {
+    failures.push("Description must scope invocation to substantial writing.");
+  }
+  if (/planning, drafting, reviewing, revising/i.test(frontmatter.description ?? "")) {
+    failures.push("Description must not use broad generic writing-stage triggers.");
+  }
 }
 
 for (const term of requiredLoopTerms) {

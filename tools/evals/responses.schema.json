@@ -10,8 +10,10 @@
     "no-learning-evidence",
     "rejected-plan",
     "durable-storage",
+    "optional-multi-agent",
     "style-distillation",
     "style-application",
+    "local-style-pack-storage",
     "translation"
   ],
   "properties": {
@@ -36,10 +38,16 @@
     "durable-storage": {
       "type": "string"
     },
+    "optional-multi-agent": {
+      "type": "string"
+    },
     "style-distillation": {
       "type": "string"
     },
     "style-application": {
+      "type": "string"
+    },
+    "local-style-pack-storage": {
       "type": "string"
     },
     "translation": {

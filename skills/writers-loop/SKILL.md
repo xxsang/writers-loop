@@ -1,6 +1,6 @@
 ---
 name: writers-loop
-description: Use when planning, drafting, reviewing, revising, translating while preserving source writing style, or improving substantial writing artifacts, or when learning a reusable writing style from the user's own writing or permitted reference samples.
+description: Use when working on substantial writing artifacts where structure, audience fit, critique, revision, translation, style learning, or decision-backed preference learning matters; also when learning reusable writing style from the user's own writing or permitted reference samples.
 ---
 
 # Writer's Loop

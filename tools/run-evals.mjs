@@ -189,6 +189,36 @@ const SCENARIOS = [
     ],
   },
   {
+    id: "optional-multi-agent",
+    title: "Optional Multi-Agent",
+    criteria: [
+      ["has multi-agent reference", /references\/multi-agent\.md|Optional Multi-Agent Extension/i],
+      ["defaults single-agent", /Default to the single-agent loop|default to single-agent/i],
+      [
+        "uses only when justified",
+        /High-stakes artifact|Long artifact|Ambiguous artifact|multi-domain artifact/i,
+      ],
+      [
+        "keeps controller ownership",
+        /Controller[\s\S]*owns|Controller[\s\S]*responsible for final synthesis/i,
+      ],
+      [
+        "requires plan checkpoint before drafting",
+        /mandatory `?PLAN CHECKPOINT`?|Before approval[\s\S]*PLAN CHECKPOINT/i,
+      ],
+      ["uses distinct roles", /Planner[\s\S]*Drafter[\s\S]*Critic[\s\S]*Editor/i],
+      [
+        "requires honest subagent labeling",
+        /do not claim that multiple agents ran|role simulation/i,
+      ],
+      [
+        "agent outputs are not preference signals",
+        /Agent critiques[\s\S]*non-signals|Only the Controller may record preference/i,
+      ],
+      ["validates scenario", /Optional Multi-Agent/i],
+    ],
+  },
+  {
     id: "style-distillation",
     title: "Style Distillation",
     criteria: [
@@ -229,6 +259,32 @@ const SCENARIOS = [
       ["separates content and style critique", /content quality[\s\S]*style match|Critique[\s\S]*Content quality/i],
       ["guards source passage copying", /source passages|source facts/i],
       ["validates scenario", /Use Learned Style/i],
+    ],
+  },
+  {
+    id: "local-style-pack-storage",
+    title: "Local Style Pack Storage",
+    criteria: [
+      ["documents local style storage", /\.writers-loop\/styles\/|Local Style Pack Storage/i],
+      ["requires explicit opt-in", /opts into durable local style storage|explicit durable-storage opt-in/i],
+      [
+        "saves only reviewed style packs",
+        /Only save reviewed style packs|reviewed style pack, not raw source samples/i,
+      ],
+      ["uses style-pack tool", /scripts\/style-pack\.mjs|style-pack\.mjs save/i],
+      [
+        "keeps storage local",
+        /\.writers-loop\/styles\/\[name\]\.md|\.writers-loop\/styles\/my-style\.md/i,
+      ],
+      [
+        "separates style packs from preferences",
+        /Style packs are not preferences|saved style packs and learned preferences are separate/i,
+      ],
+      [
+        "guards third-party style storage",
+        /Do not save another person's style durably|permission or intended reuse is unclear/i,
+      ],
+      ["validates scenario", /Local Style Pack Storage/i],
     ],
   },
   {
@@ -478,6 +534,38 @@ const RESPONSE_CRITERIA = {
       { critical: true },
     ],
   ],
+  "optional-multi-agent": [
+    [
+      "frames multi-agent decision",
+      /Multi-Agent Mode|single-agent|multi-agent/i,
+    ],
+    [
+      "justifies or rejects overhead",
+      /Reason|worth the overhead|high-stakes|risky acquisition|board memo/i,
+    ],
+    [
+      "keeps controller ownership",
+      /Controller|merge policy|final synthesis|user constraints/i,
+    ],
+    [
+      "uses distinct roles if multi-agent",
+      /Planner|Critic|Editor|Preference Distiller|distinct roles/i,
+    ],
+    [
+      "stops at plan checkpoint before draft",
+      (text) => /PLAN CHECKPOINT/i.test(text) && !/Draft\n|Draft:/i.test(text),
+      { critical: true },
+    ],
+    [
+      "does not claim preference learning from agents",
+      /agent critiques.*non-signals|not preference evidence|No reusable preference/i,
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
   "style-distillation": [
     [
       "frames source and reuse",
@@ -539,6 +627,38 @@ const RESPONSE_CRITERIA = {
     ],
     ["offers targeted changes", /Proposed Changes|targeted/i],
   ],
+  "local-style-pack-storage": [
+    [
+      "requires durable storage opt-in",
+      /explicit.*opt-in|durable-storage opt-in|Storage Decision/i,
+      { critical: true },
+    ],
+    [
+      "writes only reviewed style pack",
+      /reviewed style pack|not raw source samples|raw source/i,
+    ],
+    [
+      "uses local styles path",
+      /\.writers-loop\/styles\/my-style\.md|\.writers-loop\/styles\//i,
+    ],
+    [
+      "uses style-pack save command",
+      /style-pack\.mjs save|npm run style:save/i,
+    ],
+    [
+      "keeps storage out of source control",
+      /\.gitignore|out of source control|do not commit/i,
+    ],
+    [
+      "separates style pack from learned preferences",
+      /style packs?.*not.*preferences|learned preferences.*separate/i,
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
   translation: [
     [
       "frames source and target",
@@ -578,8 +698,10 @@ const RESPONSE_THRESHOLDS = {
   "no-learning-evidence": 7,
   "rejected-plan": 5,
   "durable-storage": 7,
+  "optional-multi-agent": 6,
   "style-distillation": 6,
   "style-application": 6,
+  "local-style-pack-storage": 6,
   translation: 6,
 };
 

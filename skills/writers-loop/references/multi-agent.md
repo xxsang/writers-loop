@@ -35,13 +35,14 @@ Do not use multi-agent when:
 1. Controller frames the artifact and decides if multi-agent is justified.
 2. Controller states the multi-agent plan and why single-agent is insufficient.
 3. Planner receives only task-local context and produces a plan.
-4. Controller checks the plan, asks the user if a plan checkpoint is required, and revises if rejected.
-5. Drafter writes from the plan.
-6. Critics review independently. Use parallel critics only when their scopes differ.
-7. Controller merges critique into targeted revision proposals.
-8. User accepts, rejects, or adjusts meaningful proposals.
-9. Editor applies accepted changes only.
-10. Preference Distiller records reusable rules only from user decisions.
+4. Controller checks the plan, outputs a mandatory `PLAN CHECKPOINT`, and waits unless the user explicitly requested the fast-draft path.
+5. If rejected, revise only criticized elements, reissue the full plan, and checkpoint again.
+6. If approved, Drafter writes from the plan.
+7. Critics review independently. Use parallel critics only when their scopes differ.
+8. Controller merges critique into targeted revision proposals.
+9. User accepts, rejects, or adjusts meaningful proposals.
+10. Editor applies accepted changes only.
+11. Preference Distiller records reusable rules only from user decisions.
 
 ## Parallel Critic Pattern
 
@@ -106,7 +107,22 @@ the user decides.
 
 ## Output Shape
 
-Use this compact form unless the user asks for a full trace:
+Before approval, output only the mode, plan, and checkpoint:
+
+```text
+Multi-Agent Mode
+Reason: [why optional multi-agent is justified]
+Roles: [Planner, Drafter, Critics, Editor, Preference Distiller]
+
+Plan
+[controller-checked plan]
+
+PLAN CHECKPOINT
+Reply "approve" to draft from this plan, or describe what to change.
+```
+
+After the plan checkpoint passes, or when the user explicitly requested the
+fast-draft path, use this compact form unless the user asks for a full trace:
 
 ```text
 Multi-Agent Mode
