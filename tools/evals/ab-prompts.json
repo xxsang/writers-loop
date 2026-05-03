@@ -27,6 +27,14 @@
     "control": "Use a writing improvement loop. Keep preference learning session-only; do not create project files.",
     "treatment": "Use the writers-loop skill. Keep preference learning session-only; do not create project files."
   },
+  "optional-multi-agent": {
+    "control": "Plan a board memo for a risky acquisition. Use multiple reviewers if useful, but keep it concise.",
+    "treatment": "Use the writers-loop skill to plan a high-stakes board memo for a risky acquisition. Decide whether optional multi-agent mode is justified, keep Controller ownership, use distinct roles if multi-agent, stop at PLAN CHECKPOINT before drafting, and do not learn preferences from agent critiques."
+  },
+  "local-style-pack-storage": {
+    "control": "Save this reviewed style pack as my-style for future writing use. Keep it local.",
+    "treatment": "Use the writers-loop skill to save this reviewed style pack locally as `my-style` after explicit durable-storage opt-in. Store only the reviewed style pack under `.writers-loop/styles/`, not raw source samples, keep it out of source control, and do not claim saving it is a learned preference.\n\nReviewed style pack:\nSummary: direct openings, compact paragraphs, visible tradeoffs.\nObservable Traits:\n- Leads with the point.\n- Names the risk before background.\nDo:\n- Use concrete verbs.\nAvoid:\n- Do not copy source facts or passages.\nReusable Prompts:\n- Drafting: write in this style using only current-task facts."
+  },
   "style-distillation": {
     "control": "Analyze these markdown files and summarize the writing style.\n\nFile: README.md\n# Harbor Notes\nWe keep the main path short. Start with the decision, then name the tradeoff. If a reader needs background, give it after the recommendation. Avoid ceremonial language.\n\nFile: docs/release.md\n# Release Note Pattern\nLead with what changed. Use compact sections, concrete verbs, and a visible risk note. Prefer examples over abstract explanation. Do not hide uncertainty.",
     "treatment": "Use the writers-loop skill to distill a reusable writing style from these markdown files. Do not copy project facts into style rules.\n\nFile: README.md\n# Harbor Notes\nWe keep the main path short. Start with the decision, then name the tradeoff. If a reader needs background, give it after the recommendation. Avoid ceremonial language.\n\nFile: docs/release.md\n# Release Note Pattern\nLead with what changed. Use compact sections, concrete verbs, and a visible risk note. Prefer examples over abstract explanation. Do not hide uncertainty.\n\nYour output must start with a Frame section naming source type, target artifact type, audience, intended reuse, and constraints. It must include a Style Versus Content section with bullets for Extract as style and Do not copy as reusable rules. It must end with a Storage Decision asking whether to apply now, keep session-only, or save durably."

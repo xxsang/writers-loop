@@ -549,7 +549,10 @@ const RESPONSE_CRITERIA = {
     ],
     [
       "uses distinct roles if multi-agent",
-      /Planner|Critic|Editor|Preference Distiller|distinct roles/i,
+      (text) =>
+        ["Controller", "Planner", "Drafter", "Critic", "Editor", "Preference Distiller"].every(
+          (role) => new RegExp(role, "i").test(text),
+        ),
     ],
     [
       "stops at plan checkpoint before draft",
@@ -630,7 +633,7 @@ const RESPONSE_CRITERIA = {
   "local-style-pack-storage": [
     [
       "requires durable storage opt-in",
-      /explicit.*opt-in|durable-storage opt-in|Storage Decision/i,
+      /explicit(?: durable-storage| durable)? opt-in|durable-storage opt-in|after explicit durable-storage opt-in/i,
       { critical: true },
     ],
     [
