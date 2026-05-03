@@ -147,6 +147,32 @@ scripts are for validation, evals, and optional local storage tooling only.
 
 ---
 
+## Writing Tool Templates
+
+Writer's Loop also ships templates for writing surfaces that do not run skills
+natively. These are linked from the full [writing tool integration guide](docs/writing-tools.md).
+
+| Tool | Easy path |
+| --- | --- |
+| **Obsidian** | Copy `integrations/obsidian/templates/` into your vault's template folder |
+| **Logseq** | Copy `integrations/logseq/templates/writers-loop.md` into a template page |
+| **Notion** | Paste `integrations/notion/writers-loop-page-template.md` into a page |
+| **Feishu / Lark Docs** | Paste or create `integrations/feishu/writers-loop-doc-template.md` |
+| **ChatGPT / Claude Projects** | Paste the project instructions and attach the listed Writer's Loop references |
+
+Obsidian quick setup:
+
+```bash
+VAULT="$HOME/Documents/Obsidian/MyVault"
+mkdir -p "$VAULT/Templates/Writers Loop"
+cp integrations/obsidian/templates/*.md "$VAULT/Templates/Writers Loop/"
+```
+
+Then enable Obsidian's **Templates** core plugin and set the template folder to
+`Templates/Writers Loop`.
+
+---
+
 ## Local Memory Is Opt-In
 
 Writer's Loop works without memory. Preference learning is session-only by default.

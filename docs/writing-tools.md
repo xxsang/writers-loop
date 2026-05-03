@@ -23,6 +23,31 @@ Support levels here are conservative:
 | Feishu / Lark Docs | AI-connected workspace | A doc template usable manually or through Feishu CLI's document skill | `integrations/feishu/writers-loop-doc-template.md` |
 | Logseq | Template workspace | An outliner template for Frame, Plan, Decisions, and Revision | `integrations/logseq/templates/writers-loop.md` |
 
+## Quick Setup
+
+Use these from the repository root after cloning
+`https://github.com/xxsang/writers-loop`.
+
+Obsidian:
+
+```bash
+VAULT="$HOME/Documents/Obsidian/MyVault"
+mkdir -p "$VAULT/Templates/Writers Loop"
+cp integrations/obsidian/templates/*.md "$VAULT/Templates/Writers Loop/"
+```
+
+Logseq:
+
+```bash
+GRAPH="$HOME/Documents/Logseq/MyGraph"
+mkdir -p "$GRAPH/pages"
+cp integrations/logseq/templates/writers-loop.md "$GRAPH/pages/writers-loop-template.md"
+```
+
+Notion, Feishu/Lark Docs, ChatGPT Projects, and Claude Projects do not install
+local files. Paste or upload the integration file listed in the table, then keep
+the decision log in the target workspace.
+
 ## ChatGPT Projects Or GPTs
 
 Use this when you want Writer's Loop to stay available across repeated writing
@@ -74,13 +99,24 @@ Use this when you want a local writing vault with explicit decision records.
 Obsidian does not run Writer's Loop as a native skill. The support here is
 template-based and local-first.
 
-1. Copy `integrations/obsidian/templates/` into your Obsidian template folder.
+Fast local setup:
+
+```bash
+VAULT="$HOME/Documents/Obsidian/MyVault"
+mkdir -p "$VAULT/Templates/Writers Loop"
+cp integrations/obsidian/templates/*.md "$VAULT/Templates/Writers Loop/"
+```
+
+Then:
+
+1. Replace `MyVault` with your vault path.
 2. Enable the Obsidian **Templates** core plugin.
-3. Create a note for each writing artifact.
-4. Insert `writers-loop-brief.md` before asking an AI assistant for help.
-5. Use `critique-and-revision.md` to record accepted, rejected, and adjusted
+3. Set the template folder to `Templates/Writers Loop`.
+4. Create a note for each writing artifact.
+5. Insert `writers-loop-brief.md` before asking an AI assistant for help.
+6. Use `critique-and-revision.md` to record accepted, rejected, and adjusted
    changes.
-6. Use `style-pack.md` only after the source style pack has been reviewed.
+7. Use `style-pack.md` only after the source style pack has been reviewed.
 
 Official references: [Obsidian Templates](https://help.obsidian.md/Plugins/Templates),
 [Obsidian URI](https://help.obsidian.md/uri), [Obsidian community plugins](https://help.obsidian.md/community-plugins).
@@ -135,7 +171,17 @@ Official reference: [Feishu/Lark CLI](https://feishu-cli.com/).
 Use this when you want an outliner-based decision log. Logseq does not run
 Writer's Loop as a native skill. The support here is a reusable block template.
 
-1. Copy `integrations/logseq/templates/writers-loop.md` into a Logseq page.
+Fast local setup:
+
+```bash
+GRAPH="$HOME/Documents/Logseq/MyGraph"
+mkdir -p "$GRAPH/pages"
+cp integrations/logseq/templates/writers-loop.md "$GRAPH/pages/writers-loop-template.md"
+```
+
+Then:
+
+1. Replace `MyGraph` with your graph path.
 2. Keep the `template:: writers-loop` block.
 3. Insert it with Logseq's template workflow when starting a writing artifact.
 4. Paste the filled brief into ChatGPT, Claude, Codex, or another AI assistant.
