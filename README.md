@@ -73,36 +73,13 @@ Learn from user decisions, not from raw AI drafts.
 ```
 
 ```mermaid
-%%{init: {"flowchart": {"curve": "basis", "nodeSpacing": 42, "rankSpacing": 58}} }%%
-flowchart TB
-  subgraph reviewed["Reviewed path"]
-    direction LR
-    A["Approved plans"] --> M((" "))
-    B["Accepted edits"] --> M
-    C["Style samples<br/>you provide or approve"] --> M
-    M --> D["Reviewed signals"] --> E["Reusable preferences"] --> F["Better future drafts"]
-  end
-
-  subgraph excluded["Excluded from learning"]
-    direction LR
-    X["Raw AI drafts"] -. "not learned from" .-> Z["Discarded"]
-  end
-
-  classDef source fill:#F8FAFC,stroke:#94A3B8,color:#0F172A
-  classDef merge fill:#64748B,stroke:#64748B,color:#64748B
-  classDef signal fill:#EFF6FF,stroke:#3B82F6,color:#0F172A
-  classDef pref fill:#F0FDF4,stroke:#22C55E,color:#0F172A
-  classDef draft fill:#F8FAFC,stroke:#2563EB,color:#0F172A
-  classDef blocked fill:#FFF7ED,stroke:#F97316,color:#7C2D12
-  class A,B,C source
-  class M merge
-  class D signal
-  class E pref
-  class F draft
-  class X,Z blocked
-  linkStyle 0,1,2 stroke:#64748B,stroke-width:1.7px
-  linkStyle 3,4,5 stroke:#334155,stroke-width:2px
-  linkStyle 6 stroke:#F97316,stroke-width:1.8px,stroke-dasharray:6 5
+flowchart LR
+  A["Style samples you provide or approve"] --> D["Reviewed signals"]
+  B["Approved plans"] --> D
+  C["Accepted edits"] --> D
+  X["Raw AI drafts"] -. "not learned from" .-> Z["Discarded"]
+  D --> E["Reusable preferences"]
+  E --> F["Better future drafts"]
 ```
 
 ---
