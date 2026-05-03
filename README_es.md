@@ -113,6 +113,33 @@ Para instalación en carpeta de skills local, clona el repositorio e instala con
 git clone https://github.com/xxsang/writers-loop.git
 ```
 
+### Instalación local rápida
+
+En este repositorio, la raíz del repositorio ya es la raíz del plugin e incluye
+`.codex-plugin/`, `.claude-plugin/`, `.cursor-plugin/`,
+`gemini-extension.json` y `skills/`. El skill instalable está en
+`skills/writers-loop/`. No crees un árbol duplicado `plugins/writers-loop`.
+
+Carpeta local de skills para Codex:
+
+```bash
+tmp="$(mktemp -d)" &&
+  git clone --depth 1 https://github.com/xxsang/writers-loop.git "$tmp/writers-loop" &&
+  mkdir -p ~/.codex/skills/writers-loop &&
+  cp -R "$tmp/writers-loop/skills/writers-loop/"* ~/.codex/skills/writers-loop/
+```
+
+Carpeta local de skills para Claude Code:
+
+```bash
+tmp="$(mktemp -d)" &&
+  git clone --depth 1 https://github.com/xxsang/writers-loop.git "$tmp/writers-loop" &&
+  mkdir -p ~/.claude/skills/writers-loop &&
+  cp -R "$tmp/writers-loop/skills/writers-loop/"* ~/.claude/skills/writers-loop/
+```
+
+No hace falta `npm install` para el uso normal. Si después de instalar activas la memoria local, `.writers-loop/` solo se crea dentro del proyecto elegido tras aprobación explícita; los paquetes de estilo revisados se guardan solo en `.writers-loop/styles/`.
+
 | Agente | Método rápido |
 | --- | --- |
 | **Claude Code** | Copia `skills/writers-loop` en `~/.claude/skills/`, o usa `.claude-plugin/plugin.json` |

@@ -113,6 +113,33 @@ https://github.com/xxsang/writers-loop
 git clone https://github.com/xxsang/writers-loop.git
 ```
 
+### ローカルクイックインストール
+
+リポジトリのルートがそのままプラグインルートです。`.codex-plugin/`、
+`.claude-plugin/`、`.cursor-plugin/`、`gemini-extension.json`、`skills/` が
+すでに含まれています。インストール対象のスキルは `skills/writers-loop/`
+です。重複した `plugins/writers-loop` ツリーは作成しないでください。
+
+Codex のローカルスキルフォルダ:
+
+```bash
+tmp="$(mktemp -d)" &&
+  git clone --depth 1 https://github.com/xxsang/writers-loop.git "$tmp/writers-loop" &&
+  mkdir -p ~/.codex/skills/writers-loop &&
+  cp -R "$tmp/writers-loop/skills/writers-loop/"* ~/.codex/skills/writers-loop/
+```
+
+Claude Code のローカルスキルフォルダ:
+
+```bash
+tmp="$(mktemp -d)" &&
+  git clone --depth 1 https://github.com/xxsang/writers-loop.git "$tmp/writers-loop" &&
+  mkdir -p ~/.claude/skills/writers-loop &&
+  cp -R "$tmp/writers-loop/skills/writers-loop/"* ~/.claude/skills/writers-loop/
+```
+
+通常の使用に `npm install` は不要です。インストール後にローカルメモリを有効にする場合でも、明示的に同意したときだけ選択したプロジェクト内に `.writers-loop/` を作成します。レビュー済みのスタイルパックだけを `.writers-loop/styles/` に保存します。
+
 | エージェント | インストール方法 |
 | --- | --- |
 | **Claude Code** | `skills/writers-loop` を `~/.claude/skills/` にコピー、または `.claude-plugin/plugin.json` を使用 |
@@ -170,7 +197,7 @@ Writer's Loop はメモリなしで動作します。好みの学習はデフォ
 
 - `.writers-loop/` はあなたの確認なしには作成されません。
 - `.writers-loop/` を公開リポジトリにコミットしないでください。
-- 保存されるのはレビュー済みのスタイルパックだけで、生の私的サンプルは保存しません。
+- 保存されるのは `.writers-loop/styles/` 内のレビュー済みスタイルパックだけで、生の私的サンプルは保存しません。
 
 `style:save` などのコマンドは [docs/local-preference-storage.md](docs/local-preference-storage.md) を、完全なプライバシーポリシーは [PRIVACY.md](PRIVACY.md) を参照してください。
 

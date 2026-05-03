@@ -113,6 +113,32 @@ https://github.com/xxsang/writers-loop
 git clone https://github.com/xxsang/writers-loop.git
 ```
 
+### 本地快速安装
+
+仓库根目录就是插件根目录，已包含 `.codex-plugin/`、`.claude-plugin/`、
+`.cursor-plugin/`、`gemini-extension.json` 和 `skills/`。可安装技能位于
+`skills/writers-loop/`；不要创建重复的 `plugins/writers-loop` 目录。
+
+Codex 本地技能目录：
+
+```bash
+tmp="$(mktemp -d)" &&
+  git clone --depth 1 https://github.com/xxsang/writers-loop.git "$tmp/writers-loop" &&
+  mkdir -p ~/.codex/skills/writers-loop &&
+  cp -R "$tmp/writers-loop/skills/writers-loop/"* ~/.codex/skills/writers-loop/
+```
+
+Claude Code 本地技能目录：
+
+```bash
+tmp="$(mktemp -d)" &&
+  git clone --depth 1 https://github.com/xxsang/writers-loop.git "$tmp/writers-loop" &&
+  mkdir -p ~/.claude/skills/writers-loop &&
+  cp -R "$tmp/writers-loop/skills/writers-loop/"* ~/.claude/skills/writers-loop/
+```
+
+正常使用不需要 `npm install`。若安装后启用本地记忆，只有在你明确同意后才会在所选项目内创建 `.writers-loop/`；已审查的风格包只能保存到 `.writers-loop/styles/`。
+
 | Agent | 安装方式 |
 | --- | --- |
 | **Claude Code** | 将 `skills/writers-loop` 复制到 `~/.claude/skills/`，或使用 `.claude-plugin/plugin.json` |
@@ -170,7 +196,7 @@ Writer's Loop 无需记忆即可使用。偏好学习默认只在当前会话中
 
 - 未经你的确认，`.writers-loop/` 不会被创建。
 - 不要将 `.writers-loop/` 提交到公开仓库。
-- 只保存经过审查的风格包，不保存原始私人样本。
+- 只将经过审查的风格包保存到 `.writers-loop/styles/`，不保存原始私人样本。
 
 `style:save` 等命令详见 [docs/local-preference-storage.md](docs/local-preference-storage.md)，完整隐私政策见 [PRIVACY.md](PRIVACY.md)。
 
