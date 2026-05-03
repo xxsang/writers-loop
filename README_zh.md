@@ -100,4 +100,6 @@ npm test
 
 ## License
 
-MIT
+MIT License. See [LICENSE](LICENSE).
+
+Copyright (c) 2026 Writer's Loop contributors.
