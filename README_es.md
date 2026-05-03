@@ -36,6 +36,12 @@ Para correcciones pequeñas y puntuales, un prompt simple suele bastar. Writer's
 Loop es útil cuando la escritura necesita estructura, revisión, reescritura o
 decisiones reutilizables.
 
+Usar un LLM para escribir también puede reducir el placer de escribir: puede
+comprimir la incertidumbre, el desvío, el descubrimiento y la sensación de
+autoría que hacen satisfactoria la escritura. Usa Writer's Loop como andamiaje,
+contraparte, editor o traductor. Conserva para ti las partes de escribir que
+valoras hacer por tu cuenta.
+
 ## Empieza en 30 segundos
 
 ```text
@@ -56,6 +62,10 @@ Si usas Claude Code, Codex, Cursor, Gemini CLI, OpenCode u otro agente local:
 ```text
 Help me install Writer's Loop from https://github.com/xxsang/writers-loop, then use $writers-loop for my writing task without saving preferences unless I explicitly opt in.
 ```
+
+Si tu versión de Codex u otro agente admite plugins desde repositorios, usa
+directamente la URL pública `https://github.com/xxsang/writers-loop`. Para el
+uso normal no hace falta `npm install`.
 
 ## Privacidad y memoria local
 

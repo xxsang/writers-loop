@@ -35,6 +35,11 @@ Writer's Loop は、AI エージェント向けのポータブルなライティ
 ごく小さな単発の文言修正には、通常のプロンプトで十分です。Writer's Loop は、
 構造、レビュー、改稿、再利用可能な判断が重要な文章に向いています。
 
+LLM を使った文章作成は、書く楽しさを減らすこともあります。文章を書くうえで
+面白い不確実さ、寄り道、発見、自分の手で作っている感覚を圧縮してしまうためです。
+Writer's Loop は足場、壁打ち相手、編集者、翻訳者として使い、自分にとって大切な
+書く部分は自分で残してください。
+
 ## 30 秒で始める
 
 ```text
@@ -55,6 +60,10 @@ Claude Code、Codex、Cursor、Gemini CLI、OpenCode などのローカルエー
 ```text
 Help me install Writer's Loop from https://github.com/xxsang/writers-loop, then use $writers-loop for my writing task without saving preferences unless I explicitly opt in.
 ```
+
+Codex などのエージェントがリポジトリプラグインのインストールに対応している場合は、
+公開リポジトリ URL `https://github.com/xxsang/writers-loop` をそのまま使えます。
+通常利用に `npm install` は不要です。
 
 ## プライバシーとローカルメモリ
 

@@ -34,6 +34,8 @@ Help me install Writer's Loop from https://github.com/xxsang/writers-loop, then 
 ```
 
 For manual installation, see [docs/installation.md](docs/installation.md).
+If your agent supports repository plugins, start with the public GitHub URL:
+`https://github.com/xxsang/writers-loop`.
 
 ---
 
@@ -113,8 +115,15 @@ project-local memory that writes only where you approve it.
 
 ## Install And Agent Support
 
-Writer's Loop is GitHub-only. Clone the repository, then install with the path
-or plugin flow that matches your agent.
+Writer's Loop is GitHub-only and public. If your agent supports repository
+plugins, install from:
+
+```text
+https://github.com/xxsang/writers-loop
+```
+
+For local skill-folder installs, clone the repository, then install with the
+path or plugin flow that matches your agent.
 
 ```bash
 git clone https://github.com/xxsang/writers-loop.git
@@ -123,8 +132,8 @@ git clone https://github.com/xxsang/writers-loop.git
 | Agent | Fast path |
 | --- | --- |
 | **Claude Code** | Copy `skills/writers-loop` into `~/.claude/skills/`, or use `.claude-plugin/plugin.json` |
-| **OpenAI Codex CLI** | Copy `skills/writers-loop` into `~/.codex/skills/`, or use `.codex-plugin/plugin.json` |
-| **OpenAI Codex App** | Copy `skills/writers-loop` into `~/.codex/skills/` and refresh skill discovery |
+| **OpenAI Codex CLI** | Use the plugin flow with the GitHub URL if available, or copy `skills/writers-loop` into `~/.codex/skills/` |
+| **OpenAI Codex App** | Use the plugin flow with the GitHub URL if available, or copy `skills/writers-loop` into `~/.codex/skills/` and refresh skill discovery |
 | **Cursor** | Use `.cursor-plugin/plugin.json`, or copy the skill folder |
 | **Gemini CLI** | Run `gemini extensions install https://github.com/xxsang/writers-loop` |
 | **GitHub Copilot CLI** | Point Copilot-enabled workflows at `AGENTS.md` |

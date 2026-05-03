@@ -19,6 +19,38 @@ The `package.json` is marked `private: true` because the package is not intended
 for npm publication. The Node scripts are local validation, eval, and optional
 storage tools; normal users do not need package dependencies to use the skill.
 
+## Fast Public GitHub Install
+
+Because the repository is public, the easiest path is to install from the repo
+URL in agents that support repository plugins:
+
+```text
+https://github.com/xxsang/writers-loop
+```
+
+The repo root is already the plugin root and includes `.codex-plugin/`,
+`.claude-plugin/`, `.cursor-plugin/`, `gemini-extension.json`, and `skills/`.
+
+For Codex local skill-folder installs:
+
+```bash
+tmp="$(mktemp -d)" &&
+  git clone --depth 1 https://github.com/xxsang/writers-loop.git "$tmp/writers-loop" &&
+  mkdir -p ~/.codex/skills/writers-loop &&
+  cp -R "$tmp/writers-loop/skills/writers-loop/"* ~/.codex/skills/writers-loop/
+```
+
+For Claude Code local skill-folder installs:
+
+```bash
+tmp="$(mktemp -d)" &&
+  git clone --depth 1 https://github.com/xxsang/writers-loop.git "$tmp/writers-loop" &&
+  mkdir -p ~/.claude/skills/writers-loop &&
+  cp -R "$tmp/writers-loop/skills/writers-loop/"* ~/.claude/skills/writers-loop/
+```
+
+Normal use still does not require `npm install`.
+
 ## Claude Code
 
 ```bash
@@ -38,10 +70,11 @@ This repository also includes Claude plugin metadata at
 
 ## OpenAI Codex CLI
 
-If your Codex build supports plugin installation, use the plugin UI:
+If your Codex build supports repository plugin installation, use the plugin UI
+with the public GitHub URL:
 
 ```text
-/plugins
+https://github.com/xxsang/writers-loop
 ```
 
 Manual install:
@@ -61,8 +94,9 @@ The Codex plugin manifest lives at:
 ## OpenAI Codex App
 
 Use the app's plugin flow when repository-based plugin installation is
-available. For local use, clone this repo, copy `skills/writers-loop` into
-`~/.codex/skills/`, and refresh skill discovery.
+available and enter `https://github.com/xxsang/writers-loop`. For local use,
+clone this repo, copy `skills/writers-loop` into `~/.codex/skills/`, and refresh
+skill discovery.
 
 ## ChatGPT And Other Hosted Agents
 
