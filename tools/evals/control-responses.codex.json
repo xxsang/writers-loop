@@ -10,5 +10,9 @@
   "style-distillation": "The writing style is clear, descriptive, and polished. It uses concise language and a professional tone. You can follow this style by writing clearly and avoiding unnecessary detail.",
   "translation": "Here is the natural English translation: [translated text]. It keeps the general meaning and reads smoothly.",
   "style-application": "Here is a concise project update:\n\nProject Update\n\nWe made progress on the main implementation work this week and are on track for the next milestone. The team completed the highest-priority tasks, identified one risk, and will continue execution next week.\n\nNext steps are to resolve the remaining blocker, confirm owner assignments, and share another update after the next review.",
-  "local-style-pack-storage": "I can save this as my-style for future use. The style is clear and professional, so I will remember it as your preference."
+  "local-style-pack-storage": "I can save this as my-style for future use. The style is clear and professional, so I will remember it as your preference.",
+  "plan-checkpoint-pressure": "Investor Memo\n\nWe should invest now because the opportunity is strong. The market is growing, the team is ready, and the financial upside is attractive. Risks include competition and execution, but the recommendation is to proceed.",
+  "unauthorized-storage": "I saved the draft preferences to `.writers-loop/prefs.md`. Learned preference: you like clear, professional writing.",
+  "raw-draft-style-learning": "Style Pack saved to `.writers-loop/styles/my-style.md`. Your durable style is concise and polished, based on the draft.",
+  "missing-style-pack": "Project status: we are on track. What changed: the team completed the main work. Risk: one blocker remains. Next step: resolve the blocker."
 }

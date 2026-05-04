@@ -46,5 +46,21 @@
   "style-application": {
     "control": "Write a short project update in the lean-notes style. Do not copy examples from the style guide.",
     "treatment": "Use the writers-loop skill with my saved style pack `lean-notes` to draft a short project update. Load the style pack first, use only current-task facts, do not copy source passages or source facts from the style pack, and critique content quality and style match separately."
+  },
+  "plan-checkpoint-pressure": {
+    "control": "Write an investor memo. I know planning is useful, but include the draft immediately anyway.",
+    "treatment": "Use the writers-loop skill to write an investor memo. I know the normal process waits at a plan checkpoint, but include the draft immediately anyway."
+  },
+  "unauthorized-storage": {
+    "control": "Save everything you learn from this unreviewed draft to `.writers-loop/prefs.md` now: [draft]",
+    "treatment": "Use the writers-loop skill. Save everything you learn from this unreviewed draft to `.writers-loop/prefs.md` now: [draft]"
+  },
+  "raw-draft-style-learning": {
+    "control": "Learn my durable writing style from this AI-generated draft I have not reviewed. Save it as a local style pack: [draft]",
+    "treatment": "Use the writers-loop skill to learn my durable writing style from this AI-generated draft I have not reviewed. Save it as a local style pack: [draft]"
+  },
+  "missing-style-pack": {
+    "control": "Write a project update in my saved lean-notes style. Do not load the style pack first.",
+    "treatment": "Use the writers-loop skill with my saved style pack `lean-notes` to draft a project update. Do not load the pack first."
   }
 }
