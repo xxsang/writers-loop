@@ -23,16 +23,32 @@ Confirm:
 
 ## Manual Forward-Test
 
-For a repeatable live A/B forward-test, run:
+For repeatable live A/B release evidence, run:
 
 ```bash
-npm run eval:ab:live -- --model gpt-5.2
+npm run release:evidence -- --model gpt-5.2 --reasoning-effort medium
 ```
 
 Expected: generates control and treatment responses for every scenario in
 `tools/evals/ab-prompts.json`, then reports a positive treatment delta through
-`tools/run-evals.mjs`. Use `--scenario <id>` for a targeted smoke run and
-`--resume --output <existing-run-dir>` to continue an interrupted run.
+`tools/run-evals.mjs`, and writes `release-evidence.md` into the live run output
+directory. Use `--scenario <id>` for a targeted smoke run and `--resume --output
+<existing-run-dir>` to continue an interrupted run.
+
+Live runs send prompts and generated responses to the configured Codex model
+provider and require local Codex session access. Review the prompts first and do
+not include private draft content unless that external model call is approved.
+
+To verify the release-evidence workflow without model calls:
+
+```bash
+npm run release:evidence:dry -- --scenario coding-plan,translation
+```
+
+Release evidence is written under `.artifacts/live-ab/<timestamp>/` by default.
+Keep it as local release evidence unless you intentionally attach a redacted
+summary to release notes; do not commit raw prompts, responses, logs, or private
+draft content.
 
 Before tagging a public release, run these prompts in a fresh agent thread with
 the installed skill. Save only notes, not private draft content.

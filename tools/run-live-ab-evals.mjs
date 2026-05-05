@@ -16,6 +16,8 @@ const skillPath = path.join(repoRoot, "skills", "writers-loop", "SKILL.md");
 
 const DEFAULT_MODEL =
   process.env.WRITERS_LOOP_LIVE_MODEL || process.env.CODEX_MODEL || "gpt-5.2";
+const DEFAULT_REASONING_EFFORT =
+  process.env.WRITERS_LOOP_LIVE_REASONING_EFFORT || null;
 
 function safeTimestamp() {
   return new Date().toISOString().replace(/[:.]/g, "-");
@@ -26,10 +28,12 @@ function parseArgs(argv) {
     codexBin: process.env.CODEX_BIN || "codex",
     concurrency: 1,
     dryRun: false,
+    evidence: false,
     localSkillPrefix: true,
     model: DEFAULT_MODEL,
     output: path.join(repoRoot, ".artifacts", "live-ab", safeTimestamp()),
     promptFile: defaultPromptFile,
+    reasoningEffort: DEFAULT_REASONING_EFFORT,
     resume: false,
     scenarios: null,
     skipScore: false,
@@ -46,6 +50,8 @@ function parseArgs(argv) {
       index += 1;
     } else if (value === "--dry-run") {
       args.dryRun = true;
+    } else if (value === "--evidence") {
+      args.evidence = true;
     } else if (value === "--model") {
       args.model = argv[index + 1];
       index += 1;
@@ -56,6 +62,9 @@ function parseArgs(argv) {
       index += 1;
     } else if (value === "--prompt-file") {
       args.promptFile = path.resolve(argv[index + 1]);
+      index += 1;
+    } else if (value === "--reasoning-effort") {
+      args.reasoningEffort = argv[index + 1];
       index += 1;
     } else if (value === "--resume") {
       args.resume = true;
@@ -87,6 +96,16 @@ function parseArgs(argv) {
   if (!args.model) {
     throw new Error("--model is required.");
   }
+  if (
+    args.reasoningEffort &&
+    !["minimal", "low", "medium", "high", "xhigh"].includes(
+      args.reasoningEffort,
+    )
+  ) {
+    throw new Error(
+      "--reasoning-effort must be one of: minimal, low, medium, high, xhigh.",
+    );
+  }
   return args;
 }
 
@@ -103,12 +122,14 @@ Options:
   --scenario IDS            Comma-separated scenario ids to run.
   --output DIR              Output directory. Default: .artifacts/live-ab/<timestamp>
   --prompt-file FILE        Prompt pair file. Default: tools/evals/ab-prompts.json
+  --reasoning-effort LEVEL  Override Codex model_reasoning_effort for live generations.
   --codex-bin PATH          Codex CLI binary. Default: codex
   --concurrency N           Parallel live generations. Default: 1
   --timeout-ms N            Per-generation timeout. Default: 600000
   --resume                  Reuse existing last-message files in --output.
   --skip-score              Generate responses but do not run run-evals.mjs.
   --dry-run                 Validate prompts and write the run manifest only.
+  --evidence                Write release-evidence.md into the output directory.
   --no-local-skill-prefix   Do not prepend the local SKILL.md path to treatment prompts.
   --help                    Show this help.`);
 }
@@ -178,7 +199,7 @@ function pathsFor(outputDir, task) {
 }
 
 function codexCommand(args, responsePath) {
-  return [
+  const command = [
     "exec",
     "--model",
     args.model,
@@ -193,13 +214,19 @@ function codexCommand(args, responsePath) {
     responsePath,
     "-",
   ];
+  if (args.reasoningEffort) {
+    command.splice(3, 0, "-c", `model_reasoning_effort="${args.reasoningEffort}"`);
+  }
+  return command;
 }
 
 function writeManifest(outputDir, args, promptPairs, tasks) {
   const manifest = {
     generatedAt: new Date().toISOString(),
     dryRun: args.dryRun,
+    evidence: args.evidence,
     model: args.model,
+    reasoningEffort: args.reasoningEffort,
     codexBin: args.codexBin,
     promptFile: args.promptFile,
     localSkillPrefix: args.localSkillPrefix,
@@ -406,9 +433,75 @@ function scoreResponses(args, outputDir, responsePaths, promptPairs) {
         reject(new Error(`Live A/B scoring failed. See ${scoreOutput}`));
         return;
       }
-      resolve();
+      const summaryPath = path.join(scoreOutput, "summary.json");
+      const summary = existsSync(summaryPath)
+        ? JSON.parse(readFileSync(summaryPath, "utf8"))
+        : null;
+      resolve(summary);
     });
   });
+}
+
+function writeReleaseEvidence(outputDir, args, promptPairs, tasks, scoreSummary) {
+  const scoreStatus = args.dryRun
+    ? "not run (dry run)"
+    : args.skipScore
+      ? "skipped (--skip-score)"
+      : scoreSummary?.passed
+        ? "passed"
+        : "failed or unavailable";
+  const lines = [
+    "# Writer's Loop Live A/B Release Evidence",
+    "",
+    `Generated at: ${new Date().toISOString()}`,
+    `Model: ${args.model}`,
+    `Reasoning effort: ${args.reasoningEffort ?? "config default"}`,
+    `Dry run: ${args.dryRun}`,
+    `Scenario count: ${promptPairs.length}`,
+    `Generation count: ${tasks.length}`,
+    `Score status: ${scoreStatus}`,
+    `Output directory: ${outputDir}`,
+    `Prompt file: ${args.promptFile}`,
+    `Local skill prefix: ${args.localSkillPrefix}`,
+    "",
+    "Privacy note: live runs send prompts and generated responses to the configured Codex model provider. Review prompts before running and do not include private draft content unless approved.",
+    "",
+    "## Scenarios",
+    "",
+    ...promptPairs.map((pair) => `- ${pair.id}`),
+    "",
+    "## Files",
+    "",
+    "- `manifest.json`",
+    "- `prompts/control/*.txt`",
+    "- `prompts/treatment/*.txt`",
+  ];
+
+  if (!args.dryRun) {
+    lines.push(
+      "- `responses.control.json`",
+      "- `responses.treatment.json`",
+      "- `score/summary.json`",
+      "- `score/report.md`",
+    );
+  }
+
+  if (scoreSummary?.mode === "ab-responses") {
+    lines.push(
+      "",
+      "## Score Summary",
+      "",
+      `- Treatment passed: ${scoreSummary.conditions.treatment.passed}/${scoreSummary.totalScenarios}`,
+      `- Control passed: ${scoreSummary.conditions.control.passed}/${scoreSummary.totalScenarios}`,
+      `- Mean delta: ${scoreSummary.comparison.meanDelta.toFixed(2)}`,
+    );
+  }
+
+  writeFileSync(
+    path.join(outputDir, "release-evidence.md"),
+    `${lines.join("\n")}\n`,
+    "utf8",
+  );
 }
 
 try {
@@ -423,6 +516,9 @@ try {
   writeManifest(args.output, args, promptPairs, tasks);
 
   if (args.dryRun) {
+    if (args.evidence) {
+      writeReleaseEvidence(args.output, args, promptPairs, tasks, null);
+    }
     console.log(
       `Live A/B dry run wrote manifest for ${promptPairs.length} scenario(s), ${tasks.length} generation(s): ${args.output}`,
     );
@@ -431,9 +527,14 @@ try {
 
   const results = await runWithConcurrency(tasks, args, args.output);
   const responsePaths = writeResponseJson(args.output, promptPairs, results);
+  let scoreSummary = null;
 
   if (!args.skipScore) {
-    await scoreResponses(args, args.output, responsePaths, promptPairs);
+    scoreSummary = await scoreResponses(args, args.output, responsePaths, promptPairs);
+  }
+
+  if (args.evidence) {
+    writeReleaseEvidence(args.output, args, promptPairs, tasks, scoreSummary);
   }
 
   console.log(`Live A/B outputs written to ${args.output}`);

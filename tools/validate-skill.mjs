@@ -357,6 +357,8 @@ if (existsSync(path.join(repoRoot, "package.json"))) {
     "style:save",
     "style:list",
     "style:show",
+    "release:evidence",
+    "release:evidence:dry",
     "test:real",
   ]) {
     if (!packageJson.scripts?.[scriptName]) {
@@ -372,6 +374,20 @@ if (existsSync(path.join(repoRoot, "package.json"))) {
     )
   ) {
     failures.push("package.json repository must point to xxsang/writers-loop.");
+  }
+}
+
+if (existsSync(path.join(repoRoot, "RELEASE.md"))) {
+  const release = readRepo("RELEASE.md");
+  for (const requiredText of [
+    "npm run release:evidence",
+    "npm run release:evidence:dry",
+    "release-evidence.md",
+    ".artifacts/live-ab/<timestamp>/",
+  ]) {
+    if (!release.includes(requiredText)) {
+      failures.push(`RELEASE.md must mention: ${requiredText}`);
+    }
   }
 }
 

@@ -182,6 +182,17 @@ const readme = readFileSync(path.join(repoRoot, "README.md"), "utf8");
 assert(readme.includes("Using A Learned Style"), "README does not document using a learned style");
 assert(readme.includes(".writers-loop/styles/"), "README does not document style storage path");
 
+const packageJson = JSON.parse(readFileSync(path.join(repoRoot, "package.json"), "utf8"));
+assert(
+  packageJson.scripts?.["release:evidence"]?.includes("run-live-ab-evals.mjs"),
+  "package.json does not expose a release:evidence live eval script",
+);
+assert(
+  packageJson.scripts?.["release:evidence:dry"]?.includes("--dry-run") &&
+    packageJson.scripts?.["release:evidence:dry"]?.includes("--evidence"),
+  "package.json does not expose a dry-run release evidence script",
+);
+
 const evalCoverageDir = path.join(projectDir, "missing-scenario-coverage");
 run([
   evalTool,
@@ -194,7 +205,10 @@ run([
 const liveEvalDir = path.join(projectDir, "live-ab-dry-run");
 run([
   liveEvalTool,
+  "--evidence",
   "--dry-run",
+  "--reasoning-effort",
+  "low",
   "--scenario",
   "coding-plan,translation",
   "--output",
@@ -204,6 +218,7 @@ const liveManifestPath = path.join(liveEvalDir, "manifest.json");
 assert(existsSync(liveManifestPath), "live A/B dry run did not write manifest");
 const liveManifest = JSON.parse(readFileSync(liveManifestPath, "utf8"));
 assert(liveManifest.totalRuns === 4, "live A/B dry run did not plan control and treatment for each scenario");
+assert(liveManifest.reasoningEffort === "low", "live A/B dry run did not record reasoning effort");
 assert(
   liveManifest.scenarioIds.includes("coding-plan") &&
     liveManifest.scenarioIds.includes("translation"),
@@ -213,5 +228,13 @@ assert(
   existsSync(path.join(liveEvalDir, "prompts", "treatment", "coding-plan.txt")),
   "live A/B dry run did not write treatment prompt file",
 );
+const releaseEvidencePath = path.join(liveEvalDir, "release-evidence.md");
+assert(existsSync(releaseEvidencePath), "live A/B dry run did not write release evidence");
+const releaseEvidence = readFileSync(releaseEvidencePath, "utf8");
+assert(releaseEvidence.includes("# Writer's Loop Live A/B Release Evidence"), "release evidence is missing title");
+assert(releaseEvidence.includes("Dry run: true"), "release evidence does not record dry-run status");
+assert(releaseEvidence.includes("Reasoning effort: low"), "release evidence does not record reasoning effort");
+assert(releaseEvidence.includes("Scenario count: 2"), "release evidence does not record scenario count");
+assert(releaseEvidence.includes("Score status: not run (dry run)"), "release evidence does not record dry-run score status");
 
 console.log(`Real usage tests passed: ${projectDir}`);

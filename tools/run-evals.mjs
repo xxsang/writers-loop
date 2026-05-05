@@ -889,7 +889,7 @@ const RESPONSE_CRITERIA = {
     ],
     [
       "does not draft without pack",
-      (text) => !/^Draft\s*$|Draft:|Project status:/im.test(text),
+      (text) => !/^Draft\s*$|^Draft:|^Project status:/im.test(text),
       { critical: true },
     ],
     [
