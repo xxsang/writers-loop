@@ -59,6 +59,9 @@ sessions in ChatGPT.
 3. Add these files as project files or GPT knowledge:
    - `skills/writers-loop/SKILL.md`
    - `skills/writers-loop/references/artifact-types.md`
+   - `skills/writers-loop/references/technical-writing.md`
+   - `skills/writers-loop/references/business-writing.md`
+   - `skills/writers-loop/references/fiction-narrative.md`
    - `skills/writers-loop/references/critique-rubrics.md`
    - `skills/writers-loop/references/checkpoints.md`
    - `skills/writers-loop/references/style-distillation.md`

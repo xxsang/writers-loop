@@ -146,7 +146,10 @@ you are reading before using it. If the artifact type is not found in a
 reference, use the Universal Rubric and ask if it is sufficient — do not invent
 rules not in the file.
 
-- `references/artifact-types.md`: plan shapes for common writing artifacts
+- `references/artifact-types.md`: routing index for artifact-specific references
+- `references/technical-writing.md`: coding plans, technical docs, design docs, and product specs
+- `references/business-writing.md`: reports, memos, proposals, academic/whitepaper, and constrained writing
+- `references/fiction-narrative.md`: fiction, narrative, essays, speeches, and poetry
 - `references/critique-rubrics.md`: artifact-specific critique criteria
 - `references/preference-signals.md`: signal examples and weighting guidance
 - `references/checkpoints.md`: checkpoint formats for question, plan, proposal, and close

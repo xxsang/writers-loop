@@ -19,7 +19,7 @@ const SCENARIOS = [
       ],
       [
         "uses coding-plan adaptation",
-        /Coding Plan[\s\S]*affected files|Coding Plan[\s\S]*test/i,
+        /technical-writing\.md[\s\S]*Coding Plan[\s\S]*File map[\s\S]*Tests and verification/i,
       ],
       [
         "requires concrete plan",
@@ -51,7 +51,7 @@ const SCENARIOS = [
       ],
       [
         "has report plan shape",
-        /Executive summary[\s\S]*Context[\s\S]*Findings/i,
+        /business-writing\.md[\s\S]*Report Or Memo[\s\S]*Executive summary[\s\S]*Context[\s\S]*Findings/i,
       ],
       ["requires recommendation", /Recommendation/i],
       [
@@ -75,6 +75,10 @@ const SCENARIOS = [
       ["checks POV", /POV|perspective/i],
       ["checks continuity", /continuity|Continuity/i],
       ["uses fiction rubric", /Fiction Rubric|character motivation|pacing/i],
+      [
+        "loads fiction reference",
+        /fiction-narrative\.md[\s\S]*Fiction Or Narrative[\s\S]*Continuity check/i,
+      ],
       [
         "prefers local revisions",
         /targeted revisions|local edits|broad rewrites/i,
@@ -991,12 +995,15 @@ function readSkillCorpus() {
   const files = [
     "SKILL.md",
     "references/artifact-types.md",
+    "references/business-writing.md",
     "references/checkpoints.md",
     "references/critique-rubrics.md",
+    "references/fiction-narrative.md",
     "references/multi-agent.md",
     "references/preference-journal.md",
     "references/preference-signals.md",
     "references/style-distillation.md",
+    "references/technical-writing.md",
     "references/translation.md",
     "references/validation-scenarios.md",
   ];
