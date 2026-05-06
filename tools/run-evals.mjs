@@ -95,6 +95,71 @@ const SCENARIOS = [
     ],
   },
   {
+    id: "technical-executive-hybrid",
+    title: "Technical Executive Hybrid",
+    criteria: [
+      [
+        "routes hybrid task",
+        /Hybrid Routing|dominant audience|primary deliverable/i,
+      ],
+      [
+        "loads technical and business references",
+        /technical-writing\.md[\s\S]*business-writing\.md|business-writing\.md[\s\S]*technical-writing\.md/i,
+      ],
+      [
+        "keeps executive decision first",
+        /Executive summary[\s\S]*Decision request|Recommendation[\s\S]*technical appendix/i,
+      ],
+      [
+        "keeps technical appendix concrete",
+        /File map|Tests and verification|interfaces/i,
+      ],
+      ["uses plan checkpoint", /PLAN CHECKPOINT|Plan Checkpoint/i],
+      [
+        "keeps preferences scoped",
+        /business-report|technical-plan|artifact type and stage/i,
+      ],
+      [
+        "names missing evidence",
+        /evidence gaps|open questions|assumptions/i,
+      ],
+    ],
+  },
+  {
+    id: "category-routing",
+    title: "Category Routing",
+    criteria: [
+      [
+        "uses routing index",
+        /artifact-types\.md[\s\S]*Routing|Reference Loading[\s\S]*routing index/i,
+      ],
+      [
+        "selects technical reference",
+        /technical-writing\.md[\s\S]*Coding Plan/i,
+      ],
+      [
+        "selects business reference",
+        /business-writing\.md[\s\S]*Report Or Memo/i,
+      ],
+      [
+        "selects fiction reference",
+        /fiction-narrative\.md[\s\S]*Fiction Or Narrative/i,
+      ],
+      [
+        "handles fallback",
+        /critique-rubrics\.md[\s\S]*Universal Rubric|Universal Rubric[\s\S]*sufficient/i,
+      ],
+      [
+        "does not load every reference by default",
+        /Load only the category reference|Load only the references needed/i,
+      ],
+      [
+        "keeps category preferences scoped",
+        /artifact type and stage|Do not reuse fiction preferences/i,
+      ],
+    ],
+  },
+  {
     id: "preference-conflict",
     title: "Preference Conflict",
     criteria: [

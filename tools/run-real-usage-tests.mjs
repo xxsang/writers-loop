@@ -210,18 +210,20 @@ run([
   "--reasoning-effort",
   "low",
   "--scenario",
-  "coding-plan,translation",
+  "coding-plan,translation,technical-executive-hybrid,category-routing",
   "--output",
   liveEvalDir,
 ]);
 const liveManifestPath = path.join(liveEvalDir, "manifest.json");
 assert(existsSync(liveManifestPath), "live A/B dry run did not write manifest");
 const liveManifest = JSON.parse(readFileSync(liveManifestPath, "utf8"));
-assert(liveManifest.totalRuns === 4, "live A/B dry run did not plan control and treatment for each scenario");
+assert(liveManifest.totalRuns === 8, "live A/B dry run did not plan control and treatment for each scenario");
 assert(liveManifest.reasoningEffort === "low", "live A/B dry run did not record reasoning effort");
 assert(
   liveManifest.scenarioIds.includes("coding-plan") &&
-    liveManifest.scenarioIds.includes("translation"),
+    liveManifest.scenarioIds.includes("translation") &&
+    liveManifest.scenarioIds.includes("technical-executive-hybrid") &&
+    liveManifest.scenarioIds.includes("category-routing"),
   "live A/B dry run did not include selected scenarios",
 );
 assert(
@@ -234,7 +236,7 @@ const releaseEvidence = readFileSync(releaseEvidencePath, "utf8");
 assert(releaseEvidence.includes("# Writer's Loop Live A/B Release Evidence"), "release evidence is missing title");
 assert(releaseEvidence.includes("Dry run: true"), "release evidence does not record dry-run status");
 assert(releaseEvidence.includes("Reasoning effort: low"), "release evidence does not record reasoning effort");
-assert(releaseEvidence.includes("Scenario count: 2"), "release evidence does not record scenario count");
+assert(releaseEvidence.includes("Scenario count: 4"), "release evidence does not record scenario count");
 assert(releaseEvidence.includes("Score status: not run (dry run)"), "release evidence does not record dry-run score status");
 
 console.log(`Real usage tests passed: ${projectDir}`);

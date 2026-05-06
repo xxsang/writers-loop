@@ -64,8 +64,11 @@ sessions in ChatGPT.
    - `skills/writers-loop/references/fiction-narrative.md`
    - `skills/writers-loop/references/critique-rubrics.md`
    - `skills/writers-loop/references/checkpoints.md`
+   - `skills/writers-loop/references/preference-signals.md`
+   - `skills/writers-loop/references/preference-journal.md`
    - `skills/writers-loop/references/style-distillation.md`
    - `skills/writers-loop/references/translation.md`
+   - `skills/writers-loop/references/multi-agent.md`
    - `docs/prompt-templates.md`
 4. Start with:
 

@@ -11,6 +11,14 @@
     "control": "Revise this chapter opening for a quieter, more tense style: [draft]",
     "treatment": "Use the writers-loop skill to revise this chapter opening for a quieter, more tense style: [draft]"
   },
+  "technical-executive-hybrid": {
+    "control": "Write a leadership-facing technical proposal for replacing the billing event pipeline. Include enough implementation detail for engineering review.",
+    "treatment": "Use the writers-loop skill to plan a leadership-facing technical proposal for replacing the billing event pipeline. Treat it as a hybrid: executive decision first, technical appendix second."
+  },
+  "category-routing": {
+    "control": "For a coding plan, a leadership memo, and a fiction chapter, explain which writing guidance you would use before drafting.",
+    "treatment": "Use the writers-loop skill. For a coding plan, a leadership memo, and a fiction chapter, explain which reference you would load before drafting, and state the fallback for an unknown artifact type."
+  },
   "preference-conflict": {
     "control": "Last time I wanted concise reports. This time I need a detailed research memo with all caveats.",
     "treatment": "Last time I wanted concise reports. This time I need a detailed research memo with all caveats. Use the writers-loop skill."

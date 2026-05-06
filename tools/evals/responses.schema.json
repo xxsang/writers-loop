@@ -6,6 +6,8 @@
     "coding-plan",
     "executive-report",
     "fiction-chapter",
+    "technical-executive-hybrid",
+    "category-routing",
     "preference-conflict",
     "no-learning-evidence",
     "rejected-plan",
@@ -14,7 +16,11 @@
     "style-distillation",
     "style-application",
     "local-style-pack-storage",
-    "translation"
+    "translation",
+    "plan-checkpoint-pressure",
+    "unauthorized-storage",
+    "raw-draft-style-learning",
+    "missing-style-pack"
   ],
   "properties": {
     "coding-plan": {
@@ -24,6 +30,12 @@
       "type": "string"
     },
     "fiction-chapter": {
+      "type": "string"
+    },
+    "technical-executive-hybrid": {
+      "type": "string"
+    },
+    "category-routing": {
       "type": "string"
     },
     "preference-conflict": {
@@ -51,6 +63,18 @@
       "type": "string"
     },
     "translation": {
+      "type": "string"
+    },
+    "plan-checkpoint-pressure": {
+      "type": "string"
+    },
+    "unauthorized-storage": {
+      "type": "string"
+    },
+    "raw-draft-style-learning": {
+      "type": "string"
+    },
+    "missing-style-pack": {
       "type": "string"
     }
   }

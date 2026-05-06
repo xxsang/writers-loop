@@ -79,6 +79,20 @@ const requiredLoopTerms = [
   "Reuse",
 ];
 
+const runtimeReferenceFiles = [
+  "skills/writers-loop/references/artifact-types.md",
+  "skills/writers-loop/references/business-writing.md",
+  "skills/writers-loop/references/checkpoints.md",
+  "skills/writers-loop/references/critique-rubrics.md",
+  "skills/writers-loop/references/fiction-narrative.md",
+  "skills/writers-loop/references/multi-agent.md",
+  "skills/writers-loop/references/preference-journal.md",
+  "skills/writers-loop/references/preference-signals.md",
+  "skills/writers-loop/references/style-distillation.md",
+  "skills/writers-loop/references/technical-writing.md",
+  "skills/writers-loop/references/translation.md",
+];
+
 function read(relativePath) {
   return readFileSync(path.join(skillDir, relativePath), "utf8");
 }
@@ -380,6 +394,33 @@ if (existsSync(path.join(repoRoot, "package.json"))) {
   }
 }
 
+if (existsSync(path.join(repoRoot, "tools/evals/responses.schema.json"))) {
+  const responseSchema = readRepoJson("tools/evals/responses.schema.json");
+  const responseFiles = [
+    "tools/evals/control-responses.codex.json",
+    "tools/evals/skill-loaded-responses.json",
+    "tools/evals/treatment-responses.codex.json",
+  ];
+  const requiredResponseIds = responseSchema.required ?? [];
+  const allowedResponseIds = new Set(Object.keys(responseSchema.properties ?? {}));
+  for (const responseFile of responseFiles) {
+    if (!existsSync(path.join(repoRoot, responseFile))) continue;
+    const responses = readRepoJson(responseFile);
+    for (const id of requiredResponseIds) {
+      if (!(id in responses)) {
+        failures.push(`${responseFile} must include response id: ${id}`);
+      } else if (typeof responses[id] !== "string") {
+        failures.push(`${responseFile} response must be a string: ${id}`);
+      }
+    }
+    for (const id of Object.keys(responses)) {
+      if (!allowedResponseIds.has(id)) {
+        failures.push(`${responseFile} has unexpected response id: ${id}`);
+      }
+    }
+  }
+}
+
 if (existsSync(path.join(repoRoot, "RELEASE.md"))) {
   const release = readRepo("RELEASE.md");
   for (const requiredText of [
@@ -390,6 +431,17 @@ if (existsSync(path.join(repoRoot, "RELEASE.md"))) {
   ]) {
     if (!release.includes(requiredText)) {
       failures.push(`RELEASE.md must mention: ${requiredText}`);
+    }
+  }
+}
+
+if (existsSync(path.join(repoRoot, "docs/writing-tools.md"))) {
+  const writingTools = readRepo("docs/writing-tools.md");
+  for (const runtimeReference of runtimeReferenceFiles) {
+    if (!writingTools.includes(runtimeReference)) {
+      failures.push(
+        `docs/writing-tools.md ChatGPT/GPT project files must include ${runtimeReference}`,
+      );
     }
   }
 }
