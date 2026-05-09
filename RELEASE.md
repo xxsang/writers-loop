@@ -42,7 +42,7 @@ not include private draft content unless that external model call is approved.
 To verify the release-evidence workflow without model calls:
 
 ```bash
-npm run release:evidence:dry -- --scenario coding-plan,translation
+npm run release:evidence:dry -- --scenario technical-executive-hybrid,category-routing
 ```
 
 Release evidence is written under `.artifacts/live-ab/<timestamp>/` by default.

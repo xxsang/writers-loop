@@ -1,0 +1,1120 @@
+// Shared Writer's Loop eval scenario registry.
+// Keep scenario IDs, documentation criteria, response criteria, and thresholds here.
+
+export const SCENARIOS = [
+  {
+    id: "coding-plan",
+    title: "Coding Plan",
+    criteria: [
+      [
+        "frames goal and constraints",
+        /Frame[\s\S]*artifact type|goal, constraints/i,
+      ],
+      [
+        "uses coding-plan adaptation",
+        /technical-writing\.md[\s\S]*Coding Plan[\s\S]*File map[\s\S]*Tests and verification/i,
+      ],
+      [
+        "requires concrete plan",
+        /concrete plan|concrete.*implementation|exact file paths/i,
+      ],
+      [
+        "critiques testability",
+        /testability|tests and verification|verification commands/i,
+      ],
+      ["covers rollout risk", /risks|rollout|migration/i],
+      [
+        "uses decision-based learning",
+        /do not learn from raw drafts|decisions, not raw drafts/i,
+      ],
+      ["has validation command", /validate-skill\.mjs/i],
+      [
+        "has public release packaging",
+        /plugin manifests|package\.json|public release files/i,
+      ],
+    ],
+  },
+  {
+    id: "executive-report",
+    title: "Executive Report",
+    criteria: [
+      [
+        "frames audience and decision",
+        /audience|decision to support|desired action/i,
+      ],
+      [
+        "has report plan shape",
+        /business-writing\.md[\s\S]*Report Or Memo[\s\S]*Executive summary[\s\S]*Context[\s\S]*Findings/i,
+      ],
+      ["requires recommendation", /Recommendation/i],
+      [
+        "checks evidence quality",
+        /Evidence quality|evidence gaps|evidence strong/i,
+      ],
+      ["checks tradeoffs", /Tradeoff|tradeoffs/i],
+      ["checks next steps", /Next steps/i],
+      ["avoids wrong rubric", /artifact-specific rubric|report rubric/i],
+      [
+        "keeps preferences scoped",
+        /report\/planning|Artifact-specific rules beat global rules/i,
+      ],
+    ],
+  },
+  {
+    id: "fiction-chapter",
+    title: "Fiction Chapter",
+    criteria: [
+      ["frames genre and tone", /Genre|tone|emotional target/i],
+      ["checks POV", /POV|perspective/i],
+      ["checks continuity", /continuity|Continuity/i],
+      ["uses fiction rubric", /Fiction Rubric|character motivation|pacing/i],
+      [
+        "loads fiction reference",
+        /fiction-narrative\.md[\s\S]*Fiction Or Narrative[\s\S]*Continuity check/i,
+      ],
+      [
+        "prefers local revisions",
+        /targeted revisions|local edits|broad rewrites/i,
+      ],
+      [
+        "guards against global tone rule",
+        /single accepted edit|global rule|scope is unclear/i,
+      ],
+      [
+        "covers scene specificity",
+        /scene specificity|scene sequence|scene has a purpose/i,
+      ],
+      ["preserves user intent", /preserve user intent|declared constraints/i],
+    ],
+  },
+  {
+    id: "existing-draft-revision",
+    title: "Existing Draft Revision",
+    criteria: [
+      [
+        "starts existing draft at critique",
+        /Existing draft[\s\S]*start at `Frame`, then `Critique`|Existing draft[\s\S]*Critique/i,
+      ],
+      [
+        "uses targeted revision path",
+        /Targeted revision[\s\S]*Propose|sentence or paragraph level/i,
+      ],
+      [
+        "requires specific critique",
+        /Every critique must point to a specific location|specific location/i,
+      ],
+      [
+        "preserves user intent",
+        /preserve user intent, voice, plot facts, and continuity|preserve user intent/i,
+      ],
+      [
+        "blocks unapproved changes",
+        /Do not apply changes before the user responds|Decision: unresolved/i,
+      ],
+      [
+        "uses fiction reference",
+        /fiction-narrative\.md[\s\S]*Fiction Or Narrative/i,
+      ],
+      [
+        "does not learn from unreviewed draft",
+        /Unreviewed drafts|No reusable preference learned/i,
+      ],
+    ],
+  },
+  {
+    id: "technical-executive-hybrid",
+    title: "Technical Executive Hybrid",
+    criteria: [
+      [
+        "routes hybrid task",
+        /Hybrid Routing|dominant audience|primary deliverable/i,
+      ],
+      [
+        "loads technical and business references",
+        /technical-writing\.md[\s\S]*business-writing\.md|business-writing\.md[\s\S]*technical-writing\.md/i,
+      ],
+      [
+        "keeps executive decision first",
+        /Executive summary[\s\S]*Decision request|Recommendation[\s\S]*technical appendix/i,
+      ],
+      [
+        "keeps technical appendix concrete",
+        /File map|Tests and verification|interfaces/i,
+      ],
+      ["uses plan checkpoint", /PLAN CHECKPOINT|Plan Checkpoint/i],
+      [
+        "keeps preferences scoped",
+        /business-report|technical-plan|artifact type and stage/i,
+      ],
+      [
+        "names missing evidence",
+        /evidence gaps|open questions|assumptions/i,
+      ],
+    ],
+  },
+  {
+    id: "category-routing",
+    title: "Category Routing",
+    criteria: [
+      [
+        "uses routing index",
+        /artifact-types\.md[\s\S]*Routing|Reference Loading[\s\S]*routing index/i,
+      ],
+      [
+        "selects technical reference",
+        /technical-writing\.md[\s\S]*Coding Plan/i,
+      ],
+      [
+        "selects business reference",
+        /business-writing\.md[\s\S]*Report Or Memo/i,
+      ],
+      [
+        "selects fiction reference",
+        /fiction-narrative\.md[\s\S]*Fiction Or Narrative/i,
+      ],
+      [
+        "handles fallback",
+        /critique-rubrics\.md[\s\S]*Universal Rubric|Universal Rubric[\s\S]*sufficient/i,
+      ],
+      [
+        "does not load every reference by default",
+        /Load only the category reference|Load only the references needed/i,
+      ],
+      [
+        "keeps category preferences scoped",
+        /artifact type and stage|Do not reuse fiction preferences/i,
+      ],
+    ],
+  },
+  {
+    id: "preference-conflict",
+    title: "Preference Conflict",
+    criteria: [
+      [
+        "explicit instruction wins",
+        /Explicit user instruction beats inferred preference/i,
+      ],
+      ["recent evidence wins", /Recent repeated evidence beats old evidence/i],
+      ["scoped rules win", /Artifact-specific rules beat global rules/i],
+      ["asks on low confidence", /Ask before applying|low confidence/i],
+      [
+        "does not archive without evidence",
+        /Discard or archive[\s\S]*Newer evidence contradicts/i,
+      ],
+      ["tracks conflicts", /Conflict Rules|Conflict Handling/i],
+      [
+        "uses task constraints",
+        /conflict with explicit task constraints|current task requirement/i,
+      ],
+      [
+        "supports detailed override",
+        /detailed research memo|Preference Conflict/i,
+      ],
+    ],
+  },
+  {
+    id: "no-learning-evidence",
+    title: "No Learning Evidence",
+    criteria: [
+      [
+        "unreviewed drafts are non-signals",
+        /Unreviewed drafts|unreviewed output/i,
+      ],
+      [
+        "generated text alone is non-signal",
+        /Model-generated text that was never reviewed/i,
+      ],
+      [
+        "states missing evidence",
+        /state what evidence is missing|evidence is still missing/i,
+      ],
+      ["supports skipped questions", /question_skipped|skip questions/i],
+      [
+        "skipped questions are weak",
+        /skipped questions as weak|weak or neutral signals/i,
+      ],
+      [
+        "does not promote one-off comments",
+        /One-off style comments|appears once/i,
+      ],
+      ["requires decisions", /accepted, rejected, revised|review decisions/i],
+      ["validates scenario", /No Learning Evidence/i],
+    ],
+  },
+  {
+    id: "rejected-plan",
+    title: "Rejected Plan",
+    criteria: [
+      ["has plan checkpoint", /PLAN CHECKPOINT|Plan Checkpoint/i],
+      [
+        "blocks drafting before approval",
+        /Do not draft before approval|No draft before approval|before approval/i,
+      ],
+      ["records rejection", /plan_revision_requested/i],
+      [
+        "revises criticized elements",
+        /Revise only the criticized|criticized elements/i,
+      ],
+      ["reissues full plan", /reissue the complete plan|reissue.*full plan/i],
+      ["asks again", /ask again|checkpoint/i],
+      [
+        "does not learn rejected structure",
+        /Treating a single accepted edit|rejected structure/i,
+      ],
+      ["validates scenario", /Rejected Plan/i],
+    ],
+  },
+  {
+    id: "durable-storage",
+    title: "Durable Storage Opt-In",
+    criteria: [
+      ["defaults session-only", /Default to `session-only`|session-only/i],
+      [
+        "does not write without opt-in",
+        /Do not create or update these files unless|do not write files/i,
+      ],
+      ["supports project-local", /project-local/i],
+      ["supports portable redaction", /portable|redacted summaries/i],
+      [
+        "warns about privacy",
+        /sensitive draft text|private preferences|privacy/i,
+      ],
+      ["has journal init", /journal\.mjs init/i],
+      ["has derive command", /journal\.mjs derive/i],
+      ["validates scenario", /Durable Storage Opt-In/i],
+    ],
+  },
+  {
+    id: "optional-multi-agent",
+    title: "Optional Multi-Agent",
+    criteria: [
+      ["has multi-agent reference", /references\/multi-agent\.md|Optional Multi-Agent Extension/i],
+      ["defaults single-agent", /Default to the single-agent loop|default to single-agent/i],
+      [
+        "uses only when justified",
+        /High-stakes artifact|Long artifact|Ambiguous artifact|multi-domain artifact/i,
+      ],
+      [
+        "keeps controller ownership",
+        /Controller[\s\S]*owns|Controller[\s\S]*responsible for final synthesis/i,
+      ],
+      [
+        "requires plan checkpoint before drafting",
+        /mandatory `?PLAN CHECKPOINT`?|Before approval[\s\S]*PLAN CHECKPOINT/i,
+      ],
+      ["uses distinct roles", /Planner[\s\S]*Drafter[\s\S]*Critic[\s\S]*Editor/i],
+      [
+        "requires honest subagent labeling",
+        /do not claim that multiple agents ran|role simulation/i,
+      ],
+      [
+        "agent outputs are not preference signals",
+        /Agent critiques[\s\S]*non-signals|Only the Controller may record preference/i,
+      ],
+      ["validates scenario", /Optional Multi-Agent/i],
+    ],
+  },
+  {
+    id: "style-distillation",
+    title: "Style Distillation",
+    criteria: [
+      [
+        "has style distillation reference",
+        /references\/style-distillation\.md/i,
+      ],
+      [
+        "separates style from content",
+        /Separate style from content|Style Versus Content/i,
+      ],
+      [
+        "avoids copying facts",
+        /Do not extract[\s\S]*plot events|copying source content facts/i,
+      ],
+      [
+        "defines style pack",
+        /Style Pack[\s\S]*Observable Traits[\s\S]*Reusable Prompts/i,
+      ],
+      ["handles codebase prose", /codebase prose|README\.md|docs\//i],
+      [
+        "uses confidence levels",
+        /Confidence[\s\S]*high[\s\S]*medium[\s\S]*low/i,
+      ],
+      ["applies via main loop", /Applying A Style Pack|add it to `Frame`/i],
+      ["validates scenario", /Style Distillation/i],
+    ],
+  },
+  {
+    id: "style-application",
+    title: "Using Learned Style",
+    criteria: [
+      ["documents using a learned style", /Using A Learned Style/i],
+      ["loads saved style packs", /\.writers-loop\/styles\/|style-pack\.mjs show/i],
+      ["frames style as constraint", /style pack[\s\S]*Frame|style constraint/i],
+      ["plans content and style", /plan content and style|Style application notes/i],
+      ["reviews style match", /Style Match Review|style match/i],
+      ["separates content and style critique", /content quality[\s\S]*style match|Critique[\s\S]*Content quality/i],
+      ["guards source passage copying", /source passages|source facts/i],
+      ["validates scenario", /Use Learned Style/i],
+    ],
+  },
+  {
+    id: "local-style-pack-storage",
+    title: "Local Style Pack Storage",
+    criteria: [
+      ["documents local style storage", /\.writers-loop\/styles\/|Local Style Pack Storage/i],
+      ["requires explicit opt-in", /opts into durable local style storage|explicit durable-storage opt-in/i],
+      [
+        "saves only reviewed style packs",
+        /Only save reviewed style packs|reviewed style pack, not raw source samples/i,
+      ],
+      ["uses style-pack tool", /scripts\/style-pack\.mjs|style-pack\.mjs save/i],
+      [
+        "keeps storage local",
+        /\.writers-loop\/styles\/\[name\]\.md|\.writers-loop\/styles\/my-style\.md/i,
+      ],
+      [
+        "separates style packs from preferences",
+        /Style packs are not preferences|saved style packs and learned preferences are separate/i,
+      ],
+      [
+        "guards third-party style storage",
+        /Do not save another person's style durably|permission or intended reuse is unclear/i,
+      ],
+      ["validates scenario", /Local Style Pack Storage/i],
+    ],
+  },
+  {
+    id: "translation",
+    title: "Translation",
+    criteria: [
+      ["has translation reference", /references\/translation\.md/i],
+      [
+        "frames language and locale",
+        /source language, target language, locale|Target language and locale/i,
+      ],
+      [
+        "defines translation modes",
+        /literal[\s\S]*natural[\s\S]*localized[\s\S]*parallel/i,
+      ],
+      [
+        "preserves technical tokens",
+        /code blocks[\s\S]*file paths[\s\S]*CLI commands|Translating code, commands/i,
+      ],
+      ["uses glossary", /Glossary[\s\S]*Source term[\s\S]*Translation/i],
+      [
+        "reviews fidelity and style",
+        /meaning fidelity[\s\S]*source style preservation[\s\S]*tone preservation[\s\S]*voice preservation/i,
+      ],
+      [
+        "connects to style distillation",
+        /style-distillation\.md[\s\S]*style pack/i,
+      ],
+      ["validates scenario", /Translation/i],
+    ],
+  },
+  {
+    id: "plan-checkpoint-pressure",
+    title: "Adversarial Plan Checkpoint Pressure",
+    threshold: 5,
+    criteria: [
+      ["documents plan checkpoint", /Plan Checkpoint|PLAN CHECKPOINT/i],
+      [
+        "blocks drafting before approval",
+        /Do not draft before approval|drafting waits for approval|before drafting/i,
+      ],
+      [
+        "names fast draft limits",
+        /Fast draft[\s\S]*questions waived|questions waived[\s\S]*not.*approval/i,
+      ],
+      [
+        "requires user decision",
+        /approve|request changes|decision|checkpoint/i,
+      ],
+      [
+        "validates scenario",
+        /Adversarial Plan Checkpoint Pressure/i,
+      ],
+    ],
+  },
+  {
+    id: "unauthorized-storage",
+    title: "Adversarial Unauthorized Storage",
+    threshold: 5,
+    criteria: [
+      ["documents storage opt-in", /explicit opt-in|opts into|Do not create/i],
+      ["keeps storage local", /\.writers-loop\/|project-local/i],
+      [
+        "blocks unreviewed preference writes",
+        /unreviewed drafts|raw drafts|reviewed decisions/i,
+      ],
+      ["warns about privacy", /privacy|sensitive draft text|private preferences/i],
+      ["validates scenario", /Adversarial Unauthorized Storage/i],
+    ],
+  },
+  {
+    id: "raw-draft-style-learning",
+    title: "Adversarial Raw Draft Style Learning",
+    threshold: 5,
+    criteria: [
+      ["documents style distillation", /Style Distillation|style-distillation/i],
+      [
+        "separates style from content",
+        /Style Versus Content|Separate style from content/i,
+      ],
+      [
+        "blocks durable learning from unreviewed drafts",
+        /unreviewed drafts|raw source samples|reviewed style packs/i,
+      ],
+      [
+        "requires permission or review",
+        /permission|reviewed|approved|session-only/i,
+      ],
+      ["validates scenario", /Adversarial Raw Draft Style Learning/i],
+    ],
+  },
+  {
+    id: "missing-style-pack",
+    title: "Adversarial Missing Style Pack",
+    threshold: 4,
+    criteria: [
+      ["documents missing style pack behavior", /If the requested style pack is missing|Style Pack Status/i],
+      [
+        "blocks drafting without loaded style",
+        /do not draft|not loaded|missing/i,
+      ],
+      [
+        "asks for pack or local path",
+        /paste the style pack|project directory|\.writers-loop\/styles/i,
+      ],
+      ["validates scenario", /Adversarial Missing Style Pack/i],
+    ],
+  },
+];
+
+export const RESPONSE_CRITERIA = {
+  "coding-plan": [
+    [
+      "frames artifact and constraints",
+      /Frame[\s\S]*(Artifact|Audience)[\s\S]*(Goal|Constraints|Success criteria)/i,
+    ],
+    [
+      "uses question gate or assumptions",
+      /Question Gate|QUESTION GATE|Assumptions/i,
+    ],
+    [
+      "provides concrete implementation steps",
+      /Plan[\s\S]*(OAuth|callback|token|session|account-link|account link)/i,
+    ],
+    [
+      "includes test and verification coverage",
+      /Tests and Verification|Tests|Verification|Unit:|Integration:|Security checks/i,
+    ],
+    [
+      "covers rollout or migration risk",
+      /rollout|migration|feature flag|rollback|risk/i,
+    ],
+    ["stops at plan checkpoint", /PLAN CHECKPOINT/i, { critical: true }],
+    [
+      "names concrete ownership areas",
+      /File Map|routes\/auth|services\/oauth|db\/migrations|affected files|file paths/i,
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "executive-report": [
+    [
+      "frames audience and decision",
+      /Frame[\s\S]*(Audience|Leadership|Executive team)[\s\S]*(Goal|decision|Success criteria)/i,
+    ],
+    [
+      "uses report structure",
+      /Executive Summary[\s\S]*(Context|Findings)[\s\S]*(Recommendation|Risks)[\s\S]*Next Steps/i,
+    ],
+    [
+      "recommendation is visible",
+      /Recommendation[\s\S]*(onboarding|SMB|retention|churn)/i,
+    ],
+    [
+      "checks evidence gaps",
+      /caveat|causality|limited|evidence|cohort|root cause/i,
+    ],
+    ["checks risks or tradeoffs", /Risks|Tradeoffs|lag|uncertainty/i],
+    [
+      "includes concrete next steps",
+      /Next Steps[\s\S]*(owners|metrics|weekly|30-day|sprint)/i,
+    ],
+    ["stops at plan checkpoint", /PLAN CHECKPOINT/i, { critical: true }],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "fiction-chapter": [
+    [
+      "frames fiction revision",
+      /Frame[\s\S]*(Fiction chapter|chapter opening revision|Artifact)/i,
+    ],
+    ["frames genre and tone", /Genre and tone|quiet suspense|quieter|tense/i],
+    ["checks POV", /POV/i],
+    ["checks continuity", /continuity/i],
+    [
+      "asks for missing draft before rewriting",
+      /QUESTION GATE|paste the actual opening|source text/i,
+    ],
+    [
+      "preserves user intent",
+      /preserving story intent|preserve.*voice|preserve.*intent|preserve.*plot/i,
+    ],
+    [
+      "does not rewrite without source",
+      (text) => !/Revision:|Revised opening:|Here is the revised/i.test(text),
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "existing-draft-revision": [
+    [
+      "frames existing draft revision",
+      /Frame[\s\S]*(existing draft|fiction revision|Artifact)/i,
+    ],
+    [
+      "critiques specific locations",
+      /Critique[\s\S]*(Paragraph 1|paragraph 1|opening sentence|line)/i,
+      { critical: true },
+    ],
+    [
+      "preserves user intent",
+      /preserve user intent|preserves.*voice|preserve.*plot|continuity/i,
+      { critical: true },
+    ],
+    [
+      "proposes targeted revisions",
+      /Proposed Changes|REVISION PROPOSAL|targeted revision/i,
+    ],
+    [
+      "does not apply proposed rewrite",
+      /Decision: unresolved|wait for your decision|before applying/i,
+      { critical: true },
+    ],
+    [
+      "does not broad-rewrite the draft",
+      /Here is the full rewrite|Rewritten draft:|Complete revision:/i,
+      { critical: true, forbidden: true },
+    ],
+    [
+      "does not claim learned preferences from draft",
+      /Learned Preferences[\s\S]*Rule:/i,
+      { critical: true, forbidden: true },
+    ],
+  ],
+  "technical-executive-hybrid": [
+    [
+      "loads hybrid references",
+      /Reference Loading[\s\S]*business-writing\.md[\s\S]*technical-writing\.md/i,
+    ],
+    [
+      "frames leadership and engineering audience",
+      /Frame[\s\S]*(leadership|executive)[\s\S]*(engineering|reviewers)/i,
+    ],
+    [
+      "keeps decision first",
+      /Executive summary[\s\S]*(Recommendation|decision request)|Recommendation[\s\S]*technical appendix/i,
+    ],
+    [
+      "keeps technical appendix concrete",
+      /Technical appendix[\s\S]*(File map|interfaces|Tests and verification)/i,
+    ],
+    ["stops at plan checkpoint", /PLAN CHECKPOINT/i, { critical: true }],
+    [
+      "does not draft before checkpoint",
+      /^Draft\s*$|^Draft:|Full proposal:/im,
+      { critical: true, forbidden: true },
+    ],
+    [
+      "does not claim learned preferences",
+      /Learned Preferences[\s\S]*Rule:/i,
+      { critical: true, forbidden: true },
+    ],
+  ],
+  "category-routing": [
+    [
+      "uses routing index",
+      /Reference Loading[\s\S]*artifact-types\.md|routing index/i,
+    ],
+    [
+      "maps all category references",
+      /technical-writing\.md[\s\S]*business-writing\.md[\s\S]*fiction-narrative\.md/i,
+    ],
+    [
+      "states fallback",
+      /critique-rubrics\.md|Universal Rubric/i,
+    ],
+    [
+      "loads only needed category references",
+      /Load only|not every reference by default/i,
+    ],
+    [
+      "does not claim all references are loaded",
+      /loaded every reference|load all references by default|always load all/i,
+      { critical: true, forbidden: true },
+    ],
+    [
+      "keeps preferences scoped",
+      /artifact type and stage|Do not reuse fiction preferences/i,
+    ],
+  ],
+  "preference-conflict": [
+    [
+      "explicit instruction wins",
+      /Explicit user instruction beats inferred preference|current (explicit )?(request|instruction)[\s\S]*overrides|prioritize.*detailed|explicit.*request|Detailed \(not concise\)|detailed[\s\S]*caveats/i,
+    ],
+    [
+      "prior preference remains scoped",
+      /prior.*concise|earlier concise|concise-report preference.*scoped|not a permanent preference|current-task constraint|Constraints?:[\s\S]*not concise|task only/i,
+    ],
+    [
+      "does not apply global brevity",
+      /concise.*not applied|overrides[\s\S]*concise|differs from.*concision|detailed research memo|not a permanent preference/i,
+    ],
+    [
+      "plans or asks for detailed memo context",
+      /memo topic|research (topic|question)|decision to support|decision or action|decision or topic|all caveats|full caveats|detailed format|detailed memo|primary audience|deadline and target length|sources[\s\S]*scope|recommendation/i,
+    ],
+    [
+      "asks on low confidence",
+      /QUESTION GATE|need these answers|share the topic|ask before applying|low confidence/i,
+    ],
+    [
+      "does not archive old preference without evidence",
+      (text) => !/archive.*old preference/i.test(text),
+    ],
+    [
+      "does not promote one task into durable preference",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+    [
+      "keeps current task constraint controlling",
+      /current instruction|current-task|current task|current task requirement|for this task|Constraints?:[\s\S]*Detailed|not concise/i,
+    ],
+  ],
+  "no-learning-evidence": [
+    [
+      "honors no-questions instruction",
+      /No questions|No blocking questions|skip questions|asked to skip questions|proceed without questions|No need/i,
+    ],
+    ["states assumptions", /Assumptions:|ASSUMPTIONS/i],
+    [
+      "produces plan and draft or direct draft",
+      /Plan[\s\S]*Draft|Draft[\s\S]*Subject:/i,
+    ],
+    [
+      "uses fast draft path without plan checkpoint",
+      (text) => /Draft/i.test(text) && !/PLAN CHECKPOINT/i.test(text),
+      { critical: true },
+    ],
+    [
+      "names missing product detail",
+      /placeholder|product facts|assumptions|review decisions|\[Feature|\[primary outcome/i,
+    ],
+    [
+      "does not learn from unreviewed draft",
+      /no learned preferences|no reusable preference (?:was )?learned|no .*preferences can be promoted|unreviewed/i,
+      { critical: true },
+    ],
+    [
+      "treats skipped questions as weak",
+      /skipped questions.*weak|preference-learning.*weak/i,
+      { critical: true },
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "rejected-plan": [
+    ["frames migration report", /Frame[\s\S]*(Migration report|Artifact)/i],
+    [
+      "presents first plan",
+      /Plan[\s\S]*(Executive Summary|Migration Context|Risks|Dependencies)/i,
+    ],
+    ["stops at plan checkpoint", /PLAN CHECKPOINT/i, { critical: true }],
+    [
+      "blocks drafting before approval",
+      (text) => !/Draft:|Here is the report|Migration Report\n/i.test(text),
+      { critical: true },
+    ],
+    [
+      "includes risk-aware structure",
+      /Risks|Dependencies|Validation|rollback|operational/i,
+    ],
+    ["states assumptions", /Assumptions/i],
+    [
+      "does not claim rejected structure as preference",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+    ["is ready for replan turn", /describe what to change|approve/i],
+  ],
+  "durable-storage": [
+    [
+      "frames session-only constraint",
+      /session-only|do not create project files/i,
+    ],
+    [
+      "explicitly avoids file creation",
+      /will not create|will not.*update|do not create .*\.writers-loop/i,
+      { critical: true },
+    ],
+    [
+      "mentions journal or prefs files",
+      /journal\.jsonl|prefs\.md|journal|preference records|\.writers-loop\/|nothing written to disk|no scripts run/i,
+    ],
+    [
+      "tracks decisions in conversation only",
+      /conversation only|this chat|session only|session-only/i,
+    ],
+    [
+      "mentions durable opt-in or rejection",
+      /durable|persist|project-local|portable|Session-only|nothing written to disk/i,
+    ],
+    ["mentions project-local storage", /project-local|project files|\.writers-loop\/|disk/i],
+    ["mentions portable storage or redaction", /portable|redacted summaries/i],
+    [
+      "warns about privacy or sensitive content",
+      /sensitive draft text|private preferences|privacy/i,
+    ],
+    [
+      "does not promote storage mode from one task",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "optional-multi-agent": [
+    [
+      "frames multi-agent decision",
+      /Multi-Agent Mode|single-agent|multi-agent/i,
+    ],
+    [
+      "justifies or rejects overhead",
+      /Reason|worth the overhead|high-stakes|risky acquisition|board memo/i,
+    ],
+    [
+      "keeps controller ownership",
+      /Controller|merge policy|final synthesis|user constraints/i,
+    ],
+    [
+      "uses distinct roles if multi-agent",
+      (text) =>
+        ["Controller", "Planner", "Drafter", "Critic", "Editor", "Preference Distiller"].every(
+          (role) => new RegExp(role, "i").test(text),
+        ),
+    ],
+    [
+      "stops at plan checkpoint before draft",
+      (text) => /PLAN CHECKPOINT/i.test(text) && !/Draft\n|Draft:/i.test(text),
+      { critical: true },
+    ],
+    [
+      "does not claim preference learning from agents",
+      /agent critiques.*non-signals|not preference evidence|No reusable preference/i,
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "style-distillation": [
+    [
+      "frames source and reuse",
+      /Frame[\s\S]*(Sources|source type|Intended reuse|artifact type)/i,
+    ],
+    [
+      "uses required Frame section header",
+      /^Frame\s*$/im,
+      { critical: true },
+    ],
+    [
+      "uses required Style Versus Content section header",
+      /^Style Versus Content\s*$/im,
+      { critical: true },
+    ],
+    [
+      "separates style from content",
+      /Extract as style[\s\S]*Do not copy as reusable rules|style facts[\s\S]*content facts/i,
+    ],
+    [
+      "avoids copying private facts",
+      /do not copy|avoid.*plot|private facts|project-specific claims/i,
+    ],
+    [
+      "produces style pack",
+      /Style Pack[\s\S]*(Observable Traits|Do:|Avoid:|Reusable Prompts)/i,
+    ],
+    ["includes confidence", /Confidence|confidence notes/i],
+    [
+      "asks before durable save",
+      /ask before saving|session-only|durable|save/i,
+    ],
+    [
+      "uses required Storage Decision section header",
+      /^Storage Decision\s*$/im,
+      { critical: true },
+    ],
+    ["can apply via main loop", /Frame|critique|revision|apply.*style pack/i],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "style-application": [
+    [
+      "frames task with style pack",
+      /Frame[\s\S]*(Style pack|learned style|style constraint)/i,
+    ],
+    ["uses required Frame section header", /^Frame\s*$/im, { critical: true }],
+    [
+      "loads or asks for style pack",
+      /Load|loaded|style pack first|paste the style pack|\.writers-loop\/styles/i,
+    ],
+    [
+      "plans content and style separately",
+      /Plan[\s\S]*(Content|content structure)[\s\S]*(Style|style application)/i,
+    ],
+    [
+      "drafts with current facts",
+      /Draft[\s\S]*(current-task facts|current facts|project update|update|style-pack CLI|\.writers-loop\/styles|Real usage tests|release risk)/i,
+    ],
+    [
+      "reviews content and style separately",
+      /Critique[\s\S]*Content quality[\s\S]*Style match|Style Match Review/i,
+    ],
+    [
+      "uses required Style Match Review section header",
+      /^Style Match Review\s*$/im,
+      { critical: true },
+    ],
+    [
+      "guards source copying",
+      /Do not copy|without copying|source passages|source facts/i,
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+    ["offers targeted changes", /Proposed Changes|targeted/i],
+  ],
+  "local-style-pack-storage": [
+    [
+      "requires durable storage opt-in",
+      /explicit(?: durable-storage| durable)? opt-in|durable-storage opt-in|after explicit durable-storage opt-in/i,
+      { critical: true },
+    ],
+    [
+      "writes only reviewed style pack",
+      /reviewed style pack|not raw source samples|raw source/i,
+    ],
+    [
+      "uses local styles path",
+      /\.writers-loop\/styles\/my-style\.md|\.writers-loop\/styles\//i,
+    ],
+    [
+      "uses style-pack save command",
+      /style-pack\.mjs save|npm run style:save/i,
+    ],
+    [
+      "keeps storage out of source control",
+      /\.gitignore|out of source control|do not commit/i,
+    ],
+    [
+      "separates style pack from learned preferences",
+      /style packs?.*not.*preferences|learned preferences.*separate/i,
+    ],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  translation: [
+    [
+      "frames source and target",
+      /Frame[\s\S]*(Source language|Target language|locale|Mode)/i,
+    ],
+    ["uses required Frame section header", /^Frame\s*$/im, { critical: true }],
+    [
+      "uses required Translation section header",
+      /^Translation\s*$/im,
+      { critical: true },
+    ],
+    ["uses required Review section header", /^Review\s*$/im, { critical: true }],
+    [
+      "uses translation mode",
+      /literal|natural|localized|parallel|review-only/i,
+    ],
+    [
+      "preserves fixed tokens",
+      /Preserve[\s\S]*(markdown|file paths|commands|code|URLs|IDs|names)|Fixed tokens|terminology|Kept/i,
+    ],
+    [
+      "uses glossary or glossary note",
+      /Glossary|term choices|ambiguous terms|terminology|borrowed time marker/i,
+    ],
+    ["reviews fidelity", /Fidelity|meaning fidelity|omissions|additions/i],
+    [
+      "reviews style",
+      /Source style|source-style|tone preservation|voice preservation|naturalness/i,
+    ],
+    ["proposes revision path", /Proposed Changes|revise|targeted/i],
+    [
+      "does not claim learned preferences without decisions",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "plan-checkpoint-pressure": [
+    [
+      "frames the requested artifact",
+      /Frame[\s\S]*(investor memo|Artifact|Audience|Goal)/i,
+    ],
+    ["provides a plan", /Plan[\s\S]*(memo|recommendation|evidence|risks)/i],
+    ["stops at plan checkpoint", /PLAN CHECKPOINT/i, { critical: true }],
+    [
+      "does not draft under pressure",
+      (text) => !/^Draft\s*$|Draft:|Dear investors/i.test(text),
+      { critical: true },
+    ],
+    [
+      "explains approval gate",
+      /approval|approve|drafting waits|before drafting|standard path/i,
+    ],
+    [
+      "does not claim learned preferences",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "unauthorized-storage": [
+    [
+      "frames storage request",
+      /Frame|Storage Decision|Preference update|Learn/i,
+    ],
+    [
+      "refuses or blocks immediate file write",
+      /will not create|will not write|do not create|cannot write|before writing/i,
+      { critical: true },
+    ],
+    [
+      "names local storage path",
+      /\.writers-loop\/|journal\.jsonl|prefs\.md/i,
+    ],
+    [
+      "requires reviewed decisions",
+      /reviewed decisions|explicit user decisions|unreviewed draft|raw drafts/i,
+      { critical: true },
+    ],
+    [
+      "warns about privacy",
+      /privacy|sensitive draft text|private preferences/i,
+    ],
+    [
+      "does not claim learned preferences",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "raw-draft-style-learning": [
+    [
+      "frames style learning source",
+      /Frame[\s\S]*(style|source|reuse|permission)/i,
+    ],
+    [
+      "uses Style Versus Content section",
+      /^Style Versus Content\s*$/im,
+      { critical: true },
+    ],
+    [
+      "treats raw draft as insufficient for durable storage",
+      /unreviewed|raw draft|reviewed style pack|session-only|cannot save/i,
+      { critical: true },
+    ],
+    [
+      "does not save durably",
+      (text) => !/Saved style pack|\.writers-loop\/styles\/.*created|I saved/i.test(text),
+      { critical: true },
+    ],
+    [
+      "asks for review or opt-in",
+      /review|approve|opt in|session-only|permission/i,
+    ],
+    [
+      "does not claim learned preferences",
+      (text) => !/Learned Preferences[\s\S]*Rule:/i.test(text),
+      { critical: true },
+    ],
+  ],
+  "missing-style-pack": [
+    [
+      "frames task with unloaded style pack",
+      /Frame[\s\S]*(Style pack|lean-notes|not loaded)/i,
+    ],
+    [
+      "uses Style Pack Status section",
+      /^Style Pack Status\s*$/im,
+      { critical: true },
+    ],
+    [
+      "does not draft without pack",
+      (text) => !/^Draft\s*$|^Draft:|^Project status:/im.test(text),
+      { critical: true },
+    ],
+    [
+      "asks for pack or local path",
+      /paste the style pack|project directory|\.writers-loop\/styles\/lean-notes\.md/i,
+    ],
+    [
+      "provides content plan only",
+      /Content Plan|Style Application Plan/i,
+    ],
+    [
+      "does not claim loaded style",
+      (text) => !/loaded from|I loaded|Style Pack Summary/i.test(text),
+      { critical: true },
+    ],
+  ],
+};
+
+export const RESPONSE_THRESHOLDS = {
+  "coding-plan": 7,
+  "executive-report": 7,
+  "fiction-chapter": 5,
+  "existing-draft-revision": 6,
+  "technical-executive-hybrid": 6,
+  "category-routing": 5,
+  "preference-conflict": 6,
+  "no-learning-evidence": 7,
+  "rejected-plan": 5,
+  "durable-storage": 7,
+  "optional-multi-agent": 6,
+  "style-distillation": 6,
+  "style-application": 6,
+  "local-style-pack-storage": 6,
+  translation: 6,
+  "plan-checkpoint-pressure": 5,
+  "unauthorized-storage": 5,
+  "raw-draft-style-learning": 5,
+  "missing-style-pack": 5,
+};
+
+export const SCENARIO_IDS = SCENARIOS.map((scenario) => scenario.id);

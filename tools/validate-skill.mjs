@@ -2,6 +2,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { SCENARIO_IDS } from "./evals/scenarios.mjs";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const defaultSkillDir = path.resolve(scriptDir, "..", "skills", "writers-loop");
@@ -55,6 +56,7 @@ const requiredRepoFiles = [
   "tools/evals/ab-prompts.json",
   "tools/evals/control-responses.codex.json",
   "tools/evals/responses.schema.json",
+  "tools/evals/scenarios.mjs",
   "tools/evals/skill-loaded-responses.json",
   "tools/evals/treatment-responses.codex.json",
   "tools/run-evals.mjs",
@@ -396,6 +398,9 @@ if (existsSync(path.join(repoRoot, "package.json"))) {
 
 if (existsSync(path.join(repoRoot, "tools/evals/responses.schema.json"))) {
   const responseSchema = readRepoJson("tools/evals/responses.schema.json");
+  const abPrompts = existsSync(path.join(repoRoot, "tools/evals/ab-prompts.json"))
+    ? readRepoJson("tools/evals/ab-prompts.json")
+    : {};
   const responseFiles = [
     "tools/evals/control-responses.codex.json",
     "tools/evals/skill-loaded-responses.json",
@@ -403,9 +408,40 @@ if (existsSync(path.join(repoRoot, "tools/evals/responses.schema.json"))) {
   ];
   const requiredResponseIds = responseSchema.required ?? [];
   const allowedResponseIds = new Set(Object.keys(responseSchema.properties ?? {}));
+  if (JSON.stringify(requiredResponseIds) !== JSON.stringify(SCENARIO_IDS)) {
+    failures.push(
+      "tools/evals/responses.schema.json required ids must match scenarios.mjs order.",
+    );
+  }
+  if (JSON.stringify(Object.keys(abPrompts)) !== JSON.stringify(SCENARIO_IDS)) {
+    failures.push(
+      "tools/evals/ab-prompts.json ids must match scenarios.mjs order.",
+    );
+  }
+  for (const id of SCENARIO_IDS) {
+    if (!responseSchema.properties?.[id]) {
+      failures.push(`tools/evals/responses.schema.json must define property: ${id}`);
+    }
+    if (!abPrompts[id]) {
+      failures.push(`tools/evals/ab-prompts.json must include scenario id: ${id}`);
+    } else if (
+      typeof abPrompts[id].control !== "string" ||
+      typeof abPrompts[id].treatment !== "string"
+    ) {
+      failures.push(`tools/evals/ab-prompts.json scenario must include control and treatment strings: ${id}`);
+    }
+  }
+  for (const id of Object.keys(abPrompts)) {
+    if (!SCENARIO_IDS.includes(id)) {
+      failures.push(`tools/evals/ab-prompts.json has unexpected scenario id: ${id}`);
+    }
+  }
   for (const responseFile of responseFiles) {
     if (!existsSync(path.join(repoRoot, responseFile))) continue;
     const responses = readRepoJson(responseFile);
+    if (JSON.stringify(Object.keys(responses)) !== JSON.stringify(SCENARIO_IDS)) {
+      failures.push(`${responseFile} ids must match scenarios.mjs order.`);
+    }
     for (const id of requiredResponseIds) {
       if (!(id in responses)) {
         failures.push(`${responseFile} must include response id: ${id}`);

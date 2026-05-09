@@ -6,6 +6,7 @@
     "coding-plan",
     "executive-report",
     "fiction-chapter",
+    "existing-draft-revision",
     "technical-executive-hybrid",
     "category-routing",
     "preference-conflict",
@@ -30,6 +31,9 @@
       "type": "string"
     },
     "fiction-chapter": {
+      "type": "string"
+    },
+    "existing-draft-revision": {
       "type": "string"
     },
     "technical-executive-hybrid": {
