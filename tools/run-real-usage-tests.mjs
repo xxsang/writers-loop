@@ -192,6 +192,32 @@ assert(
     packageJson.scripts?.["release:evidence:dry"]?.includes("--evidence"),
   "package.json does not expose a dry-run release evidence script",
 );
+assert(
+  packageJson.scripts?.["scenario:list"]?.includes("check-scenarios.mjs") &&
+    packageJson.scripts?.["scenario:list"]?.includes("--list"),
+  "package.json does not expose a scenario:list script",
+);
+assert(
+  packageJson.scripts?.["scenario:check"]?.includes("check-scenarios.mjs") &&
+    packageJson.scripts?.["scenario:check"]?.includes("--check"),
+  "package.json does not expose a scenario:check script",
+);
+
+const scenarioListOutput = run([path.join(repoRoot, "tools", "check-scenarios.mjs"), "--list"]);
+assert(scenarioListOutput.includes("coding-plan"), "scenario:list did not include coding-plan");
+assert(
+  scenarioListOutput.includes("existing-draft-revision"),
+  "scenario:list did not include existing-draft-revision",
+);
+assert(
+  scenarioListOutput.includes("threshold"),
+  "scenario:list did not include threshold metadata",
+);
+const scenarioCheckOutput = run([path.join(repoRoot, "tools", "check-scenarios.mjs"), "--check"]);
+assert(
+  scenarioCheckOutput.includes("Scenario registry check passed: 19"),
+  "scenario:check did not report the aligned scenario count",
+);
 
 const evalCoverageDir = path.join(projectDir, "missing-scenario-coverage");
 run([

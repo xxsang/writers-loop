@@ -11,6 +11,7 @@ npm test
 Confirm:
 
 - `npm run validate` passes.
+- `npm run scenario:check` passes.
 - `npm run scan:secrets` passes.
 - `npm run eval` passes.
 - `npm run eval:ab` passes.
