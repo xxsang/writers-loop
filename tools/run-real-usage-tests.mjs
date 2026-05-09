@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { SCENARIO_IDS } from "./evals/scenarios.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const styleTool = path.join(repoRoot, "skills", "writers-loop", "scripts", "style-pack.mjs");
@@ -11,6 +12,12 @@ const journalTool = path.join(repoRoot, "skills", "writers-loop", "scripts", "jo
 const evalTool = path.join(repoRoot, "tools", "run-evals.mjs");
 const liveEvalTool = path.join(repoRoot, "tools", "run-live-ab-evals.mjs");
 const projectDir = mkdtempSync(path.join(os.tmpdir(), "writers-loop-real-"));
+const liveDryRunScenarioIds = [
+  "coding-plan",
+  "translation",
+  "technical-executive-hybrid",
+  "category-routing",
+];
 
 function run(args, options = {}) {
   const result = spawnSync(process.execPath, args, {
@@ -215,7 +222,7 @@ assert(
 );
 const scenarioCheckOutput = run([path.join(repoRoot, "tools", "check-scenarios.mjs"), "--check"]);
 assert(
-  scenarioCheckOutput.includes("Scenario registry check passed: 19"),
+  scenarioCheckOutput.includes(`Scenario registry check passed: ${SCENARIO_IDS.length}`),
   "scenario:check did not report the aligned scenario count",
 );
 
@@ -236,20 +243,20 @@ run([
   "--reasoning-effort",
   "low",
   "--scenario",
-  "coding-plan,translation,technical-executive-hybrid,category-routing",
+  liveDryRunScenarioIds.join(","),
   "--output",
   liveEvalDir,
 ]);
 const liveManifestPath = path.join(liveEvalDir, "manifest.json");
 assert(existsSync(liveManifestPath), "live A/B dry run did not write manifest");
 const liveManifest = JSON.parse(readFileSync(liveManifestPath, "utf8"));
-assert(liveManifest.totalRuns === 8, "live A/B dry run did not plan control and treatment for each scenario");
+assert(
+  liveManifest.totalRuns === liveDryRunScenarioIds.length * 2,
+  "live A/B dry run did not plan control and treatment for each scenario",
+);
 assert(liveManifest.reasoningEffort === "low", "live A/B dry run did not record reasoning effort");
 assert(
-  liveManifest.scenarioIds.includes("coding-plan") &&
-    liveManifest.scenarioIds.includes("translation") &&
-    liveManifest.scenarioIds.includes("technical-executive-hybrid") &&
-    liveManifest.scenarioIds.includes("category-routing"),
+  liveDryRunScenarioIds.every((id) => liveManifest.scenarioIds.includes(id)),
   "live A/B dry run did not include selected scenarios",
 );
 assert(
@@ -262,7 +269,10 @@ const releaseEvidence = readFileSync(releaseEvidencePath, "utf8");
 assert(releaseEvidence.includes("# Writer's Loop Live A/B Release Evidence"), "release evidence is missing title");
 assert(releaseEvidence.includes("Dry run: true"), "release evidence does not record dry-run status");
 assert(releaseEvidence.includes("Reasoning effort: low"), "release evidence does not record reasoning effort");
-assert(releaseEvidence.includes("Scenario count: 4"), "release evidence does not record scenario count");
+assert(
+  releaseEvidence.includes(`Scenario count: ${liveDryRunScenarioIds.length}`),
+  "release evidence does not record scenario count",
+);
 assert(releaseEvidence.includes("Score status: not run (dry run)"), "release evidence does not record dry-run score status");
 
 console.log(`Real usage tests passed: ${projectDir}`);
